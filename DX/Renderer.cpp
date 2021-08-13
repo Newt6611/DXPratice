@@ -5,8 +5,7 @@ Renderer* Renderer::m_Instance;
 
 void Renderer::Init()
 {
-	Display* display = Display::Get();
-	InitD3D11(display);
+	InitD3D11();
 	InitRenderTargetView();
 	InitRasterzierState();
 }
@@ -20,8 +19,9 @@ Renderer::~Renderer()
 	m_RasterizerState->Release();
 }
 
-void Renderer::InitD3D11(Display* display)
+void Renderer::InitD3D11()
 {
+	Display* display = Display::Get();
 	DXGI_SWAP_CHAIN_DESC swapchain_desc;
 	ZeroMemory(&swapchain_desc, sizeof(DXGI_SWAP_CHAIN_DESC));
 	swapchain_desc.BufferDesc.Width = 0;

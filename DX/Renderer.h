@@ -45,7 +45,7 @@ public:
 private:
 	Renderer() { }
 
-	void InitD3D11(Display* display);
+	void InitD3D11();
 	void InitRenderTargetView();
 	void InitRasterzierState();
 
