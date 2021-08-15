@@ -52,6 +52,6 @@ void Display::InitWindow()
     }
     else 
     {
-        MessageBox(m_handle, L"failed create window", L"Error", ERROR);
+        LogError("Failed When Creating Window !");
     }
 }

@@ -1,27 +1,34 @@
 #include <iostream>
+#include <cstdlib>
 #include "Display.h"
 #include "Renderer.h"
+#include "Log.h"
+#include "Command.h"
 
 static Display* display = nullptr;
 static Renderer* renderer = nullptr;
 
-
-
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+int main()
 {
+	AllocConsole();
+	Log::Init();
+
+	LogInfo("Engine Start");
+
 	display = Display::Get();
 	renderer = Renderer::Get();
-	
+
+
 	display->Init(800, 600);
 	renderer->Init();
 
-	
+
 	//     TEST  Draw Square  /////////////////////////////////
 	VertexData vertex[] = {
 		{ XMFLOAT3(-0.5f, -0.5f, 0.f), XMFLOAT4(1, 0, 0, 1) },
 		{ XMFLOAT3(-0.5f,  0.5f, 0.f), XMFLOAT4(0, 1, 0, 1) },
-		{ XMFLOAT3( 0.5f,  0.5f, 0.f), XMFLOAT4(0, 0, 1, 1) },
-		{ XMFLOAT3( 0.5f, -0.5f, 0.f), XMFLOAT4(1, 1, 1, 1) }
+		{ XMFLOAT3(0.5f,  0.5f, 0.f), XMFLOAT4(0, 0, 1, 1) },
+		{ XMFLOAT3(0.5f, -0.5f, 0.f), XMFLOAT4(1, 1, 1, 1) }
 	};
 
 	UINT indices[] = {
@@ -45,7 +52,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 			DispatchMessage(&msg);
 			if (msg.message == WM_QUIT) break;
 		}
-		
+
 		renderer->BeginFrame();
 
 
@@ -53,9 +60,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		shader->Bind();
 		vertexbuffer->Bind();
 		indexbuffer->Bind();
-		renderer->DrawIndexed(indexbuffer->GetCount());
-
-
+		
+		Command::DrawIndexed(indexbuffer->GetCount());
 
 
 		renderer->EndFrame();

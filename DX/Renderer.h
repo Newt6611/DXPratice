@@ -7,6 +7,8 @@
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
 #include "Shader.h"
+#include "RasterzierState.h"
+#include "Log.h"
 
 class Renderer 
 {
@@ -26,13 +28,11 @@ public:
 
 	inline ID3D11Device* GetDevice() const { return m_Device; }
 	inline ID3D11DeviceContext* GetContext() const { return m_Context; }
-	inline ID3D11RasterizerState* GetRasterizerState() const { return m_RasterizerState; }
+	inline ID3D11RasterizerState* GetRasterizerState() const { return m_RasterizerState->GetCurrentState(); }
 	inline ID3D11RenderTargetView* GetRenderTargetView() const { return m_RenderTargetView; }
 
 
-	void DrawIndexed(int count);
-	void Draw(int vertexCount);
-
+	RasterzierState* SetRasterzierState(RasterzierStateType type);
 
 	std::shared_ptr<VertexBuffer> CreateVertexBuffer(VertexData* data, int count);
 	std::shared_ptr<IndexBuffer> CreateIndexBuffer(UINT* indices, int count);
@@ -55,6 +55,6 @@ private:
 	ID3D11DeviceContext* m_Context;
 	IDXGISwapChain* m_Swapchain;
 	ID3D11RenderTargetView* m_RenderTargetView;
-	ID3D11RasterizerState* m_RasterizerState;
 	
+	RasterzierState* m_RasterizerState;
 };

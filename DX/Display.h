@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Windows.h>
+#include "Log.h"
 
 class Display 
 {

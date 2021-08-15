@@ -22,7 +22,9 @@ IndexBuffer::IndexBuffer(UINT* indices, int count)
 	ID3D11Device* device = Renderer::Get()->GetDevice();
 	HRESULT result = device->CreateBuffer(&buffer_desc, &init_data, &m_Buffer);
 	if (result != S_OK)
-		MessageBox(Display::Get()->GetHandle(), L"Failed Create Vertex Buffer", L"Error", ERROR);
+	{
+		LogError("Failed When Creating IndexBuffer !");
+	}
 }
 
 IndexBuffer::~IndexBuffer()

@@ -33,6 +33,15 @@
     <ClCompile Include="Shader.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
+    <ClCompile Include="RasterzierState.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="Log.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Display.h">
@@ -50,9 +59,24 @@
     <ClInclude Include="Shader.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
+    <ClInclude Include="RasterzierState.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="Log.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="Command.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shaders\Vertex.hlsl" />
     <FxCompile Include="Shaders\Pixel.hlsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

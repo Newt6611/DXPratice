@@ -16,7 +16,7 @@ Renderer::~Renderer()
 	m_Context->Release();
 	m_Swapchain->Release();
 	m_RenderTargetView->Release();
-	m_RasterizerState->Release();
+	delete m_RasterizerState;
 }
 
 void Renderer::InitD3D11()
@@ -42,7 +42,7 @@ void Renderer::InitD3D11()
 
 	if (result != S_OK)
 	{
-		MessageBox(display->GetHandle(), L"failed creating swapchain", L"Error", ERROR);
+		LogError("Failed When Creating Swapchain !");
 	}
 }
 
@@ -54,32 +54,23 @@ void Renderer::InitRenderTargetView()
 	{
 		m_Device->CreateRenderTargetView(backbuffer, NULL, &m_RenderTargetView);
 	}
+	else 
+	{
+		LogError("Failed When Creating RenderTargetView !");
+	}
 }
 
 void Renderer::InitRasterzierState()
 {
-	D3D11_RASTERIZER_DESC rasterizer_desc;
-	ZeroMemory(&rasterizer_desc, sizeof(D3D11_RASTERIZER_DESC));
-	rasterizer_desc.FillMode = D3D11_FILL_SOLID;
-	rasterizer_desc.CullMode = D3D11_CULL_NONE;
-	rasterizer_desc.FrontCounterClockwise = false;
-	rasterizer_desc.DepthClipEnable = true;
-	m_Device->CreateRasterizerState(&rasterizer_desc, &m_RasterizerState);
+	m_RasterizerState = new RasterzierState();
 }
 
 
 
-void Renderer::DrawIndexed(int count)
+RasterzierState* Renderer::SetRasterzierState(RasterzierStateType type)
 {
-	m_Context->DrawIndexed(count, 0, 0);
+	return m_RasterizerState->SetState(type);
 }
-
-void Renderer::Draw(int vertexCount)
-{
-	m_Context->Draw(vertexCount, 0);
-}
-
-
 
 
 
@@ -109,7 +100,7 @@ void Renderer::BeginFrame()
 {
 	float color[] = { 0.1, 0.2, 0.3, 1 };
 	m_Context->ClearRenderTargetView(m_RenderTargetView, color);
-	m_Context->RSSetState(m_RasterizerState);
+	m_RasterizerState->Bind();
 
 	D3D11_VIEWPORT view_port[1];
 	view_port[0].Width = Display::Get()->GetWidth();

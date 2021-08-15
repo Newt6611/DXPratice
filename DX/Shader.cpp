@@ -1,6 +1,5 @@
 #include "Shader.h"
 #include "Renderer.h"
-#include "Display.h"
 
 Shader::Shader(LPCWSTR vertexFilePath, LPCWSTR pixelFilePath)
 {
@@ -14,14 +13,18 @@ Shader::Shader(LPCWSTR vertexFilePath, LPCWSTR pixelFilePath)
 	result = D3DCompileFromFile(pixelFilePath, NULL, NULL, "main", "ps_5_0", 0, 0, &pblob, &error);
 
 	if (result != S_OK)
-		MessageBox(Display::Get()->GetHandle(), (LPCWSTR)error->GetBufferPointer(), L"Compile Shader Error", ERROR);
-
+	{
+		LogError("Failed When Compiling Shaders !");
+		LogError(error->GetBufferPointer());
+	}
 
 	result = device->CreateVertexShader(vblob->GetBufferPointer(), vblob->GetBufferSize(), NULL, &m_VertexShader);
 	result = device->CreatePixelShader(pblob->GetBufferPointer(), pblob->GetBufferSize(), NULL, &m_PixelShader);
 
 	if (result != S_OK)
-		MessageBox(Display::Get()->GetHandle(), L"Failed Creating Shader", L"Create Shader Error", ERROR);
+	{
+		LogError("Failed When Creating Shaders !");
+	}
 
 	CreateInputLayout(vblob);
 
@@ -57,5 +60,7 @@ void Shader::CreateInputLayout(ID3DBlob* vs)
 	ID3D11Device* device = Renderer::Get()->GetDevice();
 	HRESULT result = device->CreateInputLayout(input_desc, 2, vs->GetBufferPointer(), vs->GetBufferSize(), &m_InputLayout);
 	if (result != S_OK)
-		MessageBox(Display::Get()->GetHandle(), L"Failed Creating InputLayout", L"Error", ERROR);
+	{
+		LogError("Failed When Createing InputLayout !");
+	}
 }
