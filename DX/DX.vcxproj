@@ -141,6 +141,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BlendState.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
     <ClCompile Include="RenderTargetView.cpp" />
@@ -156,6 +157,7 @@
     <ClCompile Include="VertexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BlendState.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="ConstantBuffer.h" />
@@ -168,6 +170,101 @@
     <ClInclude Include="RasterzierState.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\async.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\async_logger-inl.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\async_logger.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\cfg\argv.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\cfg\env.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\cfg\helpers-inl.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\cfg\helpers.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\common-inl.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\common.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\details\backtracer-inl.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\details\backtracer.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\details\circular_q.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\details\console_globals.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\details\file_helper-inl.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\details\file_helper.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\details\fmt_helper.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\details\log_msg-inl.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\details\log_msg.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\details\log_msg_buffer-inl.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\details\log_msg_buffer.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\details\mpmc_blocking_q.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\details\null_mutex.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\details\os-inl.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\details\os.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\details\periodic_worker-inl.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\details\periodic_worker.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\details\registry-inl.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\details\registry.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\details\synchronous_factory.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\details\tcp_client-windows.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\details\tcp_client.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\details\thread_pool-inl.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\details\thread_pool.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\details\windows_include.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\fmt\bin_to_hex.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\fmt\bundled\args.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\fmt\bundled\chrono.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\fmt\bundled\color.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\fmt\bundled\compile.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\fmt\bundled\core.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\fmt\bundled\format-inl.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\fmt\bundled\format.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\fmt\bundled\locale.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\fmt\bundled\os.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\fmt\bundled\ostream.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\fmt\bundled\printf.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\fmt\bundled\ranges.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\fmt\bundled\xchar.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\fmt\chrono.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\fmt\compile.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\fmt\fmt.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\fmt\ostr.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\fmt\xchar.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\formatter.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\fwd.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\logger-inl.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\logger.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\pattern_formatter-inl.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\pattern_formatter.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\android_sink.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\ansicolor_sink-inl.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\ansicolor_sink.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\base_sink-inl.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\base_sink.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\basic_file_sink-inl.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\basic_file_sink.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\daily_file_sink.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\dist_sink.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\dup_filter_sink.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\hourly_file_sink.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\mongo_sink.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\msvc_sink.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\null_sink.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\ostream_sink.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\qt_sinks.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\ringbuffer_sink.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\rotating_file_sink-inl.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\rotating_file_sink.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\sink-inl.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\sink.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\stdout_color_sinks-inl.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\stdout_color_sinks.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\stdout_sinks-inl.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\stdout_sinks.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\syslog_sink.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\systemd_sink.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\tcp_sink.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\wincolor_sink-inl.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\wincolor_sink.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\win_eventlog_sink.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\spdlog-inl.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\spdlog.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\stopwatch.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\tweakme.h" />
+    <ClInclude Include="ThirdParty\include\spdlog\version.h" />
     <ClInclude Include="VertexBuffer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -186,8 +283,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="ThirdParty\include\README.md" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Textures\t.jpg" />
     <Image Include="Textures\wall.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

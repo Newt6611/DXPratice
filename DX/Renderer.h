@@ -14,6 +14,7 @@
 #include "ConstantBuffer.h"
 #include "SamplerState.h"
 #include "RenderTargetView.h"
+#include "BlendState.h"
 
 class Renderer 
 {
@@ -38,6 +39,7 @@ public:
 	inline ID3D11RenderTargetView* GetRenderTargetView() const { return m_RenderTargetView->GetRenderTargetView(); }
 	inline ID3D11RasterizerState* GetRasterizerState() const { return m_RasterizerState->GetCurrentState(); }
 	inline ID3D11SamplerState* GetSamplerState() const { return m_SamplerState->GetState(); }
+	inline ID3D11BlendState* GetBlendState() const { return m_BlendState->GetBlendState(); }
 
 	inline Camera* GetCamera() const { return m_Camera; }
 
@@ -61,7 +63,8 @@ private:
 	void InitRenderTargetView();
 	void InitRasterzierState();
 	void InitSamplerState();
-	
+	void InitBlendState();
+
 	void InitCamera();
 
 private:
@@ -73,6 +76,7 @@ private:
 	RenderTargetView* m_RenderTargetView;
 	RasterzierState* m_RasterizerState;
 	SamplerState* m_SamplerState;
+	BlendState* m_BlendState;
 
 	Camera* m_Camera;
 };

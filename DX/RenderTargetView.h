@@ -10,6 +10,7 @@ public:
 	~RenderTargetView();
 
 	inline ID3D11RenderTargetView* GetRenderTargetView() const { return m_RenderTargetView; }
+	inline ID3D11DepthStencilView* GetDepthStencilView() const { return m_DepthStencilView; }
 
 	void SetClearColor(float color[4]);
 
@@ -17,6 +18,11 @@ public:
 	void Clear();
 
 private:
+	void InitDepthStencilView();
+
+private:
 	ID3D11RenderTargetView* m_RenderTargetView;
+	ID3D11DepthStencilView* m_DepthStencilView;
+
 	float m_ClearColor[4] = { 0.1f, 0.2f, 0.3f, 1.f };
 };

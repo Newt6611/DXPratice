@@ -22,6 +22,7 @@ Renderer::~Renderer()
 	delete m_RasterizerState;
 	delete m_Camera;
 	delete m_SamplerState;
+	delete m_BlendState;
 }
 
 void Renderer::InitD3D11()
@@ -64,6 +65,11 @@ void Renderer::InitRasterzierState()
 void Renderer::InitSamplerState()
 {
 	m_SamplerState = new SamplerState();
+}
+
+void Renderer::InitBlendState()
+{
+	m_BlendState = new BlendState();
 }
 
 void Renderer::InitCamera()
@@ -115,6 +121,7 @@ void Renderer::BeginFrame()
 	m_RenderTargetView->Bind();
 	m_RasterizerState->Bind();
 	m_SamplerState->Bind();
+	m_BlendState->Bind();
 
 	auto viewport = CD3D11_VIEWPORT(0.f, 0.f, static_cast<float>(Display::Get()->GetWidth()), static_cast<float>(Display::Get()->GetHeight()));
 	m_Context->RSSetViewports(1, &viewport);

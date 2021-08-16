@@ -25,7 +25,8 @@ int main()
 
 	//     TEST  Draw Square  /////////////////////////////////
 	std::shared_ptr<Texture> texture = renderer->CreateTexture(L"Textures/wall.jpg");
-	
+	std::shared_ptr<Texture> texture2 = renderer->CreateTexture(L"Textures/t.jpg");
+
 	ConstantBuffer* constant_buffer = new ConstantBuffer();
 
 	VertexData vertex[] = {
@@ -35,16 +36,10 @@ int main()
 		{ XMFLOAT3(0.5f,  -0.5f, 0.f), XMFLOAT4(1, 1, 1, 1), XMFLOAT2(1, 0) }
 	};
 
-	//VertexData vertex[] = {
-	//	{ XMFLOAT3(-100.f, -100.f, 0.f), XMFLOAT4(1, 0, 0, 1) },
-	//	{ XMFLOAT3(-100.f,  100.f, 0.f), XMFLOAT4(0, 1, 0, 1) },
-	//	{ XMFLOAT3( 100.f,  100.f, 0.f), XMFLOAT4(0, 0, 1, 1) },
-	//	{ XMFLOAT3( 100.f, -100.f, 0.f), XMFLOAT4(1, 1, 1, 1) }
-	//};
 
 	UINT indices[] = {
-		0, 1, 2,
-		2, 3, 0
+		0, 3, 2,
+		2, 1, 0
 	};
 
 	std::shared_ptr<VertexBuffer> vertexbuffer = renderer->CreateVertexBuffer(vertex, 4);
@@ -52,8 +47,10 @@ int main()
 
 	std::shared_ptr<Shader> shader = renderer->CreateShader(L"Shaders/Vertex.hlsl", L"Shaders/Pixel.hlsl");
 
-	float r = 0;
-	XMMATRIX world = XMMatrixIdentity();
+	XMMATRIX obj_one = XMMatrixIdentity();
+	XMMATRIX obj_two = XMMatrixIdentity();
+	obj_one = XMMatrixTranslation( 0.3, 0, 1);
+	obj_two = XMMatrixTranslation(-0.3, 0, 0);
 	/////////////////////////////////////////
 
 	MSG msg = { };
@@ -68,23 +65,27 @@ int main()
 
 		renderer->BeginFrame();
 
-		r += 0.0001;
-		if (r > 360)
-			r = 0;
-		world = XMMatrixRotationY(r);
-
-
+		// texture one
 		shader->Bind();
 		constant_buffer->GetPerObj()->Projection = XMMatrixTranspose( Renderer::Get()->GetCamera()->GetProjection() );
 		constant_buffer->GetPerObj()->View = XMMatrixTranspose( Renderer::Get()->GetCamera()->GetView() );
-		constant_buffer->GetPerObj()->World = XMMatrixTranspose( world );
-		
+		constant_buffer->GetPerObj()->World = XMMatrixTranspose(obj_one );
 		texture->Bind(0);
-
 		constant_buffer->BindPerObj();
 		vertexbuffer->Bind();
 		indexbuffer->Bind();
-		
+		Command::DrawIndexed(indexbuffer->GetCount());
+
+
+		// texture two
+		shader->Bind();
+		constant_buffer->GetPerObj()->Projection = XMMatrixTranspose(Renderer::Get()->GetCamera()->GetProjection());
+		constant_buffer->GetPerObj()->View = XMMatrixTranspose(Renderer::Get()->GetCamera()->GetView());
+		constant_buffer->GetPerObj()->World = XMMatrixTranspose(obj_two);
+		texture2->Bind(0);
+		constant_buffer->BindPerObj();
+		vertexbuffer->Bind();
+		indexbuffer->Bind();
 		Command::DrawIndexed(indexbuffer->GetCount());
 
 

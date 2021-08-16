@@ -54,6 +54,9 @@
     <ClCompile Include="RenderTargetView.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
+    <ClCompile Include="BlendState.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Display.h">
@@ -95,6 +98,294 @@
     <ClInclude Include="RenderTargetView.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
+    <ClInclude Include="BlendState.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\cfg\argv.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\cfg\env.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\cfg\helpers.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\cfg\helpers-inl.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\details\backtracer.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\details\backtracer-inl.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\details\circular_q.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\details\console_globals.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\details\file_helper.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\details\file_helper-inl.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\details\fmt_helper.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\details\log_msg.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\details\log_msg_buffer.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\details\log_msg_buffer-inl.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\details\log_msg-inl.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\details\mpmc_blocking_q.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\details\null_mutex.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\details\os.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\details\os-inl.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\details\periodic_worker.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\details\periodic_worker-inl.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\details\registry.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\details\registry-inl.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\details\synchronous_factory.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\details\tcp_client.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\details\tcp_client-windows.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\details\thread_pool.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\details\thread_pool-inl.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\details\windows_include.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\fmt\bundled\args.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\fmt\bundled\chrono.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\fmt\bundled\color.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\fmt\bundled\compile.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\fmt\bundled\core.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\fmt\bundled\format.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\fmt\bundled\format-inl.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\fmt\bundled\locale.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\fmt\bundled\os.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\fmt\bundled\ostream.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\fmt\bundled\printf.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\fmt\bundled\ranges.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\fmt\bundled\xchar.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\fmt\bin_to_hex.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\fmt\chrono.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\fmt\compile.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\fmt\fmt.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\fmt\ostr.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\fmt\xchar.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\android_sink.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\ansicolor_sink.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\ansicolor_sink-inl.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\base_sink.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\base_sink-inl.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\basic_file_sink.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\basic_file_sink-inl.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\daily_file_sink.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\dist_sink.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\dup_filter_sink.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\hourly_file_sink.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\mongo_sink.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\msvc_sink.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\null_sink.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\ostream_sink.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\qt_sinks.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\ringbuffer_sink.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\rotating_file_sink.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\rotating_file_sink-inl.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\sink.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\sink-inl.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\stdout_color_sinks.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\stdout_color_sinks-inl.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\stdout_sinks.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\stdout_sinks-inl.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\syslog_sink.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\systemd_sink.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\tcp_sink.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\win_eventlog_sink.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\wincolor_sink.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\sinks\wincolor_sink-inl.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\async.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\async_logger.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\async_logger-inl.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\common.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\common-inl.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\formatter.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\fwd.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\logger.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\logger-inl.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\pattern_formatter.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\pattern_formatter-inl.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\spdlog.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\spdlog-inl.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\stopwatch.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\tweakme.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\include\spdlog\version.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shaders\Vertex.hlsl" />
@@ -102,9 +393,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="ThirdParty\include\README.md" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\wall.jpg">
+      <Filter>資源檔</Filter>
+    </Image>
+    <Image Include="Textures\t.jpg">
       <Filter>資源檔</Filter>
     </Image>
   </ItemGroup>
