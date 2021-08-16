@@ -16,6 +16,7 @@ public:
 
 	void Bind();
 	inline ID3D11RasterizerState* GetCurrentState() const { return m_CurrentState; }
+	inline RasterzierStateType GetType() const { return m_CurrentType; }
 	RasterzierState* SetState(RasterzierStateType type);
 
 private:

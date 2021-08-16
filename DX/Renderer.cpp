@@ -9,6 +9,7 @@ void Renderer::Init()
 	InitRenderTargetView();
 	InitRasterzierState();
 	InitSamplerState();
+	InitBlendState();
 
 	InitCamera();
 }

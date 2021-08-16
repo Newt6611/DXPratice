@@ -39,7 +39,6 @@ BlendState::~BlendState()
 void BlendState::Bind()
 {
 	float blendFactor[] = { 1.f, 0, 0, 1.0f };
-	UINT i = 0xffffffff;
 	ID3D11DeviceContext* context = Renderer::Get()->GetContext();
-	context->OMGetBlendState(&m_BlendState, blendFactor, &i);
+	context->OMSetBlendState(m_BlendState, blendFactor, 0xFFFFFFFF);
 }

@@ -4,6 +4,7 @@
 #include "Renderer.h"
 #include "Log.h"
 #include "Command.h"
+#include "ImGuiLayer.h"
 
 static Display* display = nullptr;
 static Renderer* renderer = nullptr;
@@ -18,9 +19,14 @@ int main()
 	display = Display::Get();
 	renderer = Renderer::Get();
 
+	HRESULT result = CoInitialize(NULL);
+	if (result != S_OK)
+		LogError("Erro CoInit !");
 
-	display->Init(800, 600);
+	display->Init(1280, 760);
 	renderer->Init();
+
+	ImGuiLayer* imgui_Layer = new ImGuiLayer();
 
 
 	//     TEST  Draw Square  /////////////////////////////////
@@ -49,7 +55,7 @@ int main()
 
 	XMMATRIX obj_one = XMMatrixIdentity();
 	XMMATRIX obj_two = XMMatrixIdentity();
-	obj_one = XMMatrixTranslation( 0.3, 0, 1);
+	obj_one = XMMatrixTranslation( 0.3, 0, 0);
 	obj_two = XMMatrixTranslation(-0.3, 0, 0);
 	/////////////////////////////////////////
 
@@ -89,10 +95,12 @@ int main()
 		Command::DrawIndexed(indexbuffer->GetCount());
 
 
+		imgui_Layer->Draw();
 		renderer->EndFrame();
 	}
 
 
 	delete display;
 	delete renderer;
+	delete imgui_Layer;
 }

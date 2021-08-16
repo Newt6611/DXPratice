@@ -36,10 +36,10 @@ public:
 	inline ID3D11DeviceContext* GetContext() const { return m_Context; }
 	inline IDXGISwapChain* GetSwapChain() const { return m_Swapchain; }
 	
-	inline ID3D11RenderTargetView* GetRenderTargetView() const { return m_RenderTargetView->GetRenderTargetView(); }
-	inline ID3D11RasterizerState* GetRasterizerState() const { return m_RasterizerState->GetCurrentState(); }
-	inline ID3D11SamplerState* GetSamplerState() const { return m_SamplerState->GetState(); }
-	inline ID3D11BlendState* GetBlendState() const { return m_BlendState->GetBlendState(); }
+	inline RenderTargetView* GetRenderTargetView() const { return m_RenderTargetView; }
+	inline RasterzierState* GetRasterizerState() const { return m_RasterizerState; }
+	inline SamplerState* GetSamplerState() const { return m_SamplerState; }
+	inline BlendState* GetBlendState() const { return m_BlendState; }
 
 	inline Camera* GetCamera() const { return m_Camera; }
 
