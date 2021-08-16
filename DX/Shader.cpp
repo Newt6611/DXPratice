@@ -54,11 +54,12 @@ void Shader::CreateInputLayout(ID3DBlob* vs)
 {
 	D3D11_INPUT_ELEMENT_DESC input_desc[] = {
 		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 }
+		{ "COLOR",    0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0}
 	};
 
 	ID3D11Device* device = Renderer::Get()->GetDevice();
-	HRESULT result = device->CreateInputLayout(input_desc, 2, vs->GetBufferPointer(), vs->GetBufferSize(), &m_InputLayout);
+	HRESULT result = device->CreateInputLayout(input_desc, 3, vs->GetBufferPointer(), vs->GetBufferSize(), &m_InputLayout);
 	if (result != S_OK)
 	{
 		LogError("Failed When Createing InputLayout !");

@@ -8,6 +8,7 @@ using namespace DirectX;
 struct VertexData {
 	XMFLOAT3 pos;
 	XMFLOAT4 color;
+	XMFLOAT2 texcoord;
 };
 
 class VertexBuffer 

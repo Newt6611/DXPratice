@@ -8,6 +8,9 @@ void Renderer::Init()
 	InitD3D11();
 	InitRenderTargetView();
 	InitRasterzierState();
+	InitSamplerState();
+
+	InitCamera();
 }
 
 Renderer::~Renderer()
@@ -15,8 +18,10 @@ Renderer::~Renderer()
 	m_Device->Release();
 	m_Context->Release();
 	m_Swapchain->Release();
-	m_RenderTargetView->Release();
+	delete m_RenderTargetView;
 	delete m_RasterizerState;
+	delete m_Camera;
+	delete m_SamplerState;
 }
 
 void Renderer::InitD3D11()
@@ -48,16 +53,7 @@ void Renderer::InitD3D11()
 
 void Renderer::InitRenderTargetView()
 {
-	ID3D11Texture2D* backbuffer;
-	HRESULT result = m_Swapchain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)&backbuffer);
-	if (result == S_OK)
-	{
-		m_Device->CreateRenderTargetView(backbuffer, NULL, &m_RenderTargetView);
-	}
-	else 
-	{
-		LogError("Failed When Creating RenderTargetView !");
-	}
+	m_RenderTargetView = new RenderTargetView();
 }
 
 void Renderer::InitRasterzierState()
@@ -65,6 +61,16 @@ void Renderer::InitRasterzierState()
 	m_RasterizerState = new RasterzierState();
 }
 
+void Renderer::InitSamplerState()
+{
+	m_SamplerState = new SamplerState();
+}
+
+void Renderer::InitCamera()
+{
+	Display* display = Display::Get();
+	m_Camera = new Camera(display->GetWidth(), display->GetHeight(), 0.1f, 100.f);
+}
 
 
 RasterzierState* Renderer::SetRasterzierState(RasterzierStateType type)
@@ -92,27 +98,26 @@ std::shared_ptr<Shader> Renderer::CreateShader(LPCWSTR vertexFilePath, LPCWSTR p
 	return shader;
 }
 
+std::shared_ptr<Texture> Renderer::CreateTexture(std::wstring filePath)
+{
+	std::shared_ptr<Texture> texture = std::make_shared<Texture>(filePath);
+	return texture;
+}
+
 
 
 
 
 void Renderer::BeginFrame()
 {
-	float color[] = { 0.1, 0.2, 0.3, 1 };
-	m_Context->ClearRenderTargetView(m_RenderTargetView, color);
+	m_RenderTargetView->Clear();
+
+	m_RenderTargetView->Bind();
 	m_RasterizerState->Bind();
+	m_SamplerState->Bind();
 
-	D3D11_VIEWPORT view_port[1];
-	view_port[0].Width = Display::Get()->GetWidth();
-	view_port[0].Height = Display::Get()->GetHeight();
-	view_port[0].MinDepth = 0;
-	view_port[0].MaxDepth = 1;
-	view_port[0].TopLeftX = 0;
-	view_port[0].TopLeftY = 0;
-	m_Context->RSSetViewports(1, view_port);
-
-
-	m_Context->OMSetRenderTargets(1, &m_RenderTargetView, NULL);
+	auto viewport = CD3D11_VIEWPORT(0.f, 0.f, static_cast<float>(Display::Get()->GetWidth()), static_cast<float>(Display::Get()->GetHeight()));
+	m_Context->RSSetViewports(1, &viewport);
 }
 
 void Renderer::EndFrame()

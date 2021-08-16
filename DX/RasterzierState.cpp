@@ -12,7 +12,7 @@ RasterzierState::RasterzierState()
 	ZeroMemory(&rasterizer_desc, sizeof(D3D11_RASTERIZER_DESC));
 	rasterizer_desc.FillMode = D3D11_FILL_SOLID;
 	rasterizer_desc.CullMode = D3D11_CULL_NONE;
-	rasterizer_desc.FrontCounterClockwise = false;
+	rasterizer_desc.FrontCounterClockwise = true;
 	rasterizer_desc.DepthClipEnable = true;
 	result = device->CreateRasterizerState(&rasterizer_desc, &m_SolidState);
 	if (result != S_OK)

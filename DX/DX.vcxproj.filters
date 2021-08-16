@@ -42,6 +42,18 @@
     <ClCompile Include="Texture.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstantBuffer.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="SamplerState.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderTargetView.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Display.h">
@@ -71,6 +83,18 @@
     <ClInclude Include="Texture.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstantBuffer.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="SamplerState.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderTargetView.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shaders\Vertex.hlsl" />
@@ -78,5 +102,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Textures\wall.jpg">
+      <Filter>資源檔</Filter>
+    </Image>
   </ItemGroup>
 </Project>
