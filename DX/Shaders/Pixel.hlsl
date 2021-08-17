@@ -1,4 +1,9 @@
 
+cbuffer Pixel : register(b0)
+{
+	float alpha;
+}
+
 struct PS_IN {
 	float4 position : SV_POSITION;
 	float4 color : COLOR;
@@ -21,5 +26,7 @@ Texture2D texture10 : TEXTURE : register(t10);
 
 float4 main(PS_IN ps_in) : SV_TARGET
 {
-	return texture0.Sample(samplerState, ps_in.texcoord);
+	float4 t1 = texture0.Sample(samplerState, ps_in.texcoord);
+	t1.a = alpha;
+	return t1;
 }

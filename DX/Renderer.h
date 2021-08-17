@@ -15,6 +15,7 @@
 #include "SamplerState.h"
 #include "RenderTargetView.h"
 #include "BlendState.h"
+#include "DepthStencilState.h"
 
 class Renderer 
 {
@@ -37,6 +38,7 @@ public:
 	inline IDXGISwapChain* GetSwapChain() const { return m_Swapchain; }
 	
 	inline RenderTargetView* GetRenderTargetView() const { return m_RenderTargetView; }
+	inline DepthStencilState* GetDepthStencilState() const { return m_DepthStencilState; }
 	inline RasterzierState* GetRasterizerState() const { return m_RasterizerState; }
 	inline SamplerState* GetSamplerState() const { return m_SamplerState; }
 	inline BlendState* GetBlendState() const { return m_BlendState; }
@@ -61,6 +63,7 @@ private:
 
 	void InitD3D11();
 	void InitRenderTargetView();
+	void InitDepthStencilState();
 	void InitRasterzierState();
 	void InitSamplerState();
 	void InitBlendState();
@@ -74,6 +77,7 @@ private:
 	IDXGISwapChain* m_Swapchain;
 
 	RenderTargetView* m_RenderTargetView;
+	DepthStencilState* m_DepthStencilState;
 	RasterzierState* m_RasterizerState;
 	SamplerState* m_SamplerState;
 	BlendState* m_BlendState;

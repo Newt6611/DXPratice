@@ -13,10 +13,16 @@ public:
 
 	void Draw();
 
+
+	// test 
+	static float alpha;
 private:
 	void Logic();
 
 private:
 	static bool wire_frame;
 	static float clear_color[4];
+
+	static const char* current_BlendState;
+	const char* blend_state[2] = { "None", "Transparency"};
 };

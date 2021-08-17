@@ -7,6 +7,7 @@ void Renderer::Init()
 {
 	InitD3D11();
 	InitRenderTargetView();
+	InitDepthStencilState();
 	InitRasterzierState();
 	InitSamplerState();
 	InitBlendState();
@@ -20,6 +21,7 @@ Renderer::~Renderer()
 	m_Context->Release();
 	m_Swapchain->Release();
 	delete m_RenderTargetView;
+	delete m_DepthStencilState;
 	delete m_RasterizerState;
 	delete m_Camera;
 	delete m_SamplerState;
@@ -56,6 +58,11 @@ void Renderer::InitD3D11()
 void Renderer::InitRenderTargetView()
 {
 	m_RenderTargetView = new RenderTargetView();
+}
+
+void Renderer::InitDepthStencilState()
+{
+	m_DepthStencilState = new DepthStencilState();
 }
 
 void Renderer::InitRasterzierState()
@@ -118,8 +125,11 @@ std::shared_ptr<Texture> Renderer::CreateTexture(std::wstring filePath)
 void Renderer::BeginFrame()
 {
 	m_RenderTargetView->Clear();
+	m_DepthStencilState->Clear();
 
 	m_RenderTargetView->Bind();
+	m_DepthStencilState->Bind();
+
 	m_RasterizerState->Bind();
 	m_SamplerState->Bind();
 	m_BlendState->Bind();

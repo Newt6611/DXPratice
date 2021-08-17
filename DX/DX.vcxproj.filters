@@ -78,6 +78,9 @@
     <ClCompile Include="ThirdParty\ImGui\imgui_widgets.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
+    <ClCompile Include="DepthStencilState.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Display.h">
@@ -719,6 +722,9 @@
     <ClInclude Include="ThirdParty\ImGui\imstb_truetype.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
+    <ClInclude Include="DepthStencilState.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shaders\Vertex.hlsl" />
@@ -728,12 +734,16 @@
     <None Include="packages.config" />
     <None Include="ThirdParty\include\README.md" />
     <None Include="ThirdParty\spdlog\LICENSE" />
+    <None Include="imgui.ini" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\wall.jpg">
       <Filter>資源檔</Filter>
     </Image>
     <Image Include="Textures\t.jpg">
+      <Filter>資源檔</Filter>
+    </Image>
+    <Image Include="Textures\window.png">
       <Filter>資源檔</Filter>
     </Image>
   </ItemGroup>

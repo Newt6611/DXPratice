@@ -4,7 +4,11 @@
 #include "Log.h"
 
 bool ImGuiLayer::wire_frame;
-float ImGuiLayer::clear_color[4];
+float ImGuiLayer::clear_color[4] = { 0.1f, 0.2f, 0.3f, 1.f };
+
+float ImGuiLayer::alpha = 1;
+
+const char* ImGuiLayer::current_BlendState = "None";
 
 ImGuiLayer::ImGuiLayer()
 {
@@ -37,8 +41,27 @@ void ImGuiLayer::Draw()
 
 	ImGui::Begin("DXPratice");
 
+	// Clear Color
+	ImGui::SliderFloat("Alpha", &alpha, 0, 1);
+	
+	// WireFrame
 	ImGui::Checkbox("WireFrame", &wire_frame);
-	ImGui::ColorPicker4("ClearColor", clear_color);
+	ImGui::ColorEdit4("ClearColor", clear_color);
+	
+	
+	// BlendState
+	if (ImGui::BeginCombo("BlendState", current_BlendState))
+	{
+		for (int i = 0; i < 2; i++)
+		{
+			bool is_selected = (current_BlendState == blend_state[i]);
+			if (ImGui::Selectable(blend_state[i], is_selected))
+				current_BlendState = blend_state[i];
+			if (is_selected)
+				ImGui::SetItemDefaultFocus();
+		}
+		ImGui::EndCombo();
+	}
 
 
 
@@ -60,4 +83,15 @@ void ImGuiLayer::Logic()
 
 	RenderTargetView* renderTargetView = Renderer::Get()->GetRenderTargetView();
 	renderTargetView->SetClearColor(clear_color);
+
+
+	BlendState* blendState = Renderer::Get()->GetBlendState();
+	if (current_BlendState == "None")
+	{
+		blendState->SetBlendState(BlendStateType::None);
+	}
+	else if (current_BlendState == "Transparency")
+	{
+		blendState->SetBlendState(BlendStateType::Transparency);
+	}
 }

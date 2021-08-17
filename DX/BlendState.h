@@ -3,6 +3,11 @@
 #include <d3d11.h>
 #include "Log.h"
 
+enum BlendStateType
+{
+	None = 0,
+	Transparency
+};
 
 class BlendState
 {
@@ -10,10 +15,16 @@ public:
 	BlendState();
 	~BlendState();
 
-	inline ID3D11BlendState* GetBlendState() const { return m_BlendState; }
+	BlendStateType GetType() const { return m_CurrentType; }
+	ID3D11BlendState* GetCurrentState() const { m_CurrentBlendState; }
+	
+	BlendState* SetBlendState(BlendStateType type);
 
 	void Bind();
 
 private:
-	ID3D11BlendState* m_BlendState;
+	BlendStateType m_CurrentType;
+	ID3D11BlendState* m_CurrentBlendState;
+	ID3D11BlendState* m_NoneBlendState;
+	ID3D11BlendState* m_TransparencyState;
 };
