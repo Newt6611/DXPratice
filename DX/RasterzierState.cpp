@@ -11,20 +11,24 @@ RasterzierState::RasterzierState()
 	D3D11_RASTERIZER_DESC rasterizer_desc;
 	ZeroMemory(&rasterizer_desc, sizeof(D3D11_RASTERIZER_DESC));
 	rasterizer_desc.FillMode = D3D11_FILL_SOLID;
-	rasterizer_desc.CullMode = D3D11_CULL_BACK;
+	rasterizer_desc.CullMode = D3D11_CULL_FRONT;
 	rasterizer_desc.FrontCounterClockwise = false;
 	rasterizer_desc.DepthClipEnable = true;
 	result = device->CreateRasterizerState(&rasterizer_desc, &m_SolidState);
 	if (result != S_OK)
-		MessageBox(Display::Get()->GetHandle(), L"Failed Creating Solid State", L"Error", ERROR);
+	{
+		LogError("Failed When Creating Solid State !");
+	}
 
 	// Create Wireframe State
 	rasterizer_desc.FillMode = D3D11_FILL_WIREFRAME;
 	result = device->CreateRasterizerState(&rasterizer_desc, &m_WireFrameState);
 	if (result != S_OK)
-		MessageBox(Display::Get()->GetHandle(), L"Failed Creating WireFrame State", L"Error", ERROR);
+	{
+		LogError("Failed When Creating WireFrame State");
+	}
 
-	SetState(RasterzierStateType::Solid);
+	SetState(RasterzierStateType::WireFrame);
 }
 
 RasterzierState::~RasterzierState()

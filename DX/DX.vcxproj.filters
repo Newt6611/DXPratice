@@ -81,6 +81,9 @@
     <ClCompile Include="DepthStencilState.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Display.h">
@@ -723,6 +726,9 @@
       <Filter>標頭檔</Filter>
     </ClInclude>
     <ClInclude Include="DepthStencilState.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
   </ItemGroup>

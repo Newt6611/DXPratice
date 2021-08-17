@@ -13,7 +13,7 @@ Camera::Camera(float angle, float width, float height, float nearZ, float farZ)
 
 Camera::Camera(float width, float height, float nearZ, float farZ)
 	: m_Angle(45), m_Width(width), m_Height(height), m_NearZ(nearZ), m_FarZ(farZ),
-	m_Position(0, 0, 2), m_LookAt(0, 0, 0)
+	m_Position(0, 0, 5), m_LookAt(0, 0, 0)
 {
 	m_Projection = XMMatrixPerspectiveFovRH(XMConvertToRadians(45), static_cast<float>(width) / static_cast<float>(height), nearZ, farZ);
 
