@@ -15,18 +15,18 @@ Model::~Model()
 
 }
 
-void Model::Draw(Shader& shader)
+void Model::Draw()
 {
 	for (unsigned int i = 0; i < m_Meshs.size(); i++)
 	{
-		m_Meshs[i].Draw(shader);
+		m_Meshs[i].Draw();
 	}
 }
 
 void Model::LoadMesh(std::string filePath)
 {
 	Assimp::Importer importer;
-	const aiScene* scene = importer.ReadFile(filePath, aiProcess_Triangulate);
+	const aiScene* scene = importer.ReadFile(filePath, aiProcess_Triangulate | aiProcess_GenSmoothNormals);
 
 	if (!scene || !scene->mRootNode)
 	{

@@ -14,7 +14,7 @@ public:
 	Mesh(std::vector<VertexData> vertices, std::vector<UINT> indices, std::vector<std::shared_ptr<Texture>> textures);
 	~Mesh();
 
-	void Draw(Shader& shader);
+	void Draw();
 
 
 private:

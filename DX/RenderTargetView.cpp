@@ -35,12 +35,12 @@ void RenderTargetView::SetClearColor(float color[4])
 void RenderTargetView::Bind()
 {
 	ID3D11DeviceContext* context = Renderer::Get()->GetContext();
-	context->OMSetRenderTargets(1, &m_RenderTargetView, NULL);
+	ID3D11DepthStencilView* depthStencilView = Renderer::Get()->GetDepthStencilState()->GetDepthStencilView();
+	context->OMSetRenderTargets(1, &m_RenderTargetView, depthStencilView);
 }
 
 void RenderTargetView::Clear()
 {
 	ID3D11DeviceContext* context = Renderer::Get()->GetContext();
 	context->ClearRenderTargetView(m_RenderTargetView, m_ClearColor);
-	
 }

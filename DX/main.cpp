@@ -126,7 +126,7 @@ int main()
 			if (msg.message == WM_QUIT) break;
 		}
 
-		r += 0.001;
+		r += 0.0005;
 		if (r > 360)
 			r = 0;
 		cube = XMMatrixTranslation(0, -8, 0) * XMMatrixRotationY(r) * XMMatrixScaling(1, 1, 1);
@@ -141,7 +141,7 @@ int main()
 		constant_buffer->GetPixelObj()->alpha = ImGuiLayer::alpha;
 		constant_buffer->BindPerObj();
 		constant_buffer->BindPixel();
-		backpack->Draw(*shader);
+		backpack->Draw();
 
 		imgui_Layer->Draw();
 		renderer->EndFrame();

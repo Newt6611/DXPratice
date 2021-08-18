@@ -17,10 +17,8 @@ Mesh::~Mesh()
 
 }
 
-void Mesh::Draw(Shader& shader)
+void Mesh::Draw()
 {
-	shader.Bind();
-
 	for (int i = 0; i < textures.size(); i++)
 	{
 		

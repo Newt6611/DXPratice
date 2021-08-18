@@ -6,8 +6,8 @@ Renderer* Renderer::m_Instance;
 void Renderer::Init()
 {
 	InitD3D11();
-	InitRenderTargetView();
 	InitDepthStencilState();
+	InitRenderTargetView();
 	InitRasterzierState();
 	InitSamplerState();
 	InitBlendState();
@@ -33,8 +33,8 @@ void Renderer::InitD3D11()
 	Display* display = Display::Get();
 	DXGI_SWAP_CHAIN_DESC swapchain_desc;
 	ZeroMemory(&swapchain_desc, sizeof(DXGI_SWAP_CHAIN_DESC));
-	swapchain_desc.BufferDesc.Width = 0;
-	swapchain_desc.BufferDesc.Height = 0;
+	swapchain_desc.BufferDesc.Width = Display::Get()->GetWidth();
+	swapchain_desc.BufferDesc.Height = Display::Get()->GetHeight();
 	swapchain_desc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 	swapchain_desc.SampleDesc.Count = 1;
 	swapchain_desc.SampleDesc.Quality = 0;
@@ -137,12 +137,13 @@ void Renderer::BeginFrame()
 	m_RenderTargetView->Clear();
 	m_DepthStencilState->Clear();
 
-	m_RenderTargetView->Bind();
 	m_DepthStencilState->Bind();
+	m_RenderTargetView->Bind();
 
 	m_RasterizerState->Bind();
-	m_SamplerState->Bind();
+	
 	m_BlendState->Bind();
+	m_SamplerState->Bind();
 
 	auto viewport = CD3D11_VIEWPORT(0.f, 0.f, static_cast<float>(Display::Get()->GetWidth()), static_cast<float>(Display::Get()->GetHeight()));
 	m_Context->RSSetViewports(1, &viewport);

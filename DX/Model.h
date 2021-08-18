@@ -13,7 +13,7 @@ public:
 	Model(std::string filePath);
 	~Model();
 
-	void Draw(Shader& shader);
+	void Draw();
 
 private:
 	void LoadMesh(std::string filePath);

@@ -23,8 +23,8 @@ void DepthStencilState::Clear()
 
 void DepthStencilState::Bind()
 {
-	//ID3D11DeviceContext* context = Renderer::Get()->GetContext();
-	//context->OMSetDepthStencilState(m_DepthStencilState, 0);
+	ID3D11DeviceContext* context = Renderer::Get()->GetContext();
+	context->OMSetDepthStencilState(m_DepthStencilState, 0);
 }
 
 void DepthStencilState::InitDepthStencilView()
@@ -53,11 +53,14 @@ void DepthStencilState::InitDepthStencilView()
 	}
 
 	D3D11_DEPTH_STENCIL_VIEW_DESC depth_stencil_view_desc;
+	ZeroMemory(&depth_stencil_view_desc, sizeof(D3D11_DEPTH_STENCIL_VIEW_DESC));
 	depth_stencil_view_desc.Format = texture_desc.Format;
 	depth_stencil_view_desc.Flags = 0;
 	depth_stencil_view_desc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
 	depth_stencil_view_desc.Texture2D.MipSlice = 0;
+	
 	result = device->CreateDepthStencilView(depth_texture, &depth_stencil_view_desc, &m_DepthStencilView);
+	
 	if (result != S_OK)
 	{
 		LogError("Failed When Creating Depth Stencil View !");
@@ -71,22 +74,11 @@ void DepthStencilState::InitDepthStencilState()
 	ID3D11Device* device = Renderer::Get()->GetDevice();
 
 	D3D11_DEPTH_STENCIL_DESC depth_stencil_desc;
+	ZeroMemory(&depth_stencil_desc, sizeof(D3D11_DEPTH_STENCIL_DESC));
 	depth_stencil_desc.DepthEnable = true;
-	depth_stencil_desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+	depth_stencil_desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
 	depth_stencil_desc.DepthFunc = D3D11_COMPARISON_LESS;
-	depth_stencil_desc.StencilEnable = false;
-	depth_stencil_desc.StencilReadMask = 0xFF;
-	depth_stencil_desc.StencilWriteMask = 0xFF;
-
-	depth_stencil_desc.FrontFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
-	depth_stencil_desc.FrontFace.StencilDepthFailOp = D3D11_STENCIL_OP_INCR;
-	depth_stencil_desc.FrontFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
-	depth_stencil_desc.FrontFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
-
-	depth_stencil_desc.BackFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
-	depth_stencil_desc.BackFace.StencilDepthFailOp = D3D11_STENCIL_OP_DECR;
-	depth_stencil_desc.BackFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
-	depth_stencil_desc.BackFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
+	
 	HRESULT result = device->CreateDepthStencilState(&depth_stencil_desc, &m_DepthStencilState);
 	if (result != S_OK)
 	{
