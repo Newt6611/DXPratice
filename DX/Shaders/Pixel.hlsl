@@ -10,23 +10,20 @@ struct PS_IN {
 	float2 texcoord : TEXCOORD;
 };
 
-SamplerState samplerState : SAMPLER : register(s0);
+SamplerState samplerState  : SAMPLER : register(s0);
 
-Texture2D texture0  : TEXTURE : register(t0);
-Texture2D texture1  : TEXTURE : register(t1);
-Texture2D texture2  : TEXTURE : register(t2);
-Texture2D texture3  : TEXTURE : register(t3);
-Texture2D texture4  : TEXTURE : register(t4);
-Texture2D texture5  : TEXTURE : register(t5);
-Texture2D texture6  : TEXTURE : register(t6);
-Texture2D texture7  : TEXTURE : register(t7);
-Texture2D texture8  : TEXTURE : register(t8);
-Texture2D texture9  : TEXTURE : register(t9);
-Texture2D texture10 : TEXTURE : register(t10);
+Texture2D diffuseTexture   : TEXTURE : register(t0);
+Texture2D specularTexture  : TEXTURE : register(t1);
+Texture2D normalTexture    : TEXTURE : register(t2);
+
+
 
 float4 main(PS_IN ps_in) : SV_TARGET
 {
-	float4 t1 = texture0.Sample(samplerState, ps_in.texcoord) * ps_in.color;
-	t1.a = alpha;
-	return t1;
+	float4 d = specularTexture.Sample(samplerState, ps_in.texcoord);
+	float4 s = diffuseTexture.Sample(samplerState, ps_in.texcoord);
+	float4 n = normalTexture.Sample(samplerState, ps_in.texcoord);
+	float4 o = d;
+	o.a = alpha;
+	return o;
 }

@@ -16,6 +16,7 @@
 #include "RenderTargetView.h"
 #include "BlendState.h"
 #include "DepthStencilState.h"
+#include "Model.h"
 
 class Renderer 
 {
@@ -52,7 +53,10 @@ public:
 	
 	std::shared_ptr<Shader> CreateShader(LPCWSTR vertexFilePath, LPCWSTR pixelFilePath);
 	
-	std::shared_ptr<Texture> CreateTexture(std::wstring filePath);
+	std::shared_ptr<Model> CreateModel(std::string filePath);
+
+	std::shared_ptr<Texture> CreateTexture(std::string filePath);
+	std::shared_ptr<Texture> CreateTexture(std::string filePath, TextureType type);
 
 	void BeginFrame();
 	void EndFrame();

@@ -23,8 +23,8 @@ void DepthStencilState::Clear()
 
 void DepthStencilState::Bind()
 {
-	ID3D11DeviceContext* context = Renderer::Get()->GetContext();
-	context->OMSetDepthStencilState(m_DepthStencilState, 0);
+	//ID3D11DeviceContext* context = Renderer::Get()->GetContext();
+	//context->OMSetDepthStencilState(m_DepthStencilState, 0);
 }
 
 void DepthStencilState::InitDepthStencilView()
@@ -72,18 +72,17 @@ void DepthStencilState::InitDepthStencilState()
 
 	D3D11_DEPTH_STENCIL_DESC depth_stencil_desc;
 	depth_stencil_desc.DepthEnable = true;
-	depth_stencil_desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
-	depth_stencil_desc.DepthFunc = D3D11_COMPARISON_GREATER;
-	depth_stencil_desc.StencilEnable = true;
+	depth_stencil_desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+	depth_stencil_desc.DepthFunc = D3D11_COMPARISON_LESS;
+	depth_stencil_desc.StencilEnable = false;
 	depth_stencil_desc.StencilReadMask = 0xFF;
 	depth_stencil_desc.StencilWriteMask = 0xFF;
-	// Stencil operations if pixel is front-facing.
+
 	depth_stencil_desc.FrontFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
 	depth_stencil_desc.FrontFace.StencilDepthFailOp = D3D11_STENCIL_OP_INCR;
 	depth_stencil_desc.FrontFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
 	depth_stencil_desc.FrontFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
 
-	// Stencil operations if pixel is back-facing.
 	depth_stencil_desc.BackFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
 	depth_stencil_desc.BackFace.StencilDepthFailOp = D3D11_STENCIL_OP_DECR;
 	depth_stencil_desc.BackFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;

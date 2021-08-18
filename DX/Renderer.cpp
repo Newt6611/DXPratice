@@ -112,13 +112,23 @@ std::shared_ptr<Shader> Renderer::CreateShader(LPCWSTR vertexFilePath, LPCWSTR p
 	return shader;
 }
 
-std::shared_ptr<Texture> Renderer::CreateTexture(std::wstring filePath)
+std::shared_ptr<Model> Renderer::CreateModel(std::string filePath)
+{
+	std::shared_ptr<Model> model = std::make_shared<Model>(filePath);
+	return model;
+}
+
+std::shared_ptr<Texture> Renderer::CreateTexture(std::string filePath)
 {
 	std::shared_ptr<Texture> texture = std::make_shared<Texture>(filePath);
 	return texture;
 }
 
-
+std::shared_ptr<Texture> Renderer::CreateTexture(std::string filePath, TextureType type)
+{
+	std::shared_ptr<Texture> texture = std::make_shared<Texture>(filePath, type);
+	return texture;
+}
 
 
 
