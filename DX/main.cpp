@@ -126,10 +126,10 @@ int main()
 			if (msg.message == WM_QUIT) break;
 		}
 
-		r += 0.0005;
+		r += 0.01;
 		if (r > 360)
 			r = 0;
-		cube = XMMatrixTranslation(0, -8, 0) * XMMatrixRotationY(r) * XMMatrixScaling(1, 1, 1);
+		cube = XMMatrixTranslation(0, -8, 0) * XMMatrixRotationY(r) * XMMatrixScaling(0.5, 0.5, 0.5);
 
 		renderer->BeginFrame();
 
@@ -142,6 +142,18 @@ int main()
 		constant_buffer->BindPerObj();
 		constant_buffer->BindPixel();
 		backpack->Draw();
+
+		shader->Bind();
+		constant_buffer->GetPerObj()->Projection = XMMatrixTranspose(Renderer::Get()->GetCamera()->GetProjection());
+		constant_buffer->GetPerObj()->View = XMMatrixTranspose(Renderer::Get()->GetCamera()->GetView());
+		constant_buffer->GetPerObj()->World = XMMatrixTranspose(cube);
+		constant_buffer->GetPixelObj()->alpha = ImGuiLayer::alpha;
+		constant_buffer->BindPerObj();
+		constant_buffer->BindPixel();
+		texture2->Bind(0);
+		vertexbuffer->Bind();
+		indexbuffer->Bind();
+		Command::DrawIndexed(indexbuffer->GetCount());
 
 		imgui_Layer->Draw();
 		renderer->EndFrame();

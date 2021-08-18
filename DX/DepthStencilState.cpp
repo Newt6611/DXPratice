@@ -76,8 +76,8 @@ void DepthStencilState::InitDepthStencilState()
 	D3D11_DEPTH_STENCIL_DESC depth_stencil_desc;
 	ZeroMemory(&depth_stencil_desc, sizeof(D3D11_DEPTH_STENCIL_DESC));
 	depth_stencil_desc.DepthEnable = true;
-	depth_stencil_desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
-	depth_stencil_desc.DepthFunc = D3D11_COMPARISON_LESS;
+	depth_stencil_desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+	depth_stencil_desc.DepthFunc = D3D11_COMPARISON_LESS_EQUAL;
 	
 	HRESULT result = device->CreateDepthStencilState(&depth_stencil_desc, &m_DepthStencilState);
 	if (result != S_OK)

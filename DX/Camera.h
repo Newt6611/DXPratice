@@ -20,7 +20,7 @@ private:
 	void UpdateCamera();
 
 private:
-	XMFLOAT3 m_LookAt;
+	XMVECTOR m_LookAt;
 	XMFLOAT3 m_Position;
 	XMFLOAT3 m_Rotation;
 	XMFLOAT3 m_Up;
@@ -35,5 +35,6 @@ private:
 	XMMATRIX m_View;
 	XMMATRIX m_Projection;
 
-	const XMFLOAT3 WROLD_UP = XMFLOAT3(0, 1, 0);
+	const XMVECTOR WORLD_UP = XMVectorSet(0, 1, 0, 1);
+	const XMVECTOR WORLD_FORWARD = XMVectorSet(0, 0, 1, 1);
 };

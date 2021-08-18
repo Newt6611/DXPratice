@@ -3,9 +3,9 @@
 
 Camera::Camera(float angle, float width, float height, float nearZ, float farZ)
 	: m_Angle(angle), m_Width(width), m_Height(height), m_NearZ(nearZ), m_FarZ(farZ),
-	m_Position(0, 0, 2), m_LookAt(0, 0, 0)
+	m_Position(0, 0, -10), m_Rotation(0, 0, 0)
 {
-	m_Projection = XMMatrixPerspectiveFovRH(XMConvertToRadians(angle), static_cast<float>(width) / static_cast<float>(height), nearZ, farZ);
+	m_Projection = XMMatrixPerspectiveFovLH(XMConvertToRadians(angle), static_cast<float>(width) / static_cast<float>(height), nearZ, farZ);
 
 	m_View = XMMatrixIdentity();
 	UpdateCamera();
@@ -13,9 +13,9 @@ Camera::Camera(float angle, float width, float height, float nearZ, float farZ)
 
 Camera::Camera(float width, float height, float nearZ, float farZ)
 	: m_Angle(45), m_Width(width), m_Height(height), m_NearZ(nearZ), m_FarZ(farZ),
-	m_Position(0, 0, 25), m_LookAt(0, 0, 0)
+	m_Position(0, 0, -10), m_Rotation(0, 0, 0)
 {
-	m_Projection = XMMatrixPerspectiveFovRH(XMConvertToRadians(45), static_cast<float>(width) / static_cast<float>(height), nearZ, farZ);
+	m_Projection = XMMatrixPerspectiveFovLH(XMConvertToRadians(45), static_cast<float>(width) / static_cast<float>(height), nearZ, farZ);
 
 	m_View = XMMatrixIdentity();
 	UpdateCamera();
@@ -28,7 +28,7 @@ Camera::~Camera()
 
 XMMATRIX Camera::GetView() const
 {
-	return XMMatrixLookAtRH(XMLoadFloat3(&m_Position), XMLoadFloat3(&m_LookAt), XMLoadFloat3(&WROLD_UP));
+	return m_View;
 }
 
 XMMATRIX Camera::GetViewProjection() const
@@ -43,8 +43,15 @@ XMMATRIX Camera::GetProjection() const
 
 void Camera::UpdateCamera()
 {
-	XMVECTOR forward = XMVector3Normalize( XMLoadFloat3(&m_LookAt) - XMLoadFloat3(&m_Position) );
+	XMMATRIX rot = XMMatrixRotationRollPitchYaw(m_Rotation.x, m_Rotation.y, m_Rotation.z);
+	
+	//XMVECTOR target = XMVector3TransformCoord(WORLD_FORWARD, rot);
+	//target += XMVectorSet(m_Position.x, m_Position.y, m_Position.z, 1);
 
-	XMStoreFloat3( &m_Right, XMVector3Cross(forward, XMLoadFloat3(&WROLD_UP)) );
-	XMStoreFloat3( &m_Up, XMVector3Cross(forward, XMLoadFloat3(&m_Right)) );
+	XMVECTOR look_vec = XMVector3Transform(WORLD_FORWARD, rot);
+
+	m_LookAt = XMVectorSet( m_Position.x, m_Position.y, m_Position.z, 1 ) + look_vec;
+
+	XMVECTOR up = XMVector3TransformCoord(WORLD_UP, rot);
+	m_View = XMMatrixLookAtLH(XMVectorSet(m_Position.x, m_Position.y, m_Position.z, 1), m_LookAt, up);
 }

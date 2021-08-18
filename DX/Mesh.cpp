@@ -19,9 +19,11 @@ Mesh::~Mesh()
 
 void Mesh::Draw()
 {
+	m_VertexBuffer->Bind();
+	m_IndexBuffer->Bind();
+
 	for (int i = 0; i < textures.size(); i++)
 	{
-		
 		switch (textures[i]->GetType())
 		{
 		case TextureType::Diffuse:
@@ -36,9 +38,5 @@ void Mesh::Draw()
 		}
 	}
 
-	m_VertexBuffer->Bind();
-	m_IndexBuffer->Bind();
-
-	//Command::DrawIndexed(m_IndexBuffer->GetCount());
-	Command::Draw(m_VertexBuffer->GetCount());
+	Command::DrawIndexed(m_IndexBuffer->GetCount());
 }

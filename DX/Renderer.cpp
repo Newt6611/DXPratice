@@ -151,5 +151,5 @@ void Renderer::BeginFrame()
 
 void Renderer::EndFrame()
 {
-	m_Swapchain->Present(0, 0);
+	m_Swapchain->Present(1, 0);
 }

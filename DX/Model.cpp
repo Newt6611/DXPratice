@@ -26,7 +26,8 @@ void Model::Draw()
 void Model::LoadMesh(std::string filePath)
 {
 	Assimp::Importer importer;
-	const aiScene* scene = importer.ReadFile(filePath, aiProcess_Triangulate | aiProcess_GenSmoothNormals);
+	const aiScene* scene = importer.ReadFile(filePath, 
+		aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_ConvertToLeftHanded);
 
 	if (!scene || !scene->mRootNode)
 	{
@@ -100,7 +101,7 @@ Mesh Model::ProccessMesh(const aiScene* scene, aiMesh* mesh)
 		aiFace face = mesh->mFaces[i];
 		for (unsigned int j = 0; j < face.mNumIndices; j++)
 		{
-			indices.push_back(face.mIndices[i]);
+			indices.push_back(face.mIndices[j]);
 		}
 	}
 
