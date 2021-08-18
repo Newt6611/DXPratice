@@ -126,7 +126,7 @@ int main()
 			if (msg.message == WM_QUIT) break;
 		}
 
-		r += 0.0005;
+		r += 0.001;
 		if (r > 360)
 			r = 0;
 		cube = XMMatrixTranslation(0, -8, 0) * XMMatrixRotationY(r) * XMMatrixScaling(1, 1, 1);

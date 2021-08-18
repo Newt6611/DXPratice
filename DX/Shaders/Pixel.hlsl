@@ -20,8 +20,8 @@ Texture2D normalTexture    : TEXTURE : register(t2);
 
 float4 main(PS_IN ps_in) : SV_TARGET
 {
-	float4 d = specularTexture.Sample(samplerState, ps_in.texcoord);
-	float4 s = diffuseTexture.Sample(samplerState, ps_in.texcoord);
+	float4 d = diffuseTexture.Sample(samplerState, ps_in.texcoord);
+	float4 s = specularTexture.Sample(samplerState, ps_in.texcoord);
 	float4 n = normalTexture.Sample(samplerState, ps_in.texcoord);
 	float4 o = d;
 	o.a = alpha;
