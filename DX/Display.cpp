@@ -35,7 +35,7 @@ void Display::InitWindow()
 {
 	WNDCLASSEX wc = { 0 };
 	wc.cbSize = sizeof(WNDCLASSEX);
-	wc.style = CS_OWNDC;
+	wc.style = CS_VREDRAW | CS_OWNDC | CS_HREDRAW | CS_DBLCLKS;
     wc.lpfnWndProc = WindowProc;
     wc.cbClsExtra = 0;
     wc.cbWndExtra = 0;

@@ -2,43 +2,23 @@
 
 #include <d3d11.h>
 #include <DirectXMath.h>
-#include "Log.h"
+#include "ShaderStage.h"
+#include "ConstantBufferType.h"
 
-using namespace DirectX;
 
-struct C_PerObj
-{
-	XMMATRIX World;
-	XMMATRIX View;
-	XMMATRIX Projection;
-	float pad;
-};
-
-struct C_PixelObj
-{
-	float alpha = 1;
-	float pad;
-	float pad2;
-	float pad3;
-};
-
+template<class T>
 class ConstantBuffer
 {
 public:
-	ConstantBuffer();
+	ConstantBuffer(ShaderStage stage);
 	~ConstantBuffer();
 
-	inline C_PerObj* GetPerObj() { return m_PerObjData; }
-	inline C_PixelObj* GetPixelObj() { return m_PixelObjData; }
+	void Bind(unsigned int slot);
 
-	void BindPerObj();
-	void BindPixel();
+	void SetData(T data);
 
+	T m_Data;
 private:
-	ID3D11Buffer* m_PerObjBuffer;
-	ID3D11Buffer* m_PerPixelBuffer;
-
-
-	C_PerObj* m_PerObjData;
-	C_PixelObj* m_PixelObjData;
+	ShaderStage m_ShaderStage;
+	ID3D11Buffer* m_Buffer;
 };

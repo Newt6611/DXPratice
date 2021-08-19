@@ -87,6 +87,15 @@
     <ClCompile Include="Model.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
+    <ClCompile Include="IGameObject.h">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="World.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="SandBox\NanoPlayer.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Display.h">
@@ -968,6 +977,18 @@
     <ClInclude Include="ThirdParty\assimp\ZipArchiveIOSystem.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
+    <ClInclude Include="World.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="SandBox\NanoPlayer.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstantBufferType.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderStage.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shaders\Vertex.hlsl" />
@@ -1002,6 +1023,8 @@
     <None Include="ThirdParty\assimp\vector3.inl">
       <Filter>標頭檔</Filter>
     </None>
+    <None Include="Models\nanosuit\nanosuit.blend" />
+    <None Include="Models\nanosuit\nanosuit.mtl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\wall.jpg">
@@ -1013,5 +1036,59 @@
     <Image Include="Textures\window.png">
       <Filter>資源檔</Filter>
     </Image>
+    <Image Include="Models\nanosuit\arm_dif.png">
+      <Filter>資源檔</Filter>
+    </Image>
+    <Image Include="Models\nanosuit\arm_showroom_ddn.png">
+      <Filter>資源檔</Filter>
+    </Image>
+    <Image Include="Models\nanosuit\arm_showroom_spec.png">
+      <Filter>資源檔</Filter>
+    </Image>
+    <Image Include="Models\nanosuit\body_dif.png">
+      <Filter>資源檔</Filter>
+    </Image>
+    <Image Include="Models\nanosuit\body_showroom_ddn.png">
+      <Filter>資源檔</Filter>
+    </Image>
+    <Image Include="Models\nanosuit\body_showroom_spec.png">
+      <Filter>資源檔</Filter>
+    </Image>
+    <Image Include="Models\nanosuit\glass_ddn.png">
+      <Filter>資源檔</Filter>
+    </Image>
+    <Image Include="Models\nanosuit\glass_dif.png">
+      <Filter>資源檔</Filter>
+    </Image>
+    <Image Include="Models\nanosuit\hand_dif.png">
+      <Filter>資源檔</Filter>
+    </Image>
+    <Image Include="Models\nanosuit\hand_showroom_ddn.png">
+      <Filter>資源檔</Filter>
+    </Image>
+    <Image Include="Models\nanosuit\hand_showroom_spec.png">
+      <Filter>資源檔</Filter>
+    </Image>
+    <Image Include="Models\nanosuit\helmet_diff.png">
+      <Filter>資源檔</Filter>
+    </Image>
+    <Image Include="Models\nanosuit\helmet_showroom_ddn.png">
+      <Filter>資源檔</Filter>
+    </Image>
+    <Image Include="Models\nanosuit\helmet_showroom_spec.png">
+      <Filter>資源檔</Filter>
+    </Image>
+    <Image Include="Models\nanosuit\leg_dif.png">
+      <Filter>資源檔</Filter>
+    </Image>
+    <Image Include="Models\nanosuit\leg_showroom_ddn.png">
+      <Filter>資源檔</Filter>
+    </Image>
+    <Image Include="Models\nanosuit\leg_showroom_spec.png">
+      <Filter>資源檔</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Models\nanosuit\LICENSE.txt" />
   </ItemGroup>
 </Project>

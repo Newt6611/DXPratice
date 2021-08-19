@@ -146,11 +146,13 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
     <ClCompile Include="DepthStencilState.cpp" />
+    <ClCompile Include="IGameObject.h" />
     <ClCompile Include="ImGuiLayer.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="RenderTargetView.cpp" />
     <ClCompile Include="SamplerState.cpp" />
+    <ClCompile Include="SandBox\NanoPlayer.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="Display.cpp" />
@@ -166,18 +168,22 @@
     <ClCompile Include="ThirdParty\ImGui\imgui_tables.cpp" />
     <ClCompile Include="ThirdParty\ImGui\imgui_widgets.cpp" />
     <ClCompile Include="VertexBuffer.cpp" />
+    <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BlendState.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="ConstantBuffer.h" />
+    <ClInclude Include="ConstantBufferType.h" />
     <ClInclude Include="DepthStencilState.h" />
     <ClInclude Include="ImGuiLayer.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="RenderTargetView.h" />
     <ClInclude Include="SamplerState.h" />
+    <ClInclude Include="SandBox\NanoPlayer.h" />
+    <ClInclude Include="ShaderStage.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="Display.h" />
@@ -461,6 +467,7 @@
     <ClInclude Include="ThirdParty\spdlog\include\spdlog\tweakme.h" />
     <ClInclude Include="ThirdParty\spdlog\include\spdlog\version.h" />
     <ClInclude Include="VertexBuffer.h" />
+    <ClInclude Include="World.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shaders\Pixel.hlsl">
@@ -478,6 +485,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="imgui.ini" />
+    <None Include="Models\nanosuit\nanosuit.blend" />
+    <None Include="Models\nanosuit\nanosuit.mtl" />
     <None Include="packages.config" />
     <None Include="ThirdParty\assimp\color4.inl" />
     <None Include="ThirdParty\assimp\material.inl" />
@@ -491,9 +500,29 @@
     <None Include="ThirdParty\spdlog\LICENSE" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Models\nanosuit\arm_dif.png" />
+    <Image Include="Models\nanosuit\arm_showroom_ddn.png" />
+    <Image Include="Models\nanosuit\arm_showroom_spec.png" />
+    <Image Include="Models\nanosuit\body_dif.png" />
+    <Image Include="Models\nanosuit\body_showroom_ddn.png" />
+    <Image Include="Models\nanosuit\body_showroom_spec.png" />
+    <Image Include="Models\nanosuit\glass_ddn.png" />
+    <Image Include="Models\nanosuit\glass_dif.png" />
+    <Image Include="Models\nanosuit\hand_dif.png" />
+    <Image Include="Models\nanosuit\hand_showroom_ddn.png" />
+    <Image Include="Models\nanosuit\hand_showroom_spec.png" />
+    <Image Include="Models\nanosuit\helmet_diff.png" />
+    <Image Include="Models\nanosuit\helmet_showroom_ddn.png" />
+    <Image Include="Models\nanosuit\helmet_showroom_spec.png" />
+    <Image Include="Models\nanosuit\leg_dif.png" />
+    <Image Include="Models\nanosuit\leg_showroom_ddn.png" />
+    <Image Include="Models\nanosuit\leg_showroom_spec.png" />
     <Image Include="Textures\t.jpg" />
     <Image Include="Textures\wall.jpg" />
     <Image Include="Textures\window.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Models\nanosuit\LICENSE.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

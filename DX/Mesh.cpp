@@ -22,7 +22,7 @@ void Mesh::Draw()
 	m_VertexBuffer->Bind();
 	m_IndexBuffer->Bind();
 
-	for (int i = 0; i < textures.size(); i++)
+	for (unsigned int i = 0; i < textures.size(); i++)
 	{
 		switch (textures[i]->GetType())
 		{
