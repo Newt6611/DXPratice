@@ -4,7 +4,7 @@
 #include "Log.h"
 
 bool ImGuiLayer::wire_frame;
-float ImGuiLayer::clear_color[4] = { 0.1f, 0.2f, 0.3f, 1.f };
+float ImGuiLayer::clear_color[4] = { 0.5f, 0.1f, 0.2f, 1.f };
 
 float ImGuiLayer::alpha = 1;
 

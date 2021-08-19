@@ -24,6 +24,8 @@ public:
 
 	inline HWND GetHandle() const { return m_handle; }
 
+	void OnResize();
+
 private:
 	Display() {} 
 	void InitWindow();

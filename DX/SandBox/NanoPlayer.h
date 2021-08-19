@@ -20,4 +20,5 @@ private:
 	std::shared_ptr<Model> m_Model;
 	std::shared_ptr<Shader> m_Shader;
 	std::shared_ptr<ConstantBuffer<VS_Object>> m_ConstantBuffer;
+	//ConstantBuffer<VS_Object> m_ConstantBuffer;
 };

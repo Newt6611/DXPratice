@@ -4,7 +4,11 @@
 
 World::World()
 {
-	nanoPlayer = new NanoPlayer(this);
+	for (int i = 0; i < 5; i++)
+	{
+		nanoPlayers.push_back(new NanoPlayer(this));
+		nanoPlayers[i]->SetPosition(XMFLOAT3(i * 6 + (-11), -8, 0));
+	}
 }
 
 World::~World()

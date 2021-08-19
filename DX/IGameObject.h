@@ -15,6 +15,21 @@ public:
 	}
 	virtual void Render() = 0;
 
+	void SetPosition(XMFLOAT3 p)
+	{
+		m_Position = p;
+	}
+
+	void SetRotation(XMFLOAT3 r)
+	{
+		m_Rotation = r;
+	}
+
+	void SetScale(XMFLOAT3 s)
+	{
+		m_Scale = s;
+	}
+
 	inline XMFLOAT3 GetPosition() const { return m_Position; }
 	inline XMFLOAT3 GetRotation() const { return m_Rotation; }
 	inline XMFLOAT3 GetScale() const { return m_Scale; }

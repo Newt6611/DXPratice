@@ -36,6 +36,8 @@ int main()
 	
 	world->Init();
 
+	std::shared_ptr<ConstantBuffer<PS_Object>> pixel_const = std::make_shared<ConstantBuffer<PS_Object>>();
+	pixel_const->Init(ShaderStage::PS, renderer->GetDevice(), renderer->GetContext());
 
 	MSG msg = { };
 	while (true)
@@ -47,6 +49,10 @@ int main()
 			if (msg.message == WM_QUIT) break;
 		}
 
+		PS_Object o;
+		o.alpha = ImGuiLayer::alpha;
+		pixel_const->SetData(o);
+		pixel_const->Bind(0);
 		///////////////     UPDATE      /////////////////////////
 		world->Update();
 

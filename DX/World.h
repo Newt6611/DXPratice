@@ -18,6 +18,5 @@ public:
 private:
 	std::vector<IGameObject*> m_GameObjects;
 
-
-	NanoPlayer* nanoPlayer;
+	std::vector<NanoPlayer*> nanoPlayers;
 };

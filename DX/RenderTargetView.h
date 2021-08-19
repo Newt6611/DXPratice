@@ -19,5 +19,5 @@ public:
 private:
 	ID3D11RenderTargetView* m_RenderTargetView;
 
-	float m_ClearColor[4] = { 0.1f, 0.2f, 0.3f, 1.f };
+	float m_ClearColor[4] = { 0.5f, 0.2f, 0.2f, 1.f };
 };
