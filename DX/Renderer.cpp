@@ -114,7 +114,11 @@ std::shared_ptr<Shader> Renderer::CreateShader(LPCWSTR vertexFilePath, LPCWSTR p
 
 std::shared_ptr<Model> Renderer::CreateModel(std::string filePath)
 {
+	if (m_LoadedModelCache.find(filePath) != m_LoadedModelCache.end())
+		return m_LoadedModelCache[filePath];
+
 	std::shared_ptr<Model> model = std::make_shared<Model>(filePath);
+	m_LoadedModelCache[filePath] = model;
 	return model;
 }
 

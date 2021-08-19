@@ -3,6 +3,7 @@
 #include <d3d11.h>
 #include <d3dcompiler.h>
 #include <memory>
+#include <unordered_map>
 #include "Display.h"
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
@@ -87,4 +88,6 @@ private:
 	BlendState* m_BlendState;
 
 	Camera* m_Camera;
+
+	std::unordered_map<std::string, std::shared_ptr<Model>> m_LoadedModelCache;
 };
