@@ -14,7 +14,7 @@ public:
 	XMMATRIX GetView()const;
 	XMMATRIX GetViewProjection() const;
 	XMMATRIX GetProjection() const;
-
+	XMFLOAT3 GetPosition() const;
 
 private:
 	void UpdateCamera();

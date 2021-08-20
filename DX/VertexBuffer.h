@@ -14,7 +14,7 @@ struct VertexData {
 class VertexBuffer 
 {
 public:
-	VertexBuffer(VertexData* data, int count);
+	VertexBuffer(VertexData* data, int count, ID3D11Device* device, ID3D11DeviceContext* context);
 	~VertexBuffer();
 
 	inline ID3D11Buffer* GetBuffer() const { return m_VertexBuffer; }
@@ -25,4 +25,6 @@ public:
 private:
 	int m_Count;
 	ID3D11Buffer* m_VertexBuffer;
+	ID3D11Device* device;
+	ID3D11DeviceContext* context;
 };

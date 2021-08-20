@@ -42,7 +42,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -144,8 +144,8 @@
   <ItemGroup>
     <ClCompile Include="BlendState.cpp" />
     <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="ConstantBuffer.cpp" />
     <ClCompile Include="DepthStencilState.cpp" />
+    <ClCompile Include="DirectionalLight.cpp" />
     <ClCompile Include="IGameObject.h" />
     <ClCompile Include="ImGuiLayer.cpp" />
     <ClCompile Include="Mesh.cpp" />
@@ -171,19 +171,19 @@
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Base.h" />
     <ClInclude Include="BlendState.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="ConstantBuffer.h" />
-    <ClInclude Include="ConstantBufferType.h" />
     <ClInclude Include="DepthStencilState.h" />
+    <ClInclude Include="DirectionalLight.h" />
     <ClInclude Include="ImGuiLayer.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="RenderTargetView.h" />
     <ClInclude Include="SamplerState.h" />
     <ClInclude Include="SandBox\NanoPlayer.h" />
-    <ClInclude Include="ShaderStage.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="Display.h" />

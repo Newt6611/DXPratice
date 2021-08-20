@@ -94,45 +94,58 @@ RasterzierState* Renderer::SetRasterzierState(RasterzierStateType type)
 
 
 
-std::shared_ptr<VertexBuffer> Renderer::CreateVertexBuffer(VertexData* data, int size)
+Ref<VertexBuffer> Renderer::CreateVertexBuffer(VertexData* data, int size)
 {
-	std::shared_ptr<VertexBuffer> vertexBuffer = std::make_shared<VertexBuffer>(data, size);
+	Ref<VertexBuffer> vertexBuffer = std::make_shared<VertexBuffer>(data, size, m_Device, m_Context);
 	return vertexBuffer;
 }
 
-std::shared_ptr<IndexBuffer> Renderer::CreateIndexBuffer(UINT* indices, int count)
+Ref<IndexBuffer> Renderer::CreateIndexBuffer(UINT* indices, int count)
 {
-	std::shared_ptr<IndexBuffer> indexBuffer = std::make_shared<IndexBuffer>(indices, count);
+	Ref<IndexBuffer> indexBuffer = std::make_shared<IndexBuffer>(indices, count, m_Device, m_Context);
 	return indexBuffer;
 }
 
-std::shared_ptr<Shader> Renderer::CreateShader(LPCWSTR vertexFilePath, LPCWSTR pixelFilePath)
+Ref<Shader> Renderer::CreateShader(LPCWSTR vertexFilePath, LPCWSTR pixelFilePath)
 {
-	std::shared_ptr<Shader> shader = std::make_shared<Shader>(vertexFilePath, pixelFilePath);
+	Ref<Shader> shader = std::make_shared<Shader>(vertexFilePath, pixelFilePath);
 	return shader;
 }
 
-std::shared_ptr<Model> Renderer::CreateModel(std::string filePath)
+Ref<Model> Renderer::CreateModel(std::string filePath)
 {
 	if (m_LoadedModelCache.find(filePath) != m_LoadedModelCache.end())
 		return m_LoadedModelCache[filePath];
 
-	std::shared_ptr<Model> model = std::make_shared<Model>(filePath);
+	Ref<Model> model = std::make_shared<Model>(filePath);
 	m_LoadedModelCache[filePath] = model;
 	return model;
 }
 
-std::shared_ptr<Texture> Renderer::CreateTexture(std::string filePath)
+Ref<Texture> Renderer::CreateTexture(std::string filePath)
 {
-	std::shared_ptr<Texture> texture = std::make_shared<Texture>(filePath);
+	Ref<Texture> texture = std::make_shared<Texture>(filePath);
 	return texture;
 }
 
-std::shared_ptr<Texture> Renderer::CreateTexture(std::string filePath, TextureType type)
+Ref<Texture> Renderer::CreateTexture(std::string filePath, TextureType type)
 {
-	std::shared_ptr<Texture> texture = std::make_shared<Texture>(filePath, type);
+	Ref<Texture> texture = std::make_shared<Texture>(filePath, type);
 	return texture;
 }
+
+Ref<DirectionalLight> Renderer::CreateDirectionalLight()
+{
+	Ref<DirectionalLight> light = std::make_shared<DirectionalLight>(m_Device, m_Context);
+	return light;
+}
+
+Ref<DirectionalLight> Renderer::CreateDirectionalLight(XMFLOAT3 direction, XMFLOAT4 color)
+{
+	Ref<DirectionalLight> light = std::make_shared<DirectionalLight>(color, direction, m_Device, m_Context);
+	return light;
+}
+
 
 
 

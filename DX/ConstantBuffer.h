@@ -1,24 +1,19 @@
 #pragma once
 
 #include <d3d11.h>
-#include <DirectXMath.h>
-#include "ShaderStage.h"
-#include "ConstantBufferType.h"
+#include "Base.h"
 
 
-template<class T>
+template<typename T>
 class ConstantBuffer
 {
 public:
-	ConstantBuffer(){}
-	~ConstantBuffer() {}
-
-	void Init(ShaderStage stage, ID3D11Device* device, ID3D11DeviceContext* context)
+	ConstantBuffer(ShaderStage stage, ID3D11Device* device, ID3D11DeviceContext* context)
+		: m_ShaderStage(stage), device(device), context(context)
 	{
-		m_ShaderStage = stage;
 		this->device = device;
 		this->context = context;
-
+		
 		D3D11_BUFFER_DESC buffer_desc;
 		buffer_desc.ByteWidth = static_cast<UINT>(sizeof(T) + (16 - (sizeof(T) % 16)));
 		buffer_desc.Usage = D3D11_USAGE_DYNAMIC;
@@ -26,26 +21,26 @@ public:
 		buffer_desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 		buffer_desc.MiscFlags = 0;
 		buffer_desc.StructureByteStride = 0;
-
+		
 		HRESULT result = device->CreateBuffer(&buffer_desc, nullptr, &m_Buffer);
 		if (result != S_OK)
 		{
 			LogError("Failed When Creating Constant Buffer !");
 		}
 	}
-
+	~ConstantBuffer() {}
+	
+	
 	void Bind(unsigned int slot)
 	{
 		D3D11_MAPPED_SUBRESOURCE map_data;
 		ZeroMemory(&map_data, sizeof(D3D11_MAPPED_SUBRESOURCE));
-
-		HRESULT r = context->Map(m_Buffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &map_data);
-		if (r != S_OK)
-			LogError("RRRR");
-
+	
+		context->Map(m_Buffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &map_data);
+	
 		CopyMemory(map_data.pData, &m_Data, sizeof(T));
 		context->Unmap(m_Buffer, 0);
-
+	
 		switch (m_ShaderStage)
 		{
 		case ShaderStage::VS:
@@ -56,6 +51,11 @@ public:
 			break;
 		}
 		
+	}
+
+	T& GetData()
+	{
+		return this->m_Data;
 	}
 
 	void SetData(T& data)

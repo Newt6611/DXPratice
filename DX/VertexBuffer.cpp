@@ -2,8 +2,8 @@
 #include "Renderer.h"
 #include "Display.h"
 
-VertexBuffer::VertexBuffer(VertexData* data, int count)
-	: m_Count(count)
+VertexBuffer::VertexBuffer(VertexData* data, int count, ID3D11Device* device, ID3D11DeviceContext* context)
+	: m_Count(count), device(device), context(context)
 {
 	D3D11_BUFFER_DESC buffer_desc;
 	buffer_desc.Usage = D3D11_USAGE_DEFAULT;
@@ -17,7 +17,6 @@ VertexBuffer::VertexBuffer(VertexData* data, int count)
 	init_data.SysMemPitch = 0;
 	init_data.SysMemSlicePitch = 0;
 
-	ID3D11Device* device = Renderer::Get()->GetDevice();
 	HRESULT result = device->CreateBuffer(&buffer_desc, &init_data, &m_VertexBuffer);
 	if (result != S_OK)
 	{
@@ -32,8 +31,6 @@ VertexBuffer::~VertexBuffer()
 
 void VertexBuffer::Bind()
 {
-	ID3D11DeviceContext* context = Renderer::Get()->GetContext();
-
 	UINT stride = sizeof(VertexData);
 	UINT offset = 0;
 

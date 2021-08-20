@@ -10,6 +10,8 @@ float ImGuiLayer::alpha = 1;
 
 const char* ImGuiLayer::current_BlendState = "None";
 
+float ImGuiLayer::lightDir[3] = { 0 ,0 ,-1 };
+
 ImGuiLayer::ImGuiLayer()
 {
 	IMGUI_CHECKVERSION();
@@ -63,7 +65,8 @@ void ImGuiLayer::Draw()
 		ImGui::EndCombo();
 	}
 
-
+	// Light Direction
+	ImGui::DragFloat3("Light Direction", lightDir, 0.1, -360, 360);
 
 	Logic();
 	ImGui::End();

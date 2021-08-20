@@ -3,8 +3,8 @@
 #include "Renderer.h"
 #include "Display.h"
 
-IndexBuffer::IndexBuffer(UINT* indices, int count)
-	: m_Count(count)
+IndexBuffer::IndexBuffer(UINT* indices, int count, ID3D11Device* device, ID3D11DeviceContext* context)
+	: m_Count(count), device(device), context(context)
 {
 	D3D11_BUFFER_DESC buffer_desc;
 	buffer_desc.Usage = D3D11_USAGE_IMMUTABLE;
@@ -19,7 +19,6 @@ IndexBuffer::IndexBuffer(UINT* indices, int count)
 	init_data.SysMemPitch = 0;
 	init_data.SysMemSlicePitch = 0;
 
-	ID3D11Device* device = Renderer::Get()->GetDevice();
 	HRESULT result = device->CreateBuffer(&buffer_desc, &init_data, &m_Buffer);
 	if (result != S_OK)
 	{
@@ -34,6 +33,5 @@ IndexBuffer::~IndexBuffer()
 
 void IndexBuffer::Bind()
 {
-	ID3D11DeviceContext* context = Renderer::Get()->GetContext();
 	context->IASetIndexBuffer(m_Buffer, DXGI_FORMAT_R32_UINT, 0);
 }

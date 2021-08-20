@@ -45,9 +45,6 @@
     <ClCompile Include="Camera.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
-    <ClCompile Include="ConstantBuffer.cpp">
-      <Filter>來源檔案</Filter>
-    </ClCompile>
     <ClCompile Include="SamplerState.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
@@ -94,6 +91,9 @@
       <Filter>來源檔案</Filter>
     </ClCompile>
     <ClCompile Include="SandBox\NanoPlayer.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectionalLight.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
   </ItemGroup>
@@ -983,10 +983,10 @@
     <ClInclude Include="SandBox\NanoPlayer.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
-    <ClInclude Include="ConstantBufferType.h">
+    <ClInclude Include="Base.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
-    <ClInclude Include="ShaderStage.h">
+    <ClInclude Include="DirectionalLight.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
   </ItemGroup>

@@ -16,6 +16,7 @@ public:
 
 	// test 
 	static float alpha;
+	static float lightDir[3];
 private:
 	void Logic();
 
@@ -25,4 +26,5 @@ private:
 
 	static const char* current_BlendState;
 	const char* blend_state[2] = { "None", "Transparency"};
+	
 };

@@ -1,6 +1,7 @@
 #pragma once
-#include <vector>
 #include "Renderer.h"
+#include <vector>
+#include "Base.h"
 class World;
 
 class IGameObject
@@ -10,9 +11,10 @@ public:
 	virtual void Update()
 	{
 		m_World = XMMatrixTranslation(m_Position.x, m_Position.y, m_Position.z) *
-			XMMatrixRotationRollPitchYaw(m_Rotation.x, m_Rotation.y, m_Rotation.z) *
-			XMMatrixScaling(m_Scale.x, m_Scale.y, m_Scale.z);
+			      XMMatrixRotationRollPitchYaw(XMConvertToRadians(m_Rotation.x), XMConvertToRadians(m_Rotation.y), XMConvertToRadians(m_Rotation.z)) *
+			      XMMatrixScaling(m_Scale.x, m_Scale.y, m_Scale.z);
 	}
+
 	virtual void Render() = 0;
 
 	void SetPosition(XMFLOAT3 p)

@@ -41,6 +41,11 @@ XMMATRIX Camera::GetProjection() const
 	return m_Projection;
 }
 
+XMFLOAT3 Camera::GetPosition() const
+{
+	return m_Position;
+}
+
 void Camera::UpdateCamera()
 {
 	XMMATRIX rot = XMMatrixRotationRollPitchYaw(m_Rotation.x, m_Rotation.y, m_Rotation.z);

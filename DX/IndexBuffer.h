@@ -5,7 +5,7 @@
 class IndexBuffer
 {
 public:
-	IndexBuffer(UINT* indices, int count);
+	IndexBuffer(UINT* indices, int count, ID3D11Device* device, ID3D11DeviceContext* context);
 	~IndexBuffer();
 
 	inline ID3D11Buffer* GetBuffer() const { return m_Buffer; }
@@ -16,4 +16,6 @@ public:
 private:
 	int m_Count;
 	ID3D11Buffer* m_Buffer;
+	ID3D11Device* device;
+	ID3D11DeviceContext* context;
 };

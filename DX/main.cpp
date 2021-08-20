@@ -36,8 +36,8 @@ int main()
 	
 	world->Init();
 
-	std::shared_ptr<ConstantBuffer<PS_Object>> pixel_const = std::make_shared<ConstantBuffer<PS_Object>>();
-	pixel_const->Init(ShaderStage::PS, renderer->GetDevice(), renderer->GetContext());
+	Ref<ConstantBuffer<PS_PerFrame>> pixel_const = renderer->CreateConstantBuffer<PS_PerFrame>(ShaderStage::PS);
+	Ref<DirectionalLight> direction_light = renderer->CreateDirectionalLight();
 
 	MSG msg = { };
 	while (true)
@@ -49,9 +49,8 @@ int main()
 			if (msg.message == WM_QUIT) break;
 		}
 
-		PS_Object o;
-		o.alpha = ImGuiLayer::alpha;
-		pixel_const->SetData(o);
+		pixel_const->GetData().alpha = ImGuiLayer::alpha;
+		pixel_const->GetData().eyePos = renderer->GetCamera()->GetPosition();
 		pixel_const->Bind(0);
 		///////////////     UPDATE      /////////////////////////
 		world->Update();
@@ -61,6 +60,9 @@ int main()
 
 		//////////////      Render      ////////////////////////
 		renderer->BeginFrame();
+
+		direction_light->SetDirection(XMFLOAT3(ImGuiLayer::lightDir));
+		direction_light->Bind(1);
 
 		world->Render();
 		

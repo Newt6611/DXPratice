@@ -18,6 +18,8 @@
 #include "BlendState.h"
 #include "DepthStencilState.h"
 #include "Model.h"
+#include "Base.h"
+#include "DirectionalLight.h"
 
 class Renderer 
 {
@@ -49,15 +51,32 @@ public:
 
 	RasterzierState* SetRasterzierState(RasterzierStateType type);
 
-	std::shared_ptr<VertexBuffer> CreateVertexBuffer(VertexData* data, int count);
-	std::shared_ptr<IndexBuffer> CreateIndexBuffer(UINT* indices, int count);
-	
-	std::shared_ptr<Shader> CreateShader(LPCWSTR vertexFilePath, LPCWSTR pixelFilePath);
-	
-	std::shared_ptr<Model> CreateModel(std::string filePath);
 
+	// Buffers
+	Ref<VertexBuffer> CreateVertexBuffer(VertexData* data, int count);
+	Ref<IndexBuffer> CreateIndexBuffer(UINT* indices, int count);
+	
+	template<typename T>
+	Ref<ConstantBuffer<T>> CreateConstantBuffer(ShaderStage stage)
+	{
+		Ref<ConstantBuffer<T>> constant = std::make_shared<ConstantBuffer<T>>(stage, m_Device, m_Context);
+		return constant;
+	}
+	
+	// Shader
+	Ref<Shader> CreateShader(LPCWSTR vertexFilePath, LPCWSTR pixelFilePath);
+	
+
+	// Model
+	Ref<Model> CreateModel(std::string filePath);
+	
+	// Textures
 	std::shared_ptr<Texture> CreateTexture(std::string filePath);
-	std::shared_ptr<Texture> CreateTexture(std::string filePath, TextureType type);
+	Ref<Texture> CreateTexture(std::string filePath, TextureType type);
+
+	// Lights
+	Ref<DirectionalLight> CreateDirectionalLight();
+	Ref<DirectionalLight> CreateDirectionalLight(XMFLOAT3 direction, XMFLOAT4 color);
 
 	void BeginFrame();
 	void EndFrame();
