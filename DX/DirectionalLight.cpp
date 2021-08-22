@@ -1,38 +1,52 @@
 #include "DirectionalLight.h"
 #include "Renderer.h"
+#include "World.h"
 
-DirectionalLight::DirectionalLight(ID3D11Device* device, ID3D11DeviceContext* context)
+DirectionalLight::DirectionalLight(World* world, ID3D11Device* device, ID3D11DeviceContext* context)
 	: device(device), context(context)
 {
+	world->PushGameObjetToWorld(this);
 	m_ConstantBuffer = Renderer::Get()->CreateConstantBuffer<Directional_Light>(ShaderStage::PS);
-	m_Color = XMFLOAT4(1, 1, 1, 1);
-	m_Ambient = XMFLOAT3(1, 1, 1);
-	m_Diffuse = XMFLOAT3(1, 1, 1);
-	m_Specular = XMFLOAT3(1, 1, 1);
-	m_Direction = XMFLOAT3(0, 0, -1);
+	m_Color = XMFLOAT3(1, 1, 1);
+	m_Rotation = XMFLOAT3(0, 0, -1);
+	Init();
 }
 
-DirectionalLight::DirectionalLight(XMFLOAT4 color, XMFLOAT3 direction, ID3D11Device* device, ID3D11DeviceContext* context)
+DirectionalLight::DirectionalLight(World* world, XMFLOAT3 color, XMFLOAT3 direction, ID3D11Device* device, ID3D11DeviceContext* context)
 {
+	world->PushGameObjetToWorld(this);
 	m_ConstantBuffer = Renderer::Get()->CreateConstantBuffer<Directional_Light>(ShaderStage::PS);
 	m_Color = color;
-	m_Ambient = XMFLOAT3(1, 1, 1);
-	m_Diffuse = XMFLOAT3(1, 1, 1);
-	m_Specular = XMFLOAT3(1, 1, 1);
-	m_Direction = direction;
-}
-
-void DirectionalLight::Bind(unsigned int slot)
-{
-	m_ConstantBuffer->GetData().Direction = m_Direction;
-	m_ConstantBuffer->GetData().Color = m_Color;
-	m_ConstantBuffer->GetData().Ambient = m_Ambient;
-	m_ConstantBuffer->GetData().Specular = m_Specular;
-	m_ConstantBuffer->GetData().Diffuse = m_Diffuse;
-	m_ConstantBuffer->Bind(slot);
+	m_Rotation = direction;
+	Init();
 }
 
 void DirectionalLight::SetDirection(XMFLOAT3 r)
 {
-	m_Direction = r;
+	m_Rotation = r;
+}
+
+void DirectionalLight::Init()
+{
+	m_Name = "Directional Light";
+	m_Position = XMFLOAT3(1, 1, 1);
+	m_Scale = XMFLOAT3(1, 1, 1);
+	m_Ambient = XMFLOAT3(1, 1, 1);
+	m_Diffuse = XMFLOAT3(1, 1, 1);
+	m_Specular = XMFLOAT3(1, 1, 1);
+}
+
+void DirectionalLight::Update()
+{
+	IGameObject::Update();
+}
+
+void DirectionalLight::Render(Camera* camera)
+{
+	m_ConstantBuffer->GetData().Direction = m_Rotation;
+	m_ConstantBuffer->GetData().Color = XMFLOAT4(m_Color.x, m_Color.y, m_Color.z, 1);
+	m_ConstantBuffer->GetData().Ambient = m_Ambient;
+	m_ConstantBuffer->GetData().Specular = m_Specular;
+	m_ConstantBuffer->GetData().Diffuse = m_Diffuse;
+	m_ConstantBuffer->Bind(0);
 }

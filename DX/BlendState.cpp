@@ -1,8 +1,5 @@
 #include "BlendState.h"
 #include "Renderer.h"
-#include "ImGuiLayer.h"
-
-
 
 BlendState::BlendState()
 {
@@ -43,7 +40,7 @@ BlendState::BlendState()
 	}
 
 
-	SetBlendState(BlendStateType::None);
+	SetBlendState(BlendStateType::Transparency);
 }
 
 BlendState::~BlendState()

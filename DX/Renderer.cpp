@@ -1,10 +1,13 @@
 
 #include "Renderer.h"
+#include "World.h"
+#include "DirectionalLight.h"
 
 Renderer* Renderer::m_Instance;
 
-void Renderer::Init()
+void Renderer::Init(World* world)
 {
+	world = world;
 	InitD3D11();
 	InitDepthStencilState();
 	InitRenderTargetView();
@@ -124,7 +127,11 @@ Ref<Model> Renderer::CreateModel(std::string filePath)
 
 Ref<Texture> Renderer::CreateTexture(std::string filePath)
 {
+	if (m_LoadedTextureCache.find(filePath) != m_LoadedTextureCache.end())
+		return m_LoadedTextureCache[filePath];
+
 	Ref<Texture> texture = std::make_shared<Texture>(filePath);
+	m_LoadedTextureCache[filePath] = texture;
 	return texture;
 }
 
@@ -136,18 +143,33 @@ Ref<Texture> Renderer::CreateTexture(std::string filePath, TextureType type)
 
 Ref<DirectionalLight> Renderer::CreateDirectionalLight()
 {
-	Ref<DirectionalLight> light = std::make_shared<DirectionalLight>(m_Device, m_Context);
+	Ref<DirectionalLight> light = std::make_shared<DirectionalLight>(world, m_Device, m_Context);
 	return light;
 }
 
-Ref<DirectionalLight> Renderer::CreateDirectionalLight(XMFLOAT3 direction, XMFLOAT4 color)
+Ref<DirectionalLight> Renderer::CreateDirectionalLight(XMFLOAT3 direction, XMFLOAT3 color)
 {
-	Ref<DirectionalLight> light = std::make_shared<DirectionalLight>(color, direction, m_Device, m_Context);
+	Ref<DirectionalLight> light = std::make_shared<DirectionalLight>(world, color, direction, m_Device, m_Context);
 	return light;
 }
 
 
 
+
+void Renderer::Update()
+{
+	
+	if (wire_frame && m_RasterizerState->GetType() == RasterzierStateType::Solid)
+		m_RasterizerState->SetState(RasterzierStateType::WireFrame);
+	else if (!wire_frame && m_RasterizerState->GetType() == RasterzierStateType::WireFrame)
+		m_RasterizerState->SetState(RasterzierStateType::Solid);
+
+
+	if (transparency && m_BlendState->GetType() == BlendStateType::None)
+		m_BlendState->SetBlendState(BlendStateType::Transparency);
+	else if (!transparency && m_BlendState->GetType() == BlendStateType::Transparency)
+		m_BlendState->SetBlendState(BlendStateType::None);
+}
 
 void Renderer::BeginFrame()
 {

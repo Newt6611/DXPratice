@@ -19,7 +19,10 @@
 #include "DepthStencilState.h"
 #include "Model.h"
 #include "Base.h"
-#include "DirectionalLight.h"
+
+class DirectionalLight;
+class Editor;
+class World;
 
 class Renderer 
 {
@@ -33,7 +36,7 @@ public:
 	Renderer(const Renderer &r) = delete;
 	void operator=(Renderer &r) = delete;
 
-	void Init();
+	void Init(World* world);
 
 	~Renderer();
 
@@ -71,13 +74,15 @@ public:
 	Ref<Model> CreateModel(std::string filePath);
 	
 	// Textures
-	std::shared_ptr<Texture> CreateTexture(std::string filePath);
+	Ref<Texture> CreateTexture(std::string filePath);
 	Ref<Texture> CreateTexture(std::string filePath, TextureType type);
 
 	// Lights
 	Ref<DirectionalLight> CreateDirectionalLight();
-	Ref<DirectionalLight> CreateDirectionalLight(XMFLOAT3 direction, XMFLOAT4 color);
+	Ref<DirectionalLight> CreateDirectionalLight(XMFLOAT3 direction, XMFLOAT3 color);
 
+
+	void Update(); // For Editor Logic
 	void BeginFrame();
 	void EndFrame();
 
@@ -95,6 +100,7 @@ private:
 	void InitCamera();
 
 private:
+	World* world;
 	static Renderer* m_Instance;
 	ID3D11Device* m_Device;
 	ID3D11DeviceContext* m_Context;
@@ -108,5 +114,11 @@ private:
 
 	Camera* m_Camera;
 
-	std::unordered_map<std::string, std::shared_ptr<Model>> m_LoadedModelCache;
+	std::unordered_map<std::string, Ref<Model>> m_LoadedModelCache;
+	std::unordered_map<std::string, Ref<Texture>> m_LoadedTextureCache;
+
+	// For Editor
+	friend class Editor;
+	bool wire_frame = false;
+	bool transparency = true;
 };

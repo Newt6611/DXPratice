@@ -11,12 +11,11 @@ public:
 	virtual ~NanoPlayer();
 	void Init();
 	void Update();
-	void Render();
+	void Render(Camera* camera);
 
 private:
 	float r;
 
-	Camera* camera;
 	Ref<Model> m_Model;
 	Ref<Shader> m_Shader;
 	Ref<ConstantBuffer<VS_Object>> m_ConstantBuffer;

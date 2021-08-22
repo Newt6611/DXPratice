@@ -3,6 +3,8 @@
 #include <d3d11.h>
 #include "Log.h"
 
+class Editor;
+
 class RenderTargetView 
 {
 public:
@@ -20,4 +22,6 @@ private:
 	ID3D11RenderTargetView* m_RenderTargetView;
 
 	float m_ClearColor[4] = { 0.5f, 0.2f, 0.2f, 1.f };
+
+	friend class Editor;
 };

@@ -36,9 +36,6 @@
     <ClCompile Include="RasterzierState.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
-    <ClCompile Include="Log.cpp">
-      <Filter>來源檔案</Filter>
-    </ClCompile>
     <ClCompile Include="Texture.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
@@ -52,9 +49,6 @@
       <Filter>來源檔案</Filter>
     </ClCompile>
     <ClCompile Include="BlendState.cpp">
-      <Filter>來源檔案</Filter>
-    </ClCompile>
-    <ClCompile Include="ImGuiLayer.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
     <ClCompile Include="ThirdParty\ImGui\imgui.cpp">
@@ -94,6 +88,15 @@
       <Filter>來源檔案</Filter>
     </ClCompile>
     <ClCompile Include="DirectionalLight.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="Editor\Editor.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="Log.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
   </ItemGroup>
@@ -710,9 +713,6 @@
     <ClInclude Include="ThirdParty\spdlog\include\spdlog\version.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
-    <ClInclude Include="ImGuiLayer.h">
-      <Filter>標頭檔</Filter>
-    </ClInclude>
     <ClInclude Include="ThirdParty\ImGui\imconfig.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
@@ -989,6 +989,12 @@
     <ClInclude Include="DirectionalLight.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
+    <ClInclude Include="Editor\Editor.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shaders\Vertex.hlsl" />
@@ -1085,6 +1091,9 @@
       <Filter>資源檔</Filter>
     </Image>
     <Image Include="Models\nanosuit\leg_showroom_spec.png">
+      <Filter>資源檔</Filter>
+    </Image>
+    <Image Include="Textures\Default.png">
       <Filter>資源檔</Filter>
     </Image>
   </ItemGroup>

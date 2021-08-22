@@ -14,13 +14,13 @@ struct VS_Object
 	XMMATRIX World = XMMatrixIdentity();
 	XMMATRIX View = XMMatrixIdentity();
 	XMMATRIX Projection = XMMatrixIdentity();
-	XMFLOAT3 color = XMFLOAT3(1, 1, 1);
+	XMFLOAT4 color = XMFLOAT4(1, 1, 1, 1);
 };
 
 struct PS_PerFrame
 {
-	float alpha = 1;
 	XMFLOAT3 eyePos;
+	float pad;
 };
 
 
