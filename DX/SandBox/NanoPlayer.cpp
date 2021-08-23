@@ -14,8 +14,8 @@ NanoPlayer::~NanoPlayer()
 void NanoPlayer::Init()
 {
 	m_Shader = Renderer::Get()->CreateShader(L"Shaders/Vertex.hlsl", L"Shaders/Pixel.hlsl");
-	//m_Model = Renderer::Get()->CreateModel("Models/nanosuit/nanosuit.obj");
-	m_Model = Renderer::Get()->CreateModel("Models/Amoungus/amoungus.obj");
+	m_Model = Renderer::Get()->CreateModel("Models/nanosuit/nanosuit.obj");
+	//m_Model = Renderer::Get()->CreateModel("Models/Amoungus/amoungus.obj");
 	
 	m_ConstantBuffer = Renderer::Get()->CreateConstantBuffer<VS_Object>(ShaderStage::VS);
 

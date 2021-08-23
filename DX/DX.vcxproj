@@ -29,7 +29,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -164,6 +164,7 @@
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ThirdParty\ImGui\imgui.cpp" />
+    <ClCompile Include="ThirdParty\ImGui\ImGuizmo.cpp" />
     <ClCompile Include="ThirdParty\ImGui\imgui_draw.cpp" />
     <ClCompile Include="ThirdParty\ImGui\imgui_impl_dx11.cpp" />
     <ClCompile Include="ThirdParty\ImGui\imgui_impl_win32.cpp" />
@@ -273,6 +274,7 @@
     <ClInclude Include="ThirdParty\assimp\ZipArchiveIOSystem.h" />
     <ClInclude Include="ThirdParty\ImGui\imconfig.h" />
     <ClInclude Include="ThirdParty\ImGui\imgui.h" />
+    <ClInclude Include="ThirdParty\ImGui\ImGuizmo.h" />
     <ClInclude Include="ThirdParty\ImGui\imgui_impl_dx11.h" />
     <ClInclude Include="ThirdParty\ImGui\imgui_impl_win32.h" />
     <ClInclude Include="ThirdParty\ImGui\imgui_internal.h" />

@@ -99,6 +99,9 @@
     <ClCompile Include="Log.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
+    <ClCompile Include="ThirdParty\ImGui\ImGuizmo.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Display.h">
@@ -993,6 +996,9 @@
       <Filter>標頭檔</Filter>
     </ClInclude>
     <ClInclude Include="Light.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\ImGui\ImGuizmo.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
   </ItemGroup>

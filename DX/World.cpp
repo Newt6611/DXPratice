@@ -97,8 +97,11 @@ void World::Init()
 	for (unsigned int i = 0; i < m_GameObjects.size(); i++)
 		m_GameObjects[i]->Init();
 
-	playertwo->SetPosition(XMFLOAT3(2, 0, 0));
-	playertwo->SetScale(XMFLOAT3(2, 2, 2));
+	nanoPlayer->SetPosition(XMFLOAT3(-2, -4, 0));
+	nanoPlayer->SetScale(XMFLOAT3(0.5, 0.5, 0.5));
+
+	playertwo->SetPosition(XMFLOAT3(2, -4, 0));
+	playertwo->SetScale(XMFLOAT3(0.5, 0.5, 0.5));
 	playertwo->SetName("2");
 }
 

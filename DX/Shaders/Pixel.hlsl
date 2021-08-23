@@ -22,16 +22,6 @@ cbuffer PerFrame : register(b0)
 	float3 eyePos;
 }
 
-// for test
-//cbuffer DirectionalLight : register(b1)
-//{
-//	float4 Color;
-//	float3 Ambient;
-//	float3 Diffuse;
-//	float3 Specular;
-//	float3 Direction;
-//}
-
 SamplerState samplerState  : SAMPLER : register(s0);
 
 Texture2D diffuseTexture   : TEXTURE : register(t0);
@@ -43,7 +33,7 @@ Texture2D normalTexture    : TEXTURE : register(t2);
 float4 CaculateAmbient()
 {
 	float ambientStrenth = 0.2f;
-	return ambientStrenth * d_Light.color;
+	return ambientStrenth * d_Light.color * float4(d_Light.ambient, 1);
 }
 
 float4 CaculateDiffuse(float3 normal, float2 texCoord)
@@ -58,7 +48,7 @@ float4 CaculateSpecular(float3 fragPos, float3 normal, float2 texCoord)
 	float3 refDir = reflect(normalize(d_Light.direction), normal);
 	float spec = pow(max(dot(eyeDir, refDir), 0), 64);
 
-	return spec * specularTexture.Sample(samplerState, texCoord) * d_Light.color;
+	return spec * specularTexture.Sample(samplerState, texCoord) * float4(d_Light.specular, 1);
 }
 
 float4 main(PS_IN ps_in) : SV_TARGET

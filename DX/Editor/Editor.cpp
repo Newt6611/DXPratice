@@ -3,6 +3,7 @@
 #include "../Display.h"
 #include "../Renderer.h"
 #include "../DirectionalLight.h"
+#include "ImGuizmo.h"
 
 Editor::Editor()
 {
@@ -44,7 +45,6 @@ void Editor::OnImGuiRender()
 	}
 	ImGui::End();
 
-
 	ImGui::Begin("Component");
 	DrawComponent();
 	ImGui::End();
@@ -53,6 +53,31 @@ void Editor::OnImGuiRender()
 	DrawSettingAndInfo();
 	ImGui::End();
 
+	/*
+	ImGui::Begin("D");
+	if (m_SeletedObj)
+	{
+		Camera* camera = Renderer::Get()->GetCamera();
+		XMFLOAT4X4 view;
+		XMFLOAT4X4 projection;
+		XMFLOAT4X4 world;
+		XMStoreFloat4x4(&view, camera->GetView());
+		XMStoreFloat4x4(&projection, camera->GetProjection());
+		XMStoreFloat4x4(&world, m_SeletedObj->m_World);
+
+		ImGuizmo::Enable(true);
+		ImGuizmo::SetOrthographic(false);
+		ImGuizmo::SetDrawlist();
+		ImGuiIO& io = ImGui::GetIO();
+		//ImGuizmo::SetRect(200, 200, Display::Get()->GetWidth(), Display::Get()->GetHeight());
+		ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, ImGui::GetWindowWidth(), ImGui::GetWindowHeight());
+		ImGuizmo::DrawCubes(*view.m, *projection.m, *world.m, 1);
+		ImGuizmo::Manipulate(*view.m, *projection.m, ImGuizmo::OPERATION::TRANSLATE, ImGuizmo::MODE::LOCAL, *world.m);
+	}
+	ImGui::End();
+	*/
+
+
 	GUIEnd();
 }
 
@@ -60,43 +85,29 @@ void Editor::DrawGameObjectNode(IGameObject* obj)
 {
 	if (ImGui::Selectable(obj->m_Name.c_str(), obj->selected) && !obj->selected)
 	{
-		if(m_SeletedObj != nullptr)
+		if (m_SeletedObj != nullptr)
 			m_SeletedObj->selected = false;
 
 		m_SeletedObj = obj;
 		obj->selected = true;
-	}
+	}	
 }
 
 void Editor::DrawComponent()
 {
-	
 	if (m_SeletedObj)
 	{
 		// Postition
-		float* temp[3];
-		temp[0] = &m_SeletedObj->m_Position.x;
-		temp[1] = &m_SeletedObj->m_Position.y;
-		temp[2] = &m_SeletedObj->m_Position.z;
-		ImGui::DragFloat3("Position", *temp, 0.1f);
+		ImGui::DragFloat3("Position", &m_SeletedObj->m_Position.x, 0.1f);
 
 		// Rotation
-		temp[0] = &m_SeletedObj->m_Rotation.x;
-		temp[1] = &m_SeletedObj->m_Rotation.y;
-		temp[2] = &m_SeletedObj->m_Rotation.z;
-		ImGui::DragFloat3("Rotation", *temp, 0.1f);
+		ImGui::DragFloat3("Rotation", &m_SeletedObj->m_Rotation.x, 0.1f);
 
 		// Rotation
-		temp[0] = &m_SeletedObj->m_Scale.x;
-		temp[1] = &m_SeletedObj->m_Scale.y;
-		temp[2] = &m_SeletedObj->m_Scale.z;
-		ImGui::DragFloat3("Scale", *temp, 0.1f);
+		ImGui::DragFloat3("Scale", &m_SeletedObj->m_Scale.x, 0.1f);
 
 		// Color
-		temp[0] = &m_SeletedObj->m_Color.x;
-		temp[1] = &m_SeletedObj->m_Color.y;
-		temp[2] = &m_SeletedObj->m_Color.z;
-		ImGui::ColorPicker3("Color", *temp);
+		ImGui::ColorEdit3("Color", &m_SeletedObj->m_Color.x);
 
 		// Alpha
 		ImGui::DragFloat("Alpha", &m_SeletedObj->alpha, 0.01f, 0, 1);
@@ -108,22 +119,16 @@ void Editor::DrawComponent()
 		if (d_Light)
 		{
 			ImGui::Text("Direcional Light");
-			temp[0] = &d_Light->m_Ambient.x;
-			temp[1] = &d_Light->m_Ambient.y;
-			temp[2] = &d_Light->m_Ambient.z;
-			ImGui::DragFloat3("Ambient", *temp, 0.01f, 0.f, 1.f);
+			ImGui::ColorEdit3("Ambient", &d_Light->m_Ambient.x);
 
-			temp[0] = &d_Light->m_Diffuse.x;
-			temp[1] = &d_Light->m_Diffuse.y;
-			temp[2] = &d_Light->m_Diffuse.z;
-			ImGui::DragFloat3("Diffuse", *temp, 0.01f, 0.f, 1.f);
+			ImGui::ColorEdit3("Diffuse", &d_Light->m_Diffuse.x);
 
-			temp[0] = &d_Light->m_Specular.x;
-			temp[1] = &d_Light->m_Specular.y;
-			temp[2] = &d_Light->m_Specular.z;
-			ImGui::DragFloat3("Specular", *temp, 0.01f, 0.f, 1.f);
+			ImGui::ColorEdit3("Specular", &d_Light->m_Specular.x);
 		}
 	}
+
+	
+	
 }
 
 void Editor::DrawSettingAndInfo()
@@ -141,6 +146,7 @@ void Editor::GUIBegin()
 	ImGui_ImplDX11_NewFrame();
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
+	ImGuizmo::BeginFrame();
 }
 
 void Editor::GUIEnd()
