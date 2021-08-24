@@ -3,6 +3,7 @@
 #include <d3d11.h>
 #include <string>
 #include <WICTextureLoader.h>
+#include <DDSTextureLoader.h>
 
 enum TextureType
 {

@@ -31,10 +31,7 @@ World::World()
 	if (result != S_OK)
 		LogError("Erro CoInit !");
 
-
-
 	pixel_const = renderer->CreateConstantBuffer<PS_PerFrame>(ShaderStage::PS);
-	//direction_light = renderer->CreateDirectionalLight();
 	direction_light = new DirectionalLight(this, renderer->GetDevice(), renderer->GetContext());
 
 	nanoPlayer = new NanoPlayer(this);
@@ -102,6 +99,7 @@ void World::Init()
 
 	amoungus->SetPosition(XMFLOAT3(2, 0, 0));
 	amoungus->SetScale(XMFLOAT3(1, 1, 1));
+	amoungus->SetName("amoungus");
 }
 
 void World::Update()

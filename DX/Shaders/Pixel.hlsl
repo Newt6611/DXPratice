@@ -45,7 +45,7 @@ float4 CaculateDiffuse(float3 normal, float2 texCoord)
 float4 CaculateSpecular(float3 fragPos, float3 normal, float2 texCoord)
 {
 	float3 eyeDir = normalize(eyePos - fragPos);
-	float3 refDir = reflect(normalize(d_Light.direction), normal);
+	float3 refDir = reflect(normal, normalize(d_Light.direction));
 	float spec = pow(max(dot(eyeDir, refDir), 0), 64);
 
 	return spec * specularTexture.Sample(samplerState, texCoord) * float4(d_Light.specular, 1);

@@ -23,7 +23,8 @@ Texture::Texture(std::string filePath, TextureType type)
 
 Texture::~Texture()
 {
-	m_Texture->Release();
+	if(m_Texture != nullptr)
+		m_Texture->Release();
 }
 
 void Texture::Bind(unsigned int slot)

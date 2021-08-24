@@ -124,7 +124,7 @@ Mesh Model::ProccessMesh(const aiScene* scene, aiMesh* mesh)
 	textures.insert(textures.end(), specularTextures.begin(), specularTextures.end());
 
 	// normal
-	std::vector<std::shared_ptr<Texture>> normalTextures = LoadMaterialTexture(material, aiTextureType_NORMALS, TextureType::Normal);
+	std::vector<std::shared_ptr<Texture>> normalTextures = LoadMaterialTexture(material, aiTextureType_HEIGHT, TextureType::Normal);
 	textures.insert(textures.end(), normalTextures.begin(), normalTextures.end());
 
 	return Mesh(vertices, indices, textures);

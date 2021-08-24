@@ -33,25 +33,16 @@ void Mesh::Draw()
 		switch (textures[i]->GetType())
 		{
 		case TextureType::Diffuse:
-			if (!d_bound)
-			{
-				textures[i]->Bind(0);
-				d_bound = true;
-			}
+			textures[i]->Bind(0);
+			d_bound = true;
 			break;
 		case TextureType::Specular:
-			if (!s_bound)
-			{
-				textures[i]->Bind(1);
-				s_bound = true;
-			}
+			textures[i]->Bind(1);
+			s_bound = true;
 			break;
 		case TextureType::Normal:
-			if (!n_bound)
-			{
-				textures[i]->Bind(2);
-				n_bound = true;
-			}
+			textures[i]->Bind(2);
+			n_bound = true;
 			break;
 		}
 	}

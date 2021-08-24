@@ -36,11 +36,12 @@ PS_IN main(VS_IN vs_in)
 	ps_in.texcoord = vs_in.texcoord;
 	ps_in.color = color;
 
-	float3 T = normalize(mul(vs_in.tangent, world));
-	float3 B = normalize(mul(vs_in.bitangent, world));
 	float3 N = normalize(mul(vs_in.normal, world));
-	ps_in.TBN = float3x3(T, B, N);
+	float3 T = normalize(mul(vs_in.tangent, world));
+	T = normalize(T - dot(T, N) * N);
+	float3 B = cross(T, N);
 
+	ps_in.TBN = float3x3(N, B, T);
 
 	return ps_in;
 }

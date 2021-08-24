@@ -2,6 +2,7 @@
 #include "../SandBox/NanoPlayer.h"
 #include "../SandBox/Amoungus.h"
 #include "Base.h"
+class Texture;
 class Renderer;
 class Display;
 class IGameObject;
@@ -10,7 +11,7 @@ class DirectionalLight;
 
 class World
 {
-	
+
 public:
 	static World* Create();
 	World();
@@ -29,9 +30,9 @@ private:
 	Renderer* renderer = nullptr;
 	Editor* editor = nullptr;
 
+	//Ref<Texture> t;
 
 	Ref<ConstantBuffer<PS_PerFrame>> pixel_const;
-	//Ref<DirectionalLight> direction_light;
 	DirectionalLight* direction_light;
 
 	std::vector<IGameObject*> m_GameObjects;
