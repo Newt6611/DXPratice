@@ -8,7 +8,7 @@ DirectionalLight::DirectionalLight(World* world, ID3D11Device* device, ID3D11Dev
 	world->PushGameObjetToWorld(this);
 	m_ConstantBuffer = Renderer::Get()->CreateConstantBuffer<Directional_Light>(ShaderStage::PS);
 	m_Color = XMFLOAT3(1, 1, 1);
-	m_Rotation = XMFLOAT3(0, 0, -1);
+	m_Rotation = XMFLOAT3(0, 0, 1);
 	Init();
 }
 
@@ -44,7 +44,7 @@ void DirectionalLight::Update()
 void DirectionalLight::Render(Camera* camera)
 {
 	XMVector3Normalize(XMLoadFloat3(&m_Rotation));
-	m_ConstantBuffer->GetData().Direction = m_Rotation;
+	m_ConstantBuffer->GetData().Direction = XMFLOAT3(-m_Rotation.x, -m_Rotation.y, -m_Rotation.z);
 	m_ConstantBuffer->GetData().Color = XMFLOAT4(m_Color.x, m_Color.y, m_Color.z, 1);
 	m_ConstantBuffer->GetData().Ambient = m_Ambient;
 	m_ConstantBuffer->GetData().Specular = m_Specular;

@@ -40,9 +40,9 @@ void Amoungus::Render(Camera* camera)
 {
 	m_Shader->Bind();
 
-	m_ConstantBuffer->GetData().World = XMMatrixTranspose(m_World);
-	m_ConstantBuffer->GetData().View = XMMatrixTranspose(camera->GetView());
-	m_ConstantBuffer->GetData().Projection = XMMatrixTranspose(camera->GetProjection());
+	m_ConstantBuffer->GetData().World = m_World;
+	m_ConstantBuffer->GetData().View = camera->GetView();
+	m_ConstantBuffer->GetData().Projection = camera->GetProjection();
 	m_ConstantBuffer->GetData().color = XMFLOAT4(m_Color.x, m_Color.y, m_Color.z, alpha);
 	m_ConstantBuffer->Bind(0);
 

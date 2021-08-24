@@ -28,20 +28,20 @@ PS_IN main(VS_IN vs_in)
 {
 	PS_IN ps_in;
 
-	ps_in.position = mul(float4(vs_in.position, 1), world);
-	ps_in.position = mul(ps_in.position, view);
-	ps_in.position = mul(ps_in.position, projection);
+	ps_in.position = mul(world, float4(vs_in.position, 1));
+	ps_in.position = mul(view, ps_in.position);
+	ps_in.position = mul(projection, ps_in.position);
 
-	ps_in.fragPos = mul(float4(vs_in.position, 1), world);
+	ps_in.fragPos = mul(world, float4(vs_in.position, 1));
 	ps_in.texcoord = vs_in.texcoord;
 	ps_in.color = color;
 
-	float3 N = normalize(mul(vs_in.normal, world));
-	float3 T = normalize(mul(vs_in.tangent, world));
+	float3 N = normalize(mul(world, vs_in.normal));
+	float3 T = normalize(mul(world, vs_in.tangent));
 	T = normalize(T - dot(T, N) * N);
-	float3 B = cross(T, N);
+	float3 B = normalize(cross(N, T));
 
-	ps_in.TBN = float3x3(N, B, T);
+	ps_in.TBN = float3x3(T, B, N);
 
 	return ps_in;
 }

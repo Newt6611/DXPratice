@@ -26,13 +26,13 @@ PS_IN main(VS_IN vs_in)
 {
 	PS_IN ps_in;
 
-	ps_in.position = mul(float4(vs_in.position, 1), world);
-	ps_in.position = mul(ps_in.position, view);
-	ps_in.position = mul(ps_in.position, projection);
+	ps_in.position = mul(world, float4(vs_in.position, 1));
+	ps_in.position = mul(view, ps_in.position);
+	ps_in.position = mul(projection, ps_in.position);
 	
-	ps_in.fragPos = mul(float4(vs_in.position, 1), world);
+	ps_in.fragPos = mul(world, float4(vs_in.position, 1));
 	ps_in.texcoord = vs_in.texcoord;
-	ps_in.normal = normalize(mul(vs_in.normal, world));
+	ps_in.normal = normalize(mul(world, vs_in.normal));
 	ps_in.color = color;
 
 	return ps_in;
