@@ -38,7 +38,7 @@ World::World()
 	direction_light = new DirectionalLight(this, renderer->GetDevice(), renderer->GetContext());
 
 	nanoPlayer = new NanoPlayer(this);
-	playertwo = new NanoPlayer(this);
+	amoungus = new Amoungus(this);
 }
 
 World::~World()
@@ -100,9 +100,8 @@ void World::Init()
 	nanoPlayer->SetPosition(XMFLOAT3(-2, -4, 0));
 	nanoPlayer->SetScale(XMFLOAT3(0.5, 0.5, 0.5));
 
-	playertwo->SetPosition(XMFLOAT3(2, -4, 0));
-	playertwo->SetScale(XMFLOAT3(0.5, 0.5, 0.5));
-	playertwo->SetName("2");
+	amoungus->SetPosition(XMFLOAT3(2, 0, 0));
+	amoungus->SetScale(XMFLOAT3(1, 1, 1));
 }
 
 void World::Update()

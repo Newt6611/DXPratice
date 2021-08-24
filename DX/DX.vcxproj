@@ -155,6 +155,7 @@
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="RenderTargetView.cpp" />
     <ClCompile Include="SamplerState.cpp" />
+    <ClCompile Include="SandBox\Amoungus.cpp" />
     <ClCompile Include="SandBox\NanoPlayer.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Display.cpp" />
@@ -187,6 +188,7 @@
     <ClInclude Include="Model.h" />
     <ClInclude Include="RenderTargetView.h" />
     <ClInclude Include="SamplerState.h" />
+    <ClInclude Include="SandBox\Amoungus.h" />
     <ClInclude Include="SandBox\NanoPlayer.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Log.h" />

@@ -1,5 +1,6 @@
 #pragma once
 #include "../SandBox/NanoPlayer.h"
+#include "../SandBox/Amoungus.h"
 #include "Base.h"
 class Renderer;
 class Display;
@@ -36,7 +37,7 @@ private:
 	std::vector<IGameObject*> m_GameObjects;
 
 	NanoPlayer* nanoPlayer;
-	NanoPlayer* playertwo;
+	Amoungus* amoungus;
 
 	friend class Editor;
 };
