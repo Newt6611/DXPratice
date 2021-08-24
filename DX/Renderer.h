@@ -67,7 +67,7 @@ public:
 	}
 	
 	// Shader
-	Ref<Shader> CreateShader(LPCWSTR vertexFilePath, LPCWSTR pixelFilePath);
+	Ref<Shader> CreateShader(LPCWSTR vertexFilePath, LPCWSTR pixelFilePath, int type);
 	
 
 	// Model

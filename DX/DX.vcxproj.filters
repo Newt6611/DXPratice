@@ -1011,6 +1011,8 @@
   <ItemGroup>
     <FxCompile Include="Shaders\Vertex.hlsl" />
     <FxCompile Include="Shaders\Pixel.hlsl" />
+    <FxCompile Include="Shaders\NormalMappingPixel.hlsl" />
+    <FxCompile Include="Shaders\NormalMappingVertex.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -1043,6 +1045,7 @@
     </None>
     <None Include="Models\nanosuit\nanosuit.blend" />
     <None Include="Models\nanosuit\nanosuit.mtl" />
+    <None Include="Models\backpack\backpack.mtl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\wall.jpg">
@@ -1108,8 +1111,24 @@
     <Image Include="Textures\Default.png">
       <Filter>資源檔</Filter>
     </Image>
+    <Image Include="Models\backpack\ao.jpg">
+      <Filter>資源檔</Filter>
+    </Image>
+    <Image Include="Models\backpack\diffuse.jpg">
+      <Filter>資源檔</Filter>
+    </Image>
+    <Image Include="Models\backpack\normal.png">
+      <Filter>資源檔</Filter>
+    </Image>
+    <Image Include="Models\backpack\roughness.jpg">
+      <Filter>資源檔</Filter>
+    </Image>
+    <Image Include="Models\backpack\specular.jpg">
+      <Filter>資源檔</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Models\nanosuit\LICENSE.txt" />
+    <Text Include="Models\backpack\source_attribution.txt" />
   </ItemGroup>
 </Project>

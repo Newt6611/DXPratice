@@ -109,9 +109,9 @@ Ref<IndexBuffer> Renderer::CreateIndexBuffer(UINT* indices, int count)
 	return indexBuffer;
 }
 
-Ref<Shader> Renderer::CreateShader(LPCWSTR vertexFilePath, LPCWSTR pixelFilePath)
+Ref<Shader> Renderer::CreateShader(LPCWSTR vertexFilePath, LPCWSTR pixelFilePath, int type)
 {
-	Ref<Shader> shader = std::make_shared<Shader>(vertexFilePath, pixelFilePath);
+	Ref<Shader> shader = std::make_shared<Shader>(vertexFilePath, pixelFilePath, type);
 	return shader;
 }
 

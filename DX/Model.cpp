@@ -27,7 +27,7 @@ void Model::LoadMesh(std::string filePath)
 {
 	Assimp::Importer importer;
 	const aiScene* scene = importer.ReadFile(filePath, 
-		aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_ConvertToLeftHanded);
+		aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_ConvertToLeftHanded | aiProcess_CalcTangentSpace);
 
 	if (!scene || !scene->mRootNode)
 	{
@@ -85,14 +85,22 @@ Mesh Model::ProccessMesh(const aiScene* scene, aiMesh* mesh)
 			vertex_data.texcoord.x = temp.x;
 			vertex_data.texcoord.y = temp.y;
 		
-			// Todo Tangent BiTangent
+			temp.x = mesh->mTangents[i].x;
+			temp.y = mesh->mTangents[i].y;
+			temp.z = mesh->mTangents[i].z;
+			vertex_data.tangent = temp;
+
+			temp.x = mesh->mBitangents[i].x;
+			temp.y = mesh->mBitangents[i].y;
+			temp.z = mesh->mBitangents[i].z;
+			vertex_data.bitangent = temp;
 		}
 		else
 		{
 			vertex_data.texcoord.x = 0;
 			vertex_data.texcoord.y = 0;
 		}
-		
+
 		vertices.push_back(vertex_data);
 	}
 
@@ -116,7 +124,7 @@ Mesh Model::ProccessMesh(const aiScene* scene, aiMesh* mesh)
 	textures.insert(textures.end(), specularTextures.begin(), specularTextures.end());
 
 	// normal
-	std::vector<std::shared_ptr<Texture>> normalTextures = LoadMaterialTexture(material, aiTextureType_DIFFUSE, TextureType::Normal);
+	std::vector<std::shared_ptr<Texture>> normalTextures = LoadMaterialTexture(material, aiTextureType_NORMALS, TextureType::Normal);
 	textures.insert(textures.end(), normalTextures.begin(), normalTextures.end());
 
 	return Mesh(vertices, indices, textures);

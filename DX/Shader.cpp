@@ -1,7 +1,7 @@
 #include "Shader.h"
 #include "Renderer.h"
 
-Shader::Shader(LPCWSTR vertexFilePath, LPCWSTR pixelFilePath)
+Shader::Shader(LPCWSTR vertexFilePath, LPCWSTR pixelFilePath, int type = 0)
 {
 	ID3D11Device* device = Renderer::Get()->GetDevice();
 	ID3DBlob* vblob = nullptr;
@@ -26,7 +26,7 @@ Shader::Shader(LPCWSTR vertexFilePath, LPCWSTR pixelFilePath)
 		LogError("Failed When Creating Shaders !");
 	}
 
-	CreateInputLayout(vblob);
+	CreateInputLayout(vblob, type);
 
 	vblob->Release();
 	pblob->Release();
@@ -50,18 +50,39 @@ void Shader::Bind()
 	context->PSSetShader(m_PixelShader, 0, 0);
 }
 
-void Shader::CreateInputLayout(ID3DBlob* vs)
+void Shader::CreateInputLayout(ID3DBlob* vs, int type)
 {
-	D3D11_INPUT_ELEMENT_DESC input_desc[] = {
-		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0},
-		{ "NORMAL",   0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-	};
-
 	ID3D11Device* device = Renderer::Get()->GetDevice();
-	HRESULT result = device->CreateInputLayout(input_desc, 3, vs->GetBufferPointer(), vs->GetBufferSize(), &m_InputLayout);
-	if (result != S_OK)
+
+	if (type == 1)
 	{
-		LogError("Failed When Createing InputLayout !");
+		D3D11_INPUT_ELEMENT_DESC input_desc[] = {
+			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,    0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			{ "NORMAL",   0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		};
+
+		HRESULT result = device->CreateInputLayout(input_desc, 3, vs->GetBufferPointer(), vs->GetBufferSize(), &m_InputLayout);
+		if (result != S_OK)
+		{
+			LogError("Failed When Createing InputLayout !");
+		}
+	}
+
+	else if (type == 2)
+	{
+		D3D11_INPUT_ELEMENT_DESC input_desc[] = {
+			{ "POSITION",    0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			{ "TEXCOORD",    0, DXGI_FORMAT_R32G32_FLOAT,    0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			{ "NORMAL",      0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			{ "TANGENT",     0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			{ "BITANGENT",   0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		};
+
+		HRESULT result = device->CreateInputLayout(input_desc, 5, vs->GetBufferPointer(), vs->GetBufferSize(), &m_InputLayout);
+		if (result != S_OK)
+		{
+			LogError("Failed When Createing InputLayout !");
+		}
 	}
 }

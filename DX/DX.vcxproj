@@ -477,6 +477,14 @@
     <ClInclude Include="World.h" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="Shaders\NormalMappingPixel.hlsl">
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Shaders\NormalMappingVertex.hlsl">
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+    </FxCompile>
     <FxCompile Include="Shaders\Pixel.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
@@ -492,6 +500,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="imgui.ini" />
+    <None Include="Models\backpack\backpack.mtl" />
     <None Include="Models\nanosuit\nanosuit.blend" />
     <None Include="Models\nanosuit\nanosuit.mtl" />
     <None Include="packages.config" />
@@ -507,6 +516,11 @@
     <None Include="ThirdParty\spdlog\LICENSE" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Models\backpack\ao.jpg" />
+    <Image Include="Models\backpack\diffuse.jpg" />
+    <Image Include="Models\backpack\normal.png" />
+    <Image Include="Models\backpack\roughness.jpg" />
+    <Image Include="Models\backpack\specular.jpg" />
     <Image Include="Models\nanosuit\arm_dif.png" />
     <Image Include="Models\nanosuit\arm_showroom_ddn.png" />
     <Image Include="Models\nanosuit\arm_showroom_spec.png" />
@@ -530,6 +544,7 @@
     <Image Include="Textures\window.png" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Models\backpack\source_attribution.txt" />
     <Text Include="Models\nanosuit\LICENSE.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -9,6 +9,8 @@ struct VertexData {
 	XMFLOAT3 pos;
 	XMFLOAT2 texcoord;
 	XMFLOAT3 normal;
+	XMFLOAT3 tangent;
+	XMFLOAT3 bitangent;
 };
 
 class VertexBuffer 

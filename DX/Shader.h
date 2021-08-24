@@ -8,7 +8,7 @@
 class Shader
 {
 public:
-	Shader(LPCWSTR vertexFilePath, LPCWSTR pixelFilePath);
+	Shader(LPCWSTR vertexFilePath, LPCWSTR pixelFilePath, int type);
 	~Shader();
 
 	inline ID3D11VertexShader* GetVertexShader() const { return m_VertexShader; }
@@ -18,7 +18,7 @@ public:
 	void Bind();
 
 private:
-	void CreateInputLayout(ID3DBlob* vs);
+	void CreateInputLayout(ID3DBlob* vs, int type);
 
 private:
 	ID3D11VertexShader* m_VertexShader;

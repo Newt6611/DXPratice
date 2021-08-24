@@ -33,26 +33,43 @@ void Mesh::Draw()
 		switch (textures[i]->GetType())
 		{
 		case TextureType::Diffuse:
-			textures[i]->Bind(0);
-			d_bound = true;
+			if (!d_bound)
+			{
+				textures[i]->Bind(0);
+				d_bound = true;
+			}
 			break;
 		case TextureType::Specular:
-			textures[i]->Bind(1);
-			s_bound = true;
+			if (!s_bound)
+			{
+				textures[i]->Bind(1);
+				s_bound = true;
+			}
 			break;
 		case TextureType::Normal:
-			textures[i]->Bind(2);
-			n_bound = true;
+			if (!n_bound)
+			{
+				textures[i]->Bind(2);
+				n_bound = true;
+			}
 			break;
 		}
 	}
 
 	if (!d_bound)
+	{ 
 		this->m_DefaultTexture->Bind(0);
+	}
+	
 	if (!s_bound)
+	{
 		this->m_DefaultTexture->Bind(1);
+	}
+	
 	if (!n_bound)
+	{
 		this->m_DefaultTexture->Bind(2);
+	}
 
 	Command::DrawIndexed(m_IndexBuffer->GetCount());
 }
