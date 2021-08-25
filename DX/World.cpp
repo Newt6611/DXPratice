@@ -20,7 +20,7 @@ World::World()
 	display = Display::Get();
 	renderer = Renderer::Get();
 
-	display->Init(1280, 760);
+	display->Init(1280, 800);
 	renderer->Init(this);
 	
 	editor = new Editor();

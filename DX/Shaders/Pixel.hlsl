@@ -56,5 +56,4 @@ float4 main(PS_IN ps_in) : SV_TARGET
 	float4 t = CaculateAmbient() + CaculateDiffuse(ps_in.normal, ps_in.texcoord) + CaculateSpecular(ps_in.fragPos, ps_in.normal, ps_in.texcoord);
 	float3 result = float3(t.x, t.y, t.z);
 	return float4(result.x, result.y, result.z, 1) * ps_in.color;
-	//return float4(ps_in.normal, 1);
 }

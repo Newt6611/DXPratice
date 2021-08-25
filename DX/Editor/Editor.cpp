@@ -38,6 +38,11 @@ void Editor::OnImGuiRender()
 {
 	GUIBegin();
 
+	//ImGui::Begin("viewport");
+	//ImTextureID viewportTexture = Renderer::Get()->GetRenderTargetView()->m_TextureSRV;
+	//ImGui::Image(viewportTexture, ImVec2{960, 600});
+	//ImGui::End();
+
 	ImGui::Begin("Hierarchy");
 	for (int i = 0; i < current_World->m_GameObjects.size(); i++)
 	{
