@@ -1,6 +1,7 @@
 #pragma once
 #include "../SandBox/NanoPlayer.h"
 #include "../SandBox/Amoungus.h"
+#include "../SandBox/Sponza.h"
 #include "Base.h"
 class Texture;
 class Renderer;
@@ -39,6 +40,7 @@ private:
 
 	NanoPlayer* nanoPlayer;
 	Amoungus* amoungus;
+	Sponza* sponza;
 
 	friend class Editor;
 };

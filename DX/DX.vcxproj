@@ -157,6 +157,7 @@
     <ClCompile Include="SamplerState.cpp" />
     <ClCompile Include="SandBox\Amoungus.cpp" />
     <ClCompile Include="SandBox\NanoPlayer.cpp" />
+    <ClCompile Include="SandBox\Sponza.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Display.cpp" />
     <ClCompile Include="IndexBuffer.cpp" />
@@ -190,6 +191,7 @@
     <ClInclude Include="SamplerState.h" />
     <ClInclude Include="SandBox\Amoungus.h" />
     <ClInclude Include="SandBox\NanoPlayer.h" />
+    <ClInclude Include="SandBox\Sponza.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="Display.h" />

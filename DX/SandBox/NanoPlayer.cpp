@@ -20,9 +20,9 @@ void NanoPlayer::Init()
 
 	m_World = XMMatrixIdentity();
 
-	m_Position = XMFLOAT3(0, 0, 0);
+	m_Position = XMFLOAT3(-2, -4, 0);
 	m_Rotation = XMFLOAT3(0, 0, 0);
-	m_Scale = XMFLOAT3(1, 1, 1);
+	m_Scale = XMFLOAT3(0.5, 0.5, 0.5);
 	r = 0;
 }
 

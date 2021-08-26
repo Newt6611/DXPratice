@@ -86,7 +86,7 @@ void Renderer::InitBlendState()
 void Renderer::InitCamera()
 {
 	Display* display = Display::Get();
-	m_Camera = new Camera(display->GetWidth(), display->GetHeight(), 0.1f, 100.f);
+	m_Camera = new Camera(display->GetWidth(), display->GetHeight(), 0.1f, 300.f);
 }
 
 

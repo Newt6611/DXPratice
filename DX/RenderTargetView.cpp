@@ -26,8 +26,20 @@ RenderTargetView::RenderTargetView()
 	{
 		LogError("Failed When Creating RenderTargetView !");
 	}
+	
+	D3D11_SHADER_RESOURCE_VIEW_DESC shaderResourceViewDesc;
+	ZeroMemory(&shaderResourceViewDesc, sizeof(D3D11_SHADER_RESOURCE_VIEW_DESC));
+	shaderResourceViewDesc.Format = backbuffer_desc.Format;
+	shaderResourceViewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+	shaderResourceViewDesc.Texture2D.MostDetailedMip = 0;
+	shaderResourceViewDesc.Texture2D.MipLevels = 1;
 
-
+	// Create the shader resource view.
+	//result = device->CreateShaderResourceView(m_Texture, &shaderResourceViewDesc, &m_TextureSRV);
+	//if (result != S_OK)
+	//	LogError("Faied When Creating RTV SRV !");
+	
+	
 	//InitTextureSRV();
 }
 
@@ -61,6 +73,7 @@ void RenderTargetView::InitTextureSRV()
 {
 	ID3D11Device* device = Renderer::Get()->GetDevice();
 	HRESULT result;
+	ID3D11Texture2D* backbuffer;
 
 	D3D11_TEXTURE2D_DESC textureDesc;
 	ZeroMemory(&textureDesc, sizeof(textureDesc));
@@ -76,7 +89,7 @@ void RenderTargetView::InitTextureSRV()
 	textureDesc.CPUAccessFlags = 0;
 	textureDesc.MiscFlags = 0;
 
-	result = device->CreateTexture2D(&textureDesc, NULL, &m_Texture);
+	result = device->CreateTexture2D(&textureDesc, NULL, &backbuffer);
 	if (result != S_OK)
 		LogError("Faied When Creating RTV texture !");
 
@@ -85,18 +98,19 @@ void RenderTargetView::InitTextureSRV()
 	renderTargetViewDesc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
 	renderTargetViewDesc.Texture2D.MipSlice = 0;
 
-	result = device->CreateRenderTargetView(m_Texture, &renderTargetViewDesc, &m_SecondRTV);
+	result = device->CreateRenderTargetView(backbuffer, &renderTargetViewDesc, &m_RenderTargetView);
 	if (result != S_OK)
 		LogError("Faied When Creating RTV !");
 
 	D3D11_SHADER_RESOURCE_VIEW_DESC shaderResourceViewDesc;
+	ZeroMemory(&shaderResourceViewDesc, sizeof(D3D11_SHADER_RESOURCE_VIEW_DESC));
 	shaderResourceViewDesc.Format = textureDesc.Format;
 	shaderResourceViewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
 	shaderResourceViewDesc.Texture2D.MostDetailedMip = 0;
 	shaderResourceViewDesc.Texture2D.MipLevels = 1;
 
 	// Create the shader resource view.
-	result = device->CreateShaderResourceView(m_Texture, &shaderResourceViewDesc, &m_TextureSRV);
+	result = device->CreateShaderResourceView(backbuffer, &shaderResourceViewDesc, &m_TextureSRV);
 	if (result != S_OK)
 		LogError("Faied When Creating RTV SRV !");
 

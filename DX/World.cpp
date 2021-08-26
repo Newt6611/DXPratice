@@ -36,6 +36,7 @@ World::World()
 
 	nanoPlayer = new NanoPlayer(this);
 	amoungus = new Amoungus(this);
+	sponza = new Sponza(this);
 }
 
 World::~World()
@@ -94,12 +95,6 @@ void World::Init()
 	for (unsigned int i = 0; i < m_GameObjects.size(); i++)
 		m_GameObjects[i]->Init();
 
-	nanoPlayer->SetPosition(XMFLOAT3(-2, -4, 0));
-	nanoPlayer->SetScale(XMFLOAT3(0.5, 0.5, 0.5));
-
-	amoungus->SetPosition(XMFLOAT3(2, 0, 0));
-	amoungus->SetScale(XMFLOAT3(1, 1, 1));
-	amoungus->SetName("amoungus");
 }
 
 void World::Update()

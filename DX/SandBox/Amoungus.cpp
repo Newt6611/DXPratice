@@ -20,7 +20,7 @@ void Amoungus::Init()
 
 	m_World = XMMatrixIdentity();
 
-	m_Position = XMFLOAT3(0, 0, 0);
+	m_Position = XMFLOAT3(2, 0, 0);
 	m_Rotation = XMFLOAT3(0, 0, 0);
 	m_Scale = XMFLOAT3(1, 1, 1);
 	r = 0;

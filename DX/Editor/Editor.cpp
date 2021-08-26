@@ -39,7 +39,7 @@ void Editor::OnImGuiRender()
 	GUIBegin();
 
 	//ImGui::Begin("viewport");
-	//ImTextureID viewportTexture = Renderer::Get()->GetRenderTargetView()->m_TextureSRV;
+	//ImTextureID viewportTexture = static_cast<void*>(Renderer::Get()->GetRenderTargetView()->m_RenderTargetView);
 	//ImGui::Image(viewportTexture, ImVec2{960, 600});
 	//ImGui::End();
 
