@@ -37,7 +37,6 @@ void Editor::SetWorld(World* world)
 void Editor::OnImGuiRender()
 {
 	GUIBegin();
-
 	//ImGui::Begin("viewport");
 	//ImTextureID viewportTexture = static_cast<void*>(Renderer::Get()->GetRenderTargetView()->m_RenderTargetView);
 	//ImGui::Image(viewportTexture, ImVec2{960, 600});
