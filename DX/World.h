@@ -9,6 +9,7 @@ class Display;
 class IGameObject;
 class Editor;
 class DirectionalLight;
+class Timer;
 
 class World
 {
@@ -30,8 +31,7 @@ private:
 	Display* display = nullptr;
 	Renderer* renderer = nullptr;
 	Editor* editor = nullptr;
-
-	//Ref<Texture> t;
+	Timer* timer;
 
 	Ref<ConstantBuffer<PS_PerFrame>> pixel_const;
 	DirectionalLight* direction_light;

@@ -4,6 +4,52 @@
 
 RenderTargetView::RenderTargetView()
 {
+	// https://gamedev.stackexchange.com/questions/178878/dx11-rendering-to-target-texture-shows-only-clearcolorimgui-custom-game-engine
+	ID3D11Device* device = Renderer::Get()->GetDevice();
+	D3D11_TEXTURE2D_DESC textureDesc;
+	D3D11_RENDER_TARGET_VIEW_DESC renderTargetViewDesc;
+	D3D11_SHADER_RESOURCE_VIEW_DESC shaderResourceViewDesc;
+
+	ZeroMemory(&textureDesc, sizeof(textureDesc));
+	textureDesc.Width = 1920;
+	textureDesc.Height = 1080;
+	textureDesc.MipLevels = 1;
+	textureDesc.ArraySize = 1;
+	textureDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
+	textureDesc.SampleDesc.Count = 1;
+	textureDesc.Usage = D3D11_USAGE_DEFAULT;
+	textureDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET;
+	textureDesc.CPUAccessFlags = 0;
+	textureDesc.MiscFlags = 0;
+	textureDesc.SampleDesc.Count = 1;
+	textureDesc.SampleDesc.Quality = 0;
+
+	ZeroMemory(&renderTargetViewDesc, sizeof(renderTargetViewDesc));
+	renderTargetViewDesc.Format = textureDesc.Format;
+	renderTargetViewDesc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
+	renderTargetViewDesc.Texture2D.MipSlice = 0;
+
+	HRESULT result = device->CreateTexture2D(&textureDesc, NULL, &m_Texture);
+	if (result != S_OK)
+		LogError("One");
+
+
+	shaderResourceViewDesc.Format = textureDesc.Format;
+	shaderResourceViewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+	shaderResourceViewDesc.Texture2D.MostDetailedMip = 0;
+	shaderResourceViewDesc.Texture2D.MipLevels = 1;
+
+	result = device->CreateShaderResourceView(m_Texture, &shaderResourceViewDesc, &m_TextureSRV);
+	if (result != S_OK)
+		LogError("t");
+
+	Renderer::Get()->GetSwapChain()->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(&m_Texture));
+	result = device->CreateRenderTargetView(m_Texture, &renderTargetViewDesc, &m_RenderTargetView);
+	if (result != S_OK)
+		LogError("sa");
+
+
+	/*
 	IDXGISwapChain* swap_chain = Renderer::Get()->GetSwapChain();
 	ID3D11Device* device = Renderer::Get()->GetDevice();
 	
@@ -33,12 +79,7 @@ RenderTargetView::RenderTargetView()
 	shaderResourceViewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
 	shaderResourceViewDesc.Texture2D.MostDetailedMip = 0;
 	shaderResourceViewDesc.Texture2D.MipLevels = 1;
-
-	// Create the shader resource view.
-	//result = device->CreateShaderResourceView(m_Texture, &shaderResourceViewDesc, &m_TextureSRV);
-	//if (result != S_OK)
-	//	LogError("Faied When Creating RTV SRV !");
-	
+	*/
 	
 	//InitTextureSRV();
 }
@@ -67,6 +108,19 @@ void RenderTargetView::Clear()
 {
 	ID3D11DeviceContext* context = Renderer::Get()->GetContext();
 	context->ClearRenderTargetView(m_RenderTargetView, m_ClearColor);
+}
+
+void RenderTargetView::BindEditor()
+{
+	ID3D11DeviceContext* context = Renderer::Get()->GetContext();
+	ID3D11DepthStencilView* depthStencilView = Renderer::Get()->GetDepthStencilState()->GetDepthStencilView();
+	context->OMSetRenderTargets(1, &m_EditorRenderTargetView, depthStencilView);
+}
+
+void RenderTargetView::ClearEditor()
+{
+	ID3D11DeviceContext* context = Renderer::Get()->GetContext();
+	context->ClearRenderTargetView(m_EditorRenderTargetView, m_ClearColor);
 }
 
 void RenderTargetView::InitTextureSRV()
@@ -98,7 +152,7 @@ void RenderTargetView::InitTextureSRV()
 	renderTargetViewDesc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
 	renderTargetViewDesc.Texture2D.MipSlice = 0;
 
-	result = device->CreateRenderTargetView(backbuffer, &renderTargetViewDesc, &m_RenderTargetView);
+	result = device->CreateRenderTargetView(backbuffer, &renderTargetViewDesc, &m_EditorRenderTargetView);
 	if (result != S_OK)
 		LogError("Faied When Creating RTV !");
 

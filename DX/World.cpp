@@ -1,4 +1,7 @@
 #include "World.h"
+
+#include <string>
+
 #include "IGameObject.h"
 #include "Renderer.h"
 #include "Display.h"
@@ -6,6 +9,7 @@
 #include "Log.h"
 #include "Renderer.h"
 #include "DirectionalLight.h"
+#include "Timer.h"
 
 World* World::Create()
 {
@@ -25,6 +29,9 @@ World::World()
 	
 	editor = new Editor();
 	editor->SetWorld(this);
+	
+	timer = new Timer();
+
 	LogInfo("Engine Start");
 
 	HRESULT result = CoInitialize(NULL);
@@ -36,7 +43,7 @@ World::World()
 
 	nanoPlayer = new NanoPlayer(this);
 	amoungus = new Amoungus(this);
-	sponza = new Sponza(this);
+	//sponza = new Sponza(this);
 }
 
 World::~World()
@@ -44,6 +51,7 @@ World::~World()
 	delete display;
 	delete renderer;
 	delete editor;
+	delete timer;
 
 	for (unsigned int i = 0; i < m_GameObjects.size(); i++)
 		delete m_GameObjects[i];
@@ -70,10 +78,10 @@ void World::Run()
 		pixel_const->Bind(0);
 
 		///////////////     UPDATE      /////////////////////////
+		timer->Update();
 		Update();
 
 		/////////////////////////////////////////////////////////
-
 
 		//////////////      Render      ////////////////////////
 		renderer->Update();
@@ -82,7 +90,6 @@ void World::Run()
 		direction_light->Update();
 
 		Render();
-
 
 		editor->OnImGuiRender();
 		renderer->EndFrame();

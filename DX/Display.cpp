@@ -58,6 +58,7 @@ void Display::InitWindow()
     if (m_handle != NULL)
     {
         ShowWindow(m_handle, SW_SHOWNORMAL);
+        UpdateWindow(m_handle);
     }
     else 
     {

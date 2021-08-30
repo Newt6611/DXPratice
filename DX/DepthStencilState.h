@@ -1,6 +1,7 @@
 #pragma once
 #include <d3d11.h>
 
+class Editor;
 
 class DepthStencilState
 {
@@ -21,4 +22,6 @@ private:
 private:
 	ID3D11DepthStencilView* m_DepthStencilView;
 	ID3D11DepthStencilState* m_DepthStencilState;
+
+	friend class Editor;
 };

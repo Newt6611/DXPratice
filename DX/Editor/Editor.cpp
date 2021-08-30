@@ -3,7 +3,9 @@
 #include "../Display.h"
 #include "../Renderer.h"
 #include "../DirectionalLight.h"
-#include "ImGuizmo.h"
+#include "../Timer.h"
+
+#include "../ThirdParty/ImGui/ImGuizmo.h"
 
 Editor::Editor()
 {
@@ -21,12 +23,16 @@ Editor::Editor()
 		LogError("Error When Init ImGui DX11");
 	}
 	ImGui::StyleColorsDark();
+
+	ImGui::GetIO().ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+	ImGui::GetIO().ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 }
 
 Editor::~Editor()
 {
 	ImGui_ImplWin32_Shutdown();
 	ImGui_ImplDX11_Shutdown();
+	ImGui::DestroyContext();
 }
 
 void Editor::SetWorld(World* world)
@@ -37,10 +43,11 @@ void Editor::SetWorld(World* world)
 void Editor::OnImGuiRender()
 {
 	GUIBegin();
-	//ImGui::Begin("viewport");
-	//ImTextureID viewportTexture = static_cast<void*>(Renderer::Get()->GetRenderTargetView()->m_RenderTargetView);
-	//ImGui::Image(viewportTexture, ImVec2{960, 600});
-	//ImGui::End();
+	Renderer::Get()->GetRenderTargetView()->BindEditor();
+	ImGui::Begin("viewport");
+	ImTextureID viewportTexture = static_cast<void*>(Renderer::Get()->GetRenderTargetView()->m_TextureSRV);
+	ImGui::Image(viewportTexture, ImVec2{1920, 1080});
+	ImGui::End();
 
 	ImGui::Begin("Hierarchy");
 	for (int i = 0; i < current_World->m_GameObjects.size(); i++)
@@ -56,32 +63,31 @@ void Editor::OnImGuiRender()
 	ImGui::Begin("Setting");
 	DrawSettingAndInfo();
 	ImGui::End();
-
-	/*
-	ImGui::Begin("D");
-	if (m_SeletedObj)
-	{
-		Camera* camera = Renderer::Get()->GetCamera();
-		XMFLOAT4X4 view;
-		XMFLOAT4X4 projection;
-		XMFLOAT4X4 world;
-		XMStoreFloat4x4(&view, camera->GetView());
-		XMStoreFloat4x4(&projection, camera->GetProjection());
-		XMStoreFloat4x4(&world, m_SeletedObj->m_World);
-
-		ImGuizmo::Enable(true);
-		ImGuizmo::SetOrthographic(false);
-		ImGuizmo::SetDrawlist();
-		ImGuiIO& io = ImGui::GetIO();
-		//ImGuizmo::SetRect(200, 200, Display::Get()->GetWidth(), Display::Get()->GetHeight());
-		ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, ImGui::GetWindowWidth(), ImGui::GetWindowHeight());
-		ImGuizmo::DrawCubes(*view.m, *projection.m, *world.m, 1);
-		ImGuizmo::Manipulate(*view.m, *projection.m, ImGuizmo::OPERATION::TRANSLATE, ImGuizmo::MODE::LOCAL, *world.m);
-	}
-	ImGui::End();
-	*/
-
-
+	
+	//ImGui::Begin("D");
+	//ImGui::GetIO().ConfigWindowsMoveFromTitleBarOnly = true;
+	//if (m_SeletedObj)
+	//{
+	//	Camera* camera = Renderer::Get()->GetCamera();
+	//	XMFLOAT4X4 view;
+	//	XMFLOAT4X4 projection;
+	//	XMFLOAT4X4 world;
+	//	XMStoreFloat4x4(&view, camera->GetView());
+	//	XMStoreFloat4x4(&projection, camera->GetProjection());
+	//	XMStoreFloat4x4(&world, m_SeletedObj->m_World);
+	//
+	//	ImGuizmo::Enable(true);
+	//	ImGuizmo::SetOrthographic(false);
+	//	ImGuizmo::SetDrawlist();
+	//	ImGuiIO& io = ImGui::GetIO();
+	//	ImGuizmo::SetRect(200, 200, Display::Get()->GetWidth(), Display::Get()->GetHeight());
+	//	ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, ImGui::GetWindowWidth(), ImGui::GetWindowHeight());
+	//	//ImGuizmo::DrawCubes(*view.m, *projection.m, *world.m, 1);
+	//	ImGuizmo::Manipulate(*view.m, *projection.m, ImGuizmo::OPERATION::TRANSLATE, ImGuizmo::MODE::LOCAL, *world.m);
+	//}
+	//ImGui::End();
+	
+	Renderer::Get()->GetRenderTargetView()->ClearEditor();
 	GUIEnd();
 }
 
@@ -130,14 +136,13 @@ void Editor::DrawComponent()
 			ImGui::ColorEdit3("Specular", &d_Light->m_Specular.x);
 		}
 	}
-
-	
-	
 }
 
 void Editor::DrawSettingAndInfo()
 {
 	Renderer* renderer = Renderer::Get();
+	ImGui::Text("FPS %d", Timer::FPS);
+
 	ImGui::ColorPicker4("ClearColor", renderer->GetRenderTargetView()->m_ClearColor);
 
 	ImGui::Checkbox("WireFrame", &renderer->wire_frame);
@@ -150,11 +155,18 @@ void Editor::GUIBegin()
 	ImGui_ImplDX11_NewFrame();
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
-	ImGuizmo::BeginFrame();
+	//ImGuizmo::BeginFrame();
+	ImGui::DockSpaceOverViewport();
 }
 
 void Editor::GUIEnd()
 {
 	ImGui::Render();
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+
+	if (ImGui::GetIO().ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+	{
+		ImGui::UpdatePlatformWindows();
+		ImGui::RenderPlatformWindowsDefault();
+	}
 }
