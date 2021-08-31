@@ -11,11 +11,15 @@ public:
 	Camera(float width, float height, float nearZ, float farZ);
 	~Camera();
 
+	float GetWidth() const { return m_Width; }
+	float GetHeight() const { return m_Height; }
+
 	XMMATRIX GetView()const;
 	XMMATRIX GetViewProjection() const;
 	XMMATRIX GetProjection() const;
 	XMFLOAT3 GetPosition() const;
 
+	void SetWidthAndHeight(float width, float height);
 private:
 	void UpdateCamera();
 

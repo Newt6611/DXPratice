@@ -96,7 +96,6 @@ RasterzierState* Renderer::SetRasterzierState(RasterzierStateType type)
 }
 
 
-
 Ref<VertexBuffer> Renderer::CreateVertexBuffer(VertexData* data, int size)
 {
 	Ref<VertexBuffer> vertexBuffer = std::make_shared<VertexBuffer>(data, size, m_Device, m_Context);
@@ -173,18 +172,20 @@ void Renderer::Update()
 
 void Renderer::BeginFrame()
 {
+	m_RenderTargetView->ClearEditor();
 	m_RenderTargetView->Clear();
 	m_DepthStencilState->Clear();
 
-	m_DepthStencilState->Bind();
+	m_RenderTargetView->BindEditor();
 	m_RenderTargetView->Bind();
+	m_DepthStencilState->Bind();
 
 	m_RasterizerState->Bind();
 	
 	m_BlendState->Bind();
 	m_SamplerState->Bind();
 
-	auto viewport = CD3D11_VIEWPORT(0.f, 0.f, static_cast<float>(Display::Get()->GetWidth()), static_cast<float>(Display::Get()->GetHeight()));
+	auto viewport = CD3D11_VIEWPORT(0.f, 0.f, m_Camera->GetWidth(), m_Camera->GetHeight());
 	m_Context->RSSetViewports(1, &viewport);
 }
 

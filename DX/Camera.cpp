@@ -46,6 +46,16 @@ XMFLOAT3 Camera::GetPosition() const
 	return m_Position;
 }
 
+void Camera::SetWidthAndHeight(float width, float height)
+{
+	if (height == m_Height && width == m_Width)
+		return;
+	m_Width = width;
+	m_Height = height;
+	m_Projection = XMMatrixPerspectiveFovLH(XMConvertToRadians(m_Angle), static_cast<float>(width) / static_cast<float>(height), m_NearZ, m_FarZ);
+	UpdateCamera();
+}
+
 void Camera::UpdateCamera()
 {
 	XMMATRIX rot = XMMatrixRotationRollPitchYaw(m_Rotation.x, m_Rotation.y, m_Rotation.z);

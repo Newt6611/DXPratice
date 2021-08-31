@@ -26,6 +26,7 @@ Editor::Editor()
 
 	ImGui::GetIO().ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 	ImGui::GetIO().ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
+	ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0, 0, 0, 1.f));
 }
 
 Editor::~Editor()
@@ -43,11 +44,19 @@ void Editor::SetWorld(World* world)
 void Editor::OnImGuiRender()
 {
 	GUIBegin();
-	Renderer::Get()->GetRenderTargetView()->BindEditor();
 	ImGui::Begin("viewport");
-	ImTextureID viewportTexture = static_cast<void*>(Renderer::Get()->GetRenderTargetView()->m_TextureSRV);
-	ImGui::Image(viewportTexture, ImVec2{1920, 1080});
+	
+	//auto viewport = CD3D11_VIEWPORT(0.f, 0.f, ImGui::GetWindowSize().x, ImGui::GetWindowSize().y);
+	//Renderer::Get()->GetContext()->RSSetViewports(1, &viewport);
+
+	ImTextureID viewportTexture = Renderer::Get()->GetRenderTargetView()->m_TextureSRV;
+	Renderer::Get()->GetCamera()->SetWidthAndHeight(ImGui::GetWindowSize().x, ImGui::GetWindowSize().y);
+	ImGui::Image(viewportTexture, ImGui::GetWindowSize());
 	ImGui::End();
+
+
+
+
 
 	ImGui::Begin("Hierarchy");
 	for (int i = 0; i < current_World->m_GameObjects.size(); i++)
@@ -87,7 +96,6 @@ void Editor::OnImGuiRender()
 	//}
 	//ImGui::End();
 	
-	Renderer::Get()->GetRenderTargetView()->ClearEditor();
 	GUIEnd();
 }
 
@@ -157,6 +165,7 @@ void Editor::GUIBegin()
 	ImGui::NewFrame();
 	//ImGuizmo::BeginFrame();
 	ImGui::DockSpaceOverViewport();
+
 }
 
 void Editor::GUIEnd()
