@@ -69,6 +69,7 @@ void DepthStencilState::InitDepthStencilView()
 	depth_texture->Release();
 }
 
+
 void DepthStencilState::InitDepthStencilState()
 {
 	ID3D11Device* device = Renderer::Get()->GetDevice();

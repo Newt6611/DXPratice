@@ -12,6 +12,7 @@ public:
 	~RenderTargetView();
 
 	inline ID3D11RenderTargetView* GetRenderTargetView() const { return m_RenderTargetView; }
+	inline ID3D11RenderTargetView* GetEditorRenderTargetView() const { return m_EditorRenderTargetView; }
 
 	void SetClearColor(float color[4]);
 
@@ -22,7 +23,7 @@ public:
 	void ClearEditor();
 
 private:
-	void InitTextureSRV();
+	void InitEditorTextureSRV();
 
 private:
 	ID3D11RenderTargetView* m_RenderTargetView;

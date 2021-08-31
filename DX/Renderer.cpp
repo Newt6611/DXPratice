@@ -173,11 +173,9 @@ void Renderer::Update()
 void Renderer::BeginFrame()
 {
 	m_RenderTargetView->ClearEditor();
-	m_RenderTargetView->Clear();
 	m_DepthStencilState->Clear();
 
 	m_RenderTargetView->BindEditor();
-	m_RenderTargetView->Bind();
 	m_DepthStencilState->Bind();
 
 	m_RasterizerState->Bind();
@@ -185,8 +183,9 @@ void Renderer::BeginFrame()
 	m_BlendState->Bind();
 	m_SamplerState->Bind();
 
-	auto viewport = CD3D11_VIEWPORT(0.f, 0.f, m_Camera->GetWidth(), m_Camera->GetHeight());
-	m_Context->RSSetViewports(1, &viewport);
+	//auto viewport = CD3D11_VIEWPORT(0.f, 0.f, Display::Get()->GetWidth(), Display::Get()->GetHeight());
+	//m_Camera->SetWidthAndHeight(Display::Get()->GetWidth(), Display::Get()->GetHeight());
+	//m_Context->RSSetViewports(1, &viewport);
 }
 
 void Renderer::EndFrame()

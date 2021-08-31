@@ -81,11 +81,11 @@ void World::Run()
 		///////////////     UPDATE      /////////////////////////
 		timer->Update();
 		Update();
+		renderer->Update();
 
 		/////////////////////////////////////////////////////////
 
 		//////////////      Render      ////////////////////////
-		renderer->Update();
 		renderer->BeginFrame();
 
 		direction_light->Update();

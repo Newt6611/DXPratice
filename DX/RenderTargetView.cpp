@@ -32,7 +32,7 @@ RenderTargetView::RenderTargetView()
 	shaderResourceViewDesc.Texture2D.MipLevels = 1;
 	
 	
-	InitTextureSRV();
+	InitEditorTextureSRV();
 }
 
 RenderTargetView::~RenderTargetView()
@@ -74,7 +74,7 @@ void RenderTargetView::ClearEditor()
 	context->ClearRenderTargetView(m_EditorRenderTargetView, m_ClearColor);
 }
 
-void RenderTargetView::InitTextureSRV()
+void RenderTargetView::InitEditorTextureSRV()
 {
 	ID3D11Device* device = Renderer::Get()->GetDevice();
 
@@ -85,7 +85,6 @@ void RenderTargetView::InitTextureSRV()
 
 	ZeroMemory(&textureDesc, sizeof(textureDesc));
 
-	// Setup the render target texture description.
 	textureDesc.Width = 800;
 	textureDesc.Height = 600;
 	textureDesc.MipLevels = 1;
@@ -97,7 +96,6 @@ void RenderTargetView::InitTextureSRV()
 	textureDesc.CPUAccessFlags = 0;
 	textureDesc.MiscFlags = 0;
 
-	// Create the render target texture.
 	result = device->CreateTexture2D(&textureDesc, NULL, &m_Texture);
 	if (result != S_OK)
 		LogError("Faied When Creating RTV texture !");

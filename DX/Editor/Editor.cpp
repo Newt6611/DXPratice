@@ -44,18 +44,17 @@ void Editor::SetWorld(World* world)
 void Editor::OnImGuiRender()
 {
 	GUIBegin();
-	ImGui::Begin("viewport");
+	ImGui::Begin("viewport", NULL, ImGuiWindowFlags_NoScrollbar);
 	
-	//auto viewport = CD3D11_VIEWPORT(0.f, 0.f, ImGui::GetWindowSize().x, ImGui::GetWindowSize().y);
-	//Renderer::Get()->GetContext()->RSSetViewports(1, &viewport);
-
+	auto viewport = CD3D11_VIEWPORT(0.f, 0.f, ImGui::GetWindowSize().x, ImGui::GetWindowSize().y);
+	Renderer::Get()->GetCamera()->SetWidthAndHeight(ImGui::GetWindowSize().x, ImGui::GetWindowSize().y);
+	Renderer::Get()->GetContext()->RSSetViewports(1, &viewport);
+	Renderer::Get()->GetRenderTargetView()->Clear();
+	Renderer::Get()->GetRenderTargetView()->Bind();
 	ImTextureID viewportTexture = Renderer::Get()->GetRenderTargetView()->m_TextureSRV;
 	Renderer::Get()->GetCamera()->SetWidthAndHeight(ImGui::GetWindowSize().x, ImGui::GetWindowSize().y);
 	ImGui::Image(viewportTexture, ImGui::GetWindowSize());
 	ImGui::End();
-
-
-
 
 
 	ImGui::Begin("Hierarchy");
@@ -163,9 +162,7 @@ void Editor::GUIBegin()
 	ImGui_ImplDX11_NewFrame();
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
-	//ImGuizmo::BeginFrame();
 	ImGui::DockSpaceOverViewport();
-
 }
 
 void Editor::GUIEnd()
