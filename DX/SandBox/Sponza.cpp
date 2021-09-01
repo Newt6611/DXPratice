@@ -14,15 +14,18 @@ Sponza::~Sponza()
 void Sponza::Init()
 {
 	m_Shader = Renderer::Get()->CreateShader(L"Shaders/Vertex.hlsl", L"Shaders/Pixel.hlsl", 1);
-	m_Model = Renderer::Get()->CreateModel("Models/sponza/sponza.obj");
+	//m_Model = Renderer::Get()->CreateModel("Models/sponza/sponza.obj");
+	m_Model = Renderer::Get()->CreateModel("Models/plane/plane.obj");
 
 	m_ConstantBuffer = Renderer::Get()->CreateConstantBuffer<VS_Object>(ShaderStage::VS);
 
 	m_World = XMMatrixIdentity();
 
-	m_Position = XMFLOAT3(0, -7, 0);
+	//m_Position = XMFLOAT3(0, -7, 0);
+	m_Position = XMFLOAT3(0, -4, 15);
 	m_Rotation = XMFLOAT3(0, 90, 0);
-	m_Scale = XMFLOAT3(0.1, 0.1, 0.1);
+	//m_Scale = XMFLOAT3(0.1, 0.1, 0.1);
+	m_Scale = XMFLOAT3(1, 1, 1);
 	r = 0;
 }
 

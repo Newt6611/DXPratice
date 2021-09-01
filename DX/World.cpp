@@ -43,8 +43,7 @@ World::World()
 
 	nanoPlayer = new NanoPlayer(this);
 	amoungus = new Amoungus(this);
-	//sponza = new Sponza(this);
-
+	sponza = new Sponza(this);
 }
 
 World::~World()

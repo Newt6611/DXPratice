@@ -16,6 +16,7 @@ public:
 
 	void SetClearColor(float color[4]);
 
+
 	void Bind();
 	void Clear();
 
@@ -23,7 +24,7 @@ public:
 	void ClearEditor();
 
 private:
-	void InitEditorTextureSRV();
+	void InitEditorTextureSRV(float width, float height); // Editor Call For Resize
 
 private:
 	ID3D11RenderTargetView* m_RenderTargetView;
@@ -32,6 +33,9 @@ private:
 	ID3D11Texture2D* m_Texture;
 
 	float m_ClearColor[4] = { 0.5f, 0.2f, 0.2f, 1.f };
+
+	float m_ViewportWidth;
+	float m_ViewportHeight;
 
 	friend class Editor;
 };

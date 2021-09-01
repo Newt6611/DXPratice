@@ -4,7 +4,6 @@
 
 RenderTargetView::RenderTargetView()
 {
-	
 	IDXGISwapChain* swap_chain = Renderer::Get()->GetSwapChain();
 	ID3D11Device* device = Renderer::Get()->GetDevice();
 	
@@ -12,8 +11,6 @@ RenderTargetView::RenderTargetView()
 	D3D11_TEXTURE2D_DESC backbuffer_desc;
 	
 	HRESULT result = swap_chain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)&backbuffer);
-	backbuffer->GetDesc(&backbuffer_desc);
-	
 	
 	if (result == S_OK)
 	{
@@ -24,15 +21,9 @@ RenderTargetView::RenderTargetView()
 		LogError("Failed When Creating RenderTargetView !");
 	}
 	
-	D3D11_SHADER_RESOURCE_VIEW_DESC shaderResourceViewDesc;
-	ZeroMemory(&shaderResourceViewDesc, sizeof(D3D11_SHADER_RESOURCE_VIEW_DESC));
-	shaderResourceViewDesc.Format = backbuffer_desc.Format;
-	shaderResourceViewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
-	shaderResourceViewDesc.Texture2D.MostDetailedMip = 0;
-	shaderResourceViewDesc.Texture2D.MipLevels = 1;
+	backbuffer->Release();
 	
-	
-	InitEditorTextureSRV();
+	InitEditorTextureSRV(800, 600);
 }
 
 RenderTargetView::~RenderTargetView()
@@ -51,8 +42,7 @@ void RenderTargetView::SetClearColor(float color[4])
 void RenderTargetView::Bind()
 {
 	ID3D11DeviceContext* context = Renderer::Get()->GetContext();
-	ID3D11DepthStencilView* depthStencilView = Renderer::Get()->GetDepthStencilState()->GetDepthStencilView();
-	context->OMSetRenderTargets(1, &m_RenderTargetView, depthStencilView);
+	context->OMSetRenderTargets(1, &m_RenderTargetView, NULL);
 }
 
 void RenderTargetView::Clear()
@@ -74,19 +64,31 @@ void RenderTargetView::ClearEditor()
 	context->ClearRenderTargetView(m_EditorRenderTargetView, m_ClearColor);
 }
 
-void RenderTargetView::InitEditorTextureSRV()
+void RenderTargetView::InitEditorTextureSRV(float width, float height)
 {
+	if (m_ViewportWidth == width && m_ViewportHeight == height)
+		return;
+
 	ID3D11Device* device = Renderer::Get()->GetDevice();
+	if(m_EditorRenderTargetView)
+		m_EditorRenderTargetView->Release();
+	if (m_Texture)
+		m_Texture->Release();
+	if (m_TextureSRV)
+		m_TextureSRV->Release();
+
+	this->m_ViewportWidth = width;
+	this->m_ViewportHeight = height;
 
 	D3D11_TEXTURE2D_DESC textureDesc;
 	HRESULT result;
 	D3D11_RENDER_TARGET_VIEW_DESC renderTargetViewDesc;
 	D3D11_SHADER_RESOURCE_VIEW_DESC shaderResourceViewDesc;
 
-	ZeroMemory(&textureDesc, sizeof(textureDesc));
+	ZeroMemory(&textureDesc, sizeof(D3D11_TEXTURE2D_DESC));
 
-	textureDesc.Width = 800;
-	textureDesc.Height = 600;
+	textureDesc.Width = width;
+	textureDesc.Height = height;
 	textureDesc.MipLevels = 1;
 	textureDesc.ArraySize = 1;
 	textureDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;

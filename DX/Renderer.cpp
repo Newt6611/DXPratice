@@ -152,12 +152,8 @@ Ref<DirectionalLight> Renderer::CreateDirectionalLight(XMFLOAT3 direction, XMFLO
 	return light;
 }
 
-
-
-
 void Renderer::Update()
 {
-	
 	if (wire_frame && m_RasterizerState->GetType() == RasterzierStateType::Solid)
 		m_RasterizerState->SetState(RasterzierStateType::WireFrame);
 	else if (!wire_frame && m_RasterizerState->GetType() == RasterzierStateType::WireFrame)
@@ -172,6 +168,7 @@ void Renderer::Update()
 
 void Renderer::BeginFrame()
 {
+	m_RenderTargetView->Clear();
 	m_RenderTargetView->ClearEditor();
 	m_DepthStencilState->Clear();
 
@@ -182,10 +179,6 @@ void Renderer::BeginFrame()
 	
 	m_BlendState->Bind();
 	m_SamplerState->Bind();
-
-	//auto viewport = CD3D11_VIEWPORT(0.f, 0.f, Display::Get()->GetWidth(), Display::Get()->GetHeight());
-	//m_Camera->SetWidthAndHeight(Display::Get()->GetWidth(), Display::Get()->GetHeight());
-	//m_Context->RSSetViewports(1, &viewport);
 }
 
 void Renderer::EndFrame()

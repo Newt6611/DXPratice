@@ -8,7 +8,7 @@ DirectionalLight::DirectionalLight(World* world, ID3D11Device* device, ID3D11Dev
 	world->PushGameObjetToWorld(this);
 	m_ConstantBuffer = Renderer::Get()->CreateConstantBuffer<Directional_Light>(ShaderStage::PS);
 	m_Color = XMFLOAT3(1, 1, 1);
-	m_Rotation = XMFLOAT3(0, -0.3, 1);
+	m_Rotation = XMFLOAT3(-1, -0.9, 1);
 	Init();
 }
 

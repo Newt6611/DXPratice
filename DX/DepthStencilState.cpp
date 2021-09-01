@@ -6,7 +6,7 @@
 DepthStencilState::DepthStencilState()
 {
 	InitDepthStencilState();
-	InitDepthStencilView();
+	InitDepthStencilView(800, 600);
 }
 
 DepthStencilState::~DepthStencilState()
@@ -27,14 +27,22 @@ void DepthStencilState::Bind()
 	context->OMSetDepthStencilState(m_DepthStencilState, 0);
 }
 
-void DepthStencilState::InitDepthStencilView()
+void DepthStencilState::InitDepthStencilView(float width, float height)
 {
-	ID3D11Device* device = Renderer::Get()->GetDevice();
+	if (m_Width == width && m_Height == height)
+		return;
 
+	m_Width = width;
+	m_Height = height;
+
+	ID3D11Device* device = Renderer::Get()->GetDevice();
+	if(m_DepthStencilView)
+		m_DepthStencilView->Release();
+	
 	D3D11_TEXTURE2D_DESC texture_desc;
 	ZeroMemory(&texture_desc, sizeof(D3D11_TEXTURE2D_DESC));
-	texture_desc.Width = Display::Get()->GetWidth();
-	texture_desc.Height = Display::Get()->GetHeight();
+	texture_desc.Width = m_Width;
+	texture_desc.Height = m_Height;
 	texture_desc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
 	texture_desc.MipLevels = 1;
 	texture_desc.ArraySize = 1;
