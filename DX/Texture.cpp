@@ -8,14 +8,14 @@
 Texture::Texture(std::string filePath)
 	: m_FilePath(filePath), m_Type(TextureType::Diffuse)
 {
-	m_WFilePath = std::wstring_convert<std::codecvt_utf8<wchar_t>>().from_bytes(filePath);;
+	m_WFilePath = std::wstring_convert<std::codecvt_utf8<wchar_t>>().from_bytes(filePath);
 	CreateTexture();
 }
 
 Texture::Texture(std::string filePath, TextureType type)
 	: m_FilePath(filePath), m_Type(type)
 {
-	m_WFilePath = std::wstring_convert<std::codecvt_utf8<wchar_t>>().from_bytes(filePath);;
+	m_WFilePath = std::wstring_convert<std::codecvt_utf8<wchar_t>>().from_bytes(filePath);
 	CreateTexture();
 }
 
