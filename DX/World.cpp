@@ -9,6 +9,7 @@
 #include "Log.h"
 #include "Renderer.h"
 #include "DirectionalLight.h"
+#include "PointLight.h"
 #include "Timer.h"
 
 World* World::Create()
@@ -40,6 +41,11 @@ World::World()
 
 	pixel_const = renderer->CreateConstantBuffer<PS_PerFrame>(ShaderStage::PS);
 	direction_light = new DirectionalLight(this, renderer->GetDevice(), renderer->GetContext());
+
+	point_light1 = new PointLight(this, renderer->GetDevice(), renderer->GetContext());
+	point_light2 = new PointLight(this, renderer->GetDevice(), renderer->GetContext());
+	point_light3 = new PointLight(this, renderer->GetDevice(), renderer->GetContext());
+	point_light4 = new PointLight(this, renderer->GetDevice(), renderer->GetContext());
 
 	nanoPlayer = new NanoPlayer(this);
 	amoungus = new Amoungus(this);
@@ -75,6 +81,11 @@ void World::Run()
 		}
 
 		pixel_const->GetData().eyePos = renderer->GetCamera()->GetPosition();
+		pixel_const->GetData().d_Light = direction_light->GetLightData();
+		pixel_const->GetData().p_Light[0] = point_light1->GetLightData();
+		pixel_const->GetData().p_Light[1] = point_light2->GetLightData();
+		pixel_const->GetData().p_Light[2] = point_light3->GetLightData();
+		pixel_const->GetData().p_Light[3] = point_light4->GetLightData();
 		pixel_const->Bind(0);
 
 		///////////////     UPDATE      /////////////////////////
@@ -102,6 +113,17 @@ void World::Init()
 	for (unsigned int i = 0; i < m_GameObjects.size(); i++)
 		m_GameObjects[i]->Init();
 
+	point_light2->SetName("P2");
+	point_light3->SetName("P3");
+	point_light4->SetName("P4");
+
+	point_light1->SetPosition(XMFLOAT3(0, -3, 0));
+	point_light2->SetPosition(XMFLOAT3(5, -3, 0));
+	point_light3->SetPosition(XMFLOAT3(-8, -3, 5));
+	point_light4->SetPosition(XMFLOAT3(0, -3, 10));
+
+	direction_light->SetAmbient(XMFLOAT3(0, 0, 0));
+	direction_light->SetDiffuse(XMFLOAT3(0, 0, 0));
 }
 
 void World::Update()

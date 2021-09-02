@@ -32,7 +32,7 @@ private:
 	ID3D11ShaderResourceView* m_TextureSRV;
 	ID3D11Texture2D* m_Texture;
 
-	float m_ClearColor[4] = { 0.5f, 0.2f, 0.2f, 1.f };
+	float m_ClearColor[4] = { 0.0f, 0.0f, 0.0f, 1.f };
 
 	float m_ViewportWidth;
 	float m_ViewportHeight;

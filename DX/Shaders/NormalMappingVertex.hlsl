@@ -39,7 +39,7 @@ PS_IN main(VS_IN vs_in)
 	float3 N = normalize(mul(world, vs_in.normal));
 	float3 T = normalize(mul(world, vs_in.tangent));
 	T = normalize(T - dot(T, N) * N);
-	float3 B = normalize(cross(N, T));
+	float3 B = normalize(cross(T, N));
 
 	ps_in.TBN = float3x3(T, B, N);
 

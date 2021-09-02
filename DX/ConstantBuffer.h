@@ -15,7 +15,7 @@ public:
 		this->context = context;
 		
 		D3D11_BUFFER_DESC buffer_desc;
-		buffer_desc.ByteWidth = static_cast<UINT>(sizeof(T) + (16 - (sizeof(T) % 16)));
+		buffer_desc.ByteWidth = sizeof(T);
 		buffer_desc.Usage = D3D11_USAGE_DYNAMIC;
 		buffer_desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 		buffer_desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;

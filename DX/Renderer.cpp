@@ -2,6 +2,7 @@
 #include "Renderer.h"
 #include "World.h"
 #include "DirectionalLight.h"
+#include "PointLight.h"
 
 Renderer* Renderer::m_Instance;
 
@@ -108,9 +109,13 @@ Ref<IndexBuffer> Renderer::CreateIndexBuffer(UINT* indices, int count)
 	return indexBuffer;
 }
 
-Ref<Shader> Renderer::CreateShader(LPCWSTR vertexFilePath, LPCWSTR pixelFilePath, int type)
+Ref<Shader> Renderer::CreateShader(std::string name, LPCWSTR vertexFilePath, LPCWSTR pixelFilePath, int type)
 {
+	if (m_ShaderCache.find(name) != m_ShaderCache.end())
+		return m_ShaderCache[name];
+
 	Ref<Shader> shader = std::make_shared<Shader>(vertexFilePath, pixelFilePath, type);
+	m_ShaderCache[name] = shader;
 	return shader;
 }
 
@@ -149,6 +154,12 @@ Ref<DirectionalLight> Renderer::CreateDirectionalLight()
 Ref<DirectionalLight> Renderer::CreateDirectionalLight(XMFLOAT3 direction, XMFLOAT3 color)
 {
 	Ref<DirectionalLight> light = std::make_shared<DirectionalLight>(world, color, direction, m_Device, m_Context);
+	return light;
+}
+
+Ref<PointLight> Renderer::CreatePointLight()
+{
+	Ref<PointLight> light = std::make_shared<PointLight>(world, m_Device, m_Context);
 	return light;
 }
 

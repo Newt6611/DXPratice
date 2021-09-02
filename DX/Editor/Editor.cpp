@@ -3,6 +3,7 @@
 #include "../Display.h"
 #include "../Renderer.h"
 #include "../DirectionalLight.h"
+#include "../PointLight.h"
 #include "../Timer.h"
 #include "../ThirdParty/ImGui/ImGuizmo.h"
 
@@ -26,7 +27,6 @@ Editor::Editor()
 	ImGui::GetIO().ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 	ImGui::GetIO().ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 	ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0, 0, 0, 1.f));
-
 }
 
 Editor::~Editor()
@@ -67,6 +67,8 @@ void Editor::OnImGuiRender()
 
 void Editor::DrawGameObjectNode(IGameObject* obj)
 {
+	if (obj == NULL)
+		return;
 	if (ImGui::Selectable(obj->m_Name.c_str(), obj->selected) && !obj->selected)
 	{
 		if (m_SeletedObj != nullptr)
@@ -108,17 +110,52 @@ void Editor::DrawComponent()
 		ImGui::DragFloat("Alpha", &m_SeletedObj->alpha, 0.01f, 0, 1);
 
 
+		float* temp[3];
 
 		// Directional Light
 		DirectionalLight* d_Light = dynamic_cast<DirectionalLight*>(m_SeletedObj);
 		if (d_Light)
 		{
 			ImGui::Text("Direcional Light");
-			ImGui::ColorEdit3("Ambient", &d_Light->m_Ambient.x);
+			temp[0] = &d_Light->m_Ambient.x;
+			temp[1] = &d_Light->m_Ambient.y;
+			temp[2] = &d_Light->m_Ambient.z;
+			ImGui::ColorEdit3("Ambient", *temp);
 
-			ImGui::ColorEdit3("Diffuse", &d_Light->m_Diffuse.x);
+			temp[0] = &d_Light->m_Diffuse.x;
+			temp[1] = &d_Light->m_Diffuse.y;
+			temp[2] = &d_Light->m_Diffuse.z;
+			ImGui::ColorEdit3("Diffuse", *temp);
 
-			ImGui::ColorEdit3("Specular", &d_Light->m_Specular.x);
+			temp[0] = &d_Light->m_Specular.x;
+			temp[1] = &d_Light->m_Specular.y;
+			temp[2] = &d_Light->m_Specular.z;
+			ImGui::ColorEdit3("Specular", *temp);
+		}
+
+		// Point Light
+		PointLight* p_Light = dynamic_cast<PointLight*>(m_SeletedObj);
+		if (p_Light)
+		{
+			ImGui::Text("Point Light");
+			temp[0] = &p_Light->m_Ambient.x;
+			temp[1] = &p_Light->m_Ambient.y;
+			temp[2] = &p_Light->m_Ambient.z;
+			ImGui::ColorEdit3("Ambient", *temp);
+
+			temp[0] = &p_Light->m_Diffuse.x;
+			temp[1] = &p_Light->m_Diffuse.y;
+			temp[2] = &p_Light->m_Diffuse.z;
+			ImGui::ColorEdit3("Diffuse", *temp);
+
+			temp[0] = &p_Light->m_Specular.x;
+			temp[1] = &p_Light->m_Specular.y;
+			temp[2] = &p_Light->m_Specular.z;
+			ImGui::ColorEdit3("Specular", *temp);
+
+			ImGui::DragFloat("Constant", &p_Light->m_Constant, 0.001);
+			ImGui::DragFloat("Linear", &p_Light->m_Linear, 0.001);
+			ImGui::DragFloat("Quadratic", &p_Light->m_Quadratic, 0.001);
 		}
 	}
 }

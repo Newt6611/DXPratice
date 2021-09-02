@@ -55,5 +55,5 @@ protected:
 
 	// For Editor
 	friend class Editor;
-	bool selected;
+	bool selected = false;
 };

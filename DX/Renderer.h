@@ -20,6 +20,7 @@
 #include "Model.h"
 #include "Base.h"
 
+class PointLight;
 class DirectionalLight;
 class Editor;
 class World;
@@ -67,7 +68,7 @@ public:
 	}
 	
 	// Shader
-	Ref<Shader> CreateShader(LPCWSTR vertexFilePath, LPCWSTR pixelFilePath, int type);
+	Ref<Shader> CreateShader(std::string name, LPCWSTR vertexFilePath, LPCWSTR pixelFilePath, int type);
 	
 
 	// Model
@@ -80,6 +81,7 @@ public:
 	// Lights
 	Ref<DirectionalLight> CreateDirectionalLight();
 	Ref<DirectionalLight> CreateDirectionalLight(XMFLOAT3 direction, XMFLOAT3 color);
+	Ref<PointLight> CreatePointLight();
 
 
 	void Update(); // For Editor Logic
@@ -116,6 +118,7 @@ private:
 
 	std::unordered_map<std::string, Ref<Model>> m_LoadedModelCache;
 	std::unordered_map<std::string, Ref<Texture>> m_LoadedTextureCache;
+	std::unordered_map<std::string, Ref<Shader>> m_ShaderCache;
 
 	// For Editor
 	friend class Editor;

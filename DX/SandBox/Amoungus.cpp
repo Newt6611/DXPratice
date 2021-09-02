@@ -13,7 +13,7 @@ Amoungus::~Amoungus()
 
 void Amoungus::Init()
 {
-	m_Shader = Renderer::Get()->CreateShader(L"Shaders/Vertex.hlsl", L"Shaders/Pixel.hlsl", 1);
+	m_Shader = Renderer::Get()->CreateShader("Phong", L"Shaders/Vertex.hlsl", L"Shaders/Pixel.hlsl", 1);
 	m_Model = Renderer::Get()->CreateModel("Models/Amoungus/amoungus.obj");
 
 	m_ConstantBuffer = Renderer::Get()->CreateConstantBuffer<VS_Object>(ShaderStage::VS);

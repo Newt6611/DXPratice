@@ -111,6 +111,9 @@
     <ClCompile Include="Timer.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
+    <ClCompile Include="PointLight.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Display.h">
@@ -1017,6 +1020,9 @@
       <Filter>標頭檔</Filter>
     </ClInclude>
     <ClInclude Include="Timer.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="PointLight.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
   </ItemGroup>

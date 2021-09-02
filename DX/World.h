@@ -35,6 +35,10 @@ private:
 
 	Ref<ConstantBuffer<PS_PerFrame>> pixel_const;
 	DirectionalLight* direction_light;
+	PointLight* point_light1;
+	PointLight* point_light2;
+	PointLight* point_light3;
+	PointLight* point_light4;
 
 	std::vector<IGameObject*> m_GameObjects;
 

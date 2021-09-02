@@ -17,31 +17,47 @@ struct VS_Object
 	XMFLOAT4 color = XMFLOAT4(1, 1, 1, 1);
 };
 
-struct PS_PerFrame
-{
-	XMFLOAT3 eyePos;
-	float pad;
-};
-
-
-
 // Light 
 struct Directional_Light
 {
 	XMFLOAT4 Color = XMFLOAT4(1, 1, 1, 1);
 	XMFLOAT3 Ambient = XMFLOAT3(1, 1, 1);
-	float pad;
+	float pad = 0;
 	
 	XMFLOAT3 Diffuse = XMFLOAT3(1, 1, 1);
-	float pad1;
+	float pad1 = 0;
 
 	XMFLOAT3 Specular = XMFLOAT3(1, 1, 1);
-	float pad2;
+	float pad2 = 0;
 
 	XMFLOAT3 Direction = XMFLOAT3(0, 0, 1);
-	float pad3;
+	float pad3 = 0;
 };
 
+struct Point_Light
+{
+	XMFLOAT4 Color = XMFLOAT4(1, 1, 1, 1);
+	XMFLOAT3 Position = XMFLOAT3(0, 0, 0);
+	float Constant = 1;
+	
+	XMFLOAT3 Ambient = XMFLOAT3(1, 1, 1);
+	float Linear = 0.14;
+
+	XMFLOAT3 Diffuse = XMFLOAT3(1, 1, 1);
+	float Quadratic = 0.07;
+
+	XMFLOAT3 Specular = XMFLOAT3(1, 1, 1);
+	float pad = 0;
+};
+
+
+struct PS_PerFrame
+{
+	Directional_Light d_Light;
+	Point_Light p_Light[4];
+	XMFLOAT3 eyePos;
+	float pad;
+};
 
 
 // Shader Stage //
