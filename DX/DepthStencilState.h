@@ -21,6 +21,7 @@ private:
 
 private:
 	ID3D11DepthStencilView* m_DepthStencilView;
+	ID3D11ShaderResourceView* m_DepthStencilSRV;
 	ID3D11DepthStencilState* m_DepthStencilState;
 
 	float m_Width;

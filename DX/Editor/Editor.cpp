@@ -170,6 +170,8 @@ void Editor::DrawSettingAndInfo()
 	ImGui::Checkbox("WireFrame", &renderer->wire_frame);
 
 	ImGui::Checkbox("Transparency", &renderer->transparency);
+
+	ImGui::Checkbox("Perspective Camera", &renderer->GetCamera()->isPerspective);
 }
 
 void Editor::DrawViewport()

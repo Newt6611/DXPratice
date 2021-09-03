@@ -45,7 +45,7 @@ SamplerState samplerState  : SAMPLER : register(s0);
 Texture2D diffuseTexture   : TEXTURE : register(t0);
 Texture2D specularTexture  : TEXTURE : register(t1);
 Texture2D normalTexture    : TEXTURE : register(t2);
-
+Texture2D depthTexture     : TEXTURE : register(t3);
 
 
 
@@ -108,4 +108,5 @@ float4 main(PS_IN ps_in) : SV_TARGET
 	float4 result = DoPointLight(ps_in.fragPos, ps_in.normal, ps_in.texcoord);
 	result += DoDirectionalLight(ps_in.fragPos, ps_in.normal, ps_in.texcoord);
 	return float4(result.x, result.y, result.z, 1) * ps_in.color;
+	//return depthTexture.Sample(samplerState, ps_in.texcoord);
 }

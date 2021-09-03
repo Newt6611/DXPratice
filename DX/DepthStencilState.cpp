@@ -13,6 +13,7 @@ DepthStencilState::~DepthStencilState()
 {
 	m_DepthStencilState->Release();
 	m_DepthStencilView->Release();
+	m_DepthStencilSRV->Release();
 }
 
 void DepthStencilState::Clear()
@@ -25,6 +26,7 @@ void DepthStencilState::Bind()
 {
 	ID3D11DeviceContext* context = Renderer::Get()->GetContext();
 	context->OMSetDepthStencilState(m_DepthStencilState, 0);
+	//context->PSSetShaderResources(3, 1, &m_DepthStencilSRV);
 }
 
 void DepthStencilState::InitDepthStencilView(float width, float height)
@@ -73,6 +75,20 @@ void DepthStencilState::InitDepthStencilView(float width, float height)
 	{
 		LogError("Failed When Creating Depth Stencil View !");
 	}
+
+	
+	
+	//D3D11_SHADER_RESOURCE_VIEW_DESC srv_desc;
+	//srv_desc.Format = DXGI_FORMAT_R32_TYPELESS;
+	//srv_desc.ViewDimension = D3D_SRV_DIMENSION_TEXTURE2D;
+	//srv_desc.Texture2D.MipLevels = 1;
+	//srv_desc.Texture2D.MostDetailedMip = 0;
+	//
+	//result = device->CreateShaderResourceView(depth_texture, &srv_desc, &m_DepthStencilSRV);
+	//if (result != S_OK)
+	//{
+	//	LogError("Failed When Creating DepthStencil SRV !");
+	//}
 
 	depth_texture->Release();
 }

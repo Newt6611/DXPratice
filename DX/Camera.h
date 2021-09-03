@@ -2,6 +2,8 @@
 
 #include <DirectXMath.h>
 
+class Editor;
+
 using namespace DirectX;
 
 class Camera
@@ -24,6 +26,7 @@ private:
 	void UpdateCamera();
 
 private:
+	bool isPerspective = true;
 	XMVECTOR m_LookAt;
 	XMFLOAT3 m_Position;
 	XMFLOAT3 m_Rotation;
@@ -37,8 +40,11 @@ private:
 	float m_FarZ;
 
 	XMMATRIX m_View;
-	XMMATRIX m_Projection;
+	XMMATRIX m_PersProjection;
+	XMMATRIX m_OthoProjction;
 
 	const XMVECTOR WORLD_UP = XMVectorSet(0, 1, 0, 1);
 	const XMVECTOR WORLD_FORWARD = XMVectorSet(0, 0, 1, 1);
+
+	friend class Editor;
 };
