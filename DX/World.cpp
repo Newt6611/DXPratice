@@ -11,6 +11,7 @@
 #include "DirectionalLight.h"
 #include "PointLight.h"
 #include "Timer.h"
+#include "Input.h"
 
 World* World::Create()
 {
@@ -35,9 +36,6 @@ World::World()
 
 	LogInfo("Engine Start");
 
-	HRESULT result = CoInitialize(NULL);
-	if (result != S_OK)
-		LogError("Erro CoInit !");
 
 	pixel_const = renderer->CreateConstantBuffer<PS_PerFrame>(ShaderStage::PS);
 	direction_light = new DirectionalLight(this, renderer->GetDevice(), renderer->GetContext());
@@ -71,15 +69,23 @@ void World::PushGameObjetToWorld(IGameObject* gameObject)
 void World::Run()
 {
 	MSG msg = { };
-	while (true)
+	while (!m_WindowShouldClose)
 	{
-		if (PeekMessage(&msg, display->GetHandle(), 0, 0, PM_REMOVE))
+		SDL_Event e;
+		while (SDL_PollEvent(&e))
 		{
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
-			if (msg.message == WM_QUIT) break;
+			if (e.type == SDL_QUIT)
+				m_WindowShouldClose = true;
+			if (e.type == SDL_WINDOWEVENT && e.window.event == SDL_WINDOWEVENT_CLOSE && e.window.windowID == SDL_GetWindowID(display->GetWindow()))
+				m_WindowShouldClose = true;
+			if (e.type == SDL_WINDOWEVENT && e.window.event == SDL_WINDOWEVENT_RESIZED)
+				display->OnResize();
+
+			Input::mouseWheelY = e.wheel.y;
+			Input::Update();
 		}
 
+	
 		pixel_const->GetData().eyePos = renderer->GetCamera()->GetPosition();
 		pixel_const->GetData().d_Light = direction_light->GetLightData();
 		pixel_const->GetData().p_Light[0] = point_light1->GetLightData();
@@ -87,21 +93,22 @@ void World::Run()
 		pixel_const->GetData().p_Light[2] = point_light3->GetLightData();
 		pixel_const->GetData().p_Light[3] = point_light4->GetLightData();
 		pixel_const->Bind(0);
-
+	
 		///////////////     UPDATE      /////////////////////////
+		renderer->GetCamera()->Update();
 		timer->Update();
 		Update();
 		renderer->Update();
-
+	
 		/////////////////////////////////////////////////////////
-
+	
 		//////////////      Render      ////////////////////////
 		renderer->BeginFrame();
-
+	
 		direction_light->Update();
-
+	
 		Render();
-
+	
 		editor->OnImGuiRender();
 		renderer->EndFrame();
 		////////////////////////////////////////////////////////

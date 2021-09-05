@@ -7,34 +7,6 @@
 
 Display* Display::m_Instance;
 
-extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
-
-LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
-{
-    if (ImGui_ImplWin32_WndProcHandler(hWnd, message, wParam, lParam))
-        return true;
-
-    switch (message)
-    {
-    case WM_SIZE:
-        Display::Get()->OnResize();
-        break;
-
-    case WM_KEYDOWN:
-        if (wParam == VK_ESCAPE)
-        {
-            LogInfo("Press");
-        }
-        LogInfo("{{");
-        break;
-
-    case WM_DESTROY:
-        PostQuitMessage(0);
-        return 0;
-    }
-    return DefWindowProc(hWnd, message, wParam, lParam);
-}
-
 void Display::Init(int width, int height)
 {
     m_width = width;
@@ -44,36 +16,34 @@ void Display::Init(int width, int height)
 
 Display::~Display()
 {
+    SDL_DestroyWindow(m_Window);
+    SDL_Quit();
 }
 
 void Display::InitWindow()
-{
-	WNDCLASSEX wc = { 0 };
-	wc.cbSize = sizeof(WNDCLASSEX);
-	wc.style = CS_VREDRAW | CS_OWNDC | CS_HREDRAW | CS_DBLCLKS;
-    wc.lpfnWndProc = WindowProc;
-    wc.cbClsExtra = 0;
-    wc.cbWndExtra = 0;
-    wc.hInstance = m_instance;
-    wc.hIcon = NULL;
-    wc.hCursor = NULL;
-    wc.lpszMenuName = NULL;
-    wc.lpszClassName = L"MDX";
-    wc.hIconSm = NULL;
-    
-    RegisterClassEx(&wc);
-    m_handle = CreateWindowEx(WS_EX_ACCEPTFILES, L"MDX", L"MyWindow",
-        WS_SIZEBOX | WS_BORDER | WS_SYSMENU, 200, 200, m_width, m_height, NULL, NULL,
-        m_instance, NULL);
-
-    if (m_handle != NULL)
+{   
+    if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
     {
-        ShowWindow(m_handle, SW_SHOWNORMAL);
-        UpdateWindow(m_handle);
+        LogError("Failed When Init SDL !");
     }
-    else 
+
+    uint32_t windowFlags = SDL_WINDOW_SHOWN;
+    windowFlags |= SDL_WINDOW_RESIZABLE;
+    m_Window = SDL_CreateWindow("My Render Engine", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_width, m_height, windowFlags);
+    if (m_Window == nullptr)
     {
-        LogError("Failed When Creating Window !");
+        LogError("Failed When Creating SDL Window !");
+    }
+
+    SDL_SysWMinfo wmInfo;
+    SDL_VERSION(&wmInfo.version);
+    SDL_GetWindowWMInfo(m_Window, &wmInfo);
+    m_handle = (HWND)wmInfo.info.win.window;
+    m_instance = (HINSTANCE)wmInfo.info.win.hinstance;
+
+    if (m_handle == NULL)
+    {
+        LogError("Handle Is Null !");
     }
 }
 
@@ -87,10 +57,7 @@ void Display::OnResize()
 
         renderer->GetContext()->OMSetRenderTargets(0, 0, 0);
 
-        if (renderTargetView)
-            renderTargetView->Release();
-        else
-            return;
+        renderTargetView->Release();
 
         HRESULT result = swapchain->ResizeBuffers(0, 0, 0, DXGI_FORMAT_UNKNOWN, 0);
         if (result != S_OK)
@@ -119,8 +86,5 @@ void Display::OnResize()
         swapchain->GetDesc(&desc);
         m_width = desc.BufferDesc.Width;
         m_height = desc.BufferDesc.Height;
-        
-        auto viewport = CD3D11_VIEWPORT(0.f, 0.f, m_width, m_height);
-        renderer->GetContext()->RSSetViewports(1, &viewport);
     }
 }

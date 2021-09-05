@@ -6,6 +6,7 @@
 #include "../PointLight.h"
 #include "../Timer.h"
 #include "../ThirdParty/ImGui/ImGuizmo.h"
+#include "../Input.h"
 
 Editor::Editor()
 {
@@ -13,9 +14,9 @@ Editor::Editor()
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO();
-	if (!ImGui_ImplWin32_Init(Display::Get()->GetHandle()))
+	if (!ImGui_ImplSDL2_InitForD3D(Display::Get()->GetWindow()))
 	{
-		LogError("Error When Init Win32");
+		LogError("Error When Init SDL IMGUI");
 	}
 
 	if (!ImGui_ImplDX11_Init(Renderer::Get()->GetDevice(), Renderer::Get()->GetContext()))
@@ -31,7 +32,7 @@ Editor::Editor()
 
 Editor::~Editor()
 {
-	ImGui_ImplWin32_Shutdown();
+	ImGui_ImplSDL2_Shutdown();
 	ImGui_ImplDX11_Shutdown();
 	ImGui::DestroyContext();
 }
@@ -44,6 +45,15 @@ void Editor::SetWorld(World* world)
 void Editor::OnImGuiRender()
 {
 	GUIBegin();
+
+	if (Input::IsKeyDown(SDL_SCANCODE_T))
+		m_GuizmosOperation = ImGuizmo::OPERATION::TRANSLATE;
+
+	if (Input::IsKeyDown(SDL_SCANCODE_R))
+		m_GuizmosOperation = ImGuizmo::OPERATION::ROTATE;
+
+	if (Input::IsKeyDown(SDL_SCANCODE_S))
+		m_GuizmosOperation = ImGuizmo::OPERATION::SCALE;
 	
 	DrawViewport();
 
@@ -83,13 +93,15 @@ void Editor::DrawComponent()
 {
 	if (m_SeletedObj)
 	{
+		ImGui::Checkbox("Enable", &m_SeletedObj->enable);
+
 		if (ImGui::RadioButton("Translation", m_GuizmosOperation == ImGuizmo::OPERATION::TRANSLATE))
 			m_GuizmosOperation = ImGuizmo::OPERATION::TRANSLATE;
 		ImGui::SameLine();
 		
-		//if (ImGui::RadioButton("Rotation", m_GuizmosOperation == ImGuizmo::OPERATION::ROTATE))
-		//	m_GuizmosOperation = ImGuizmo::OPERATION::ROTATE;
-		//ImGui::SameLine();
+		if (ImGui::RadioButton("Rotation", m_GuizmosOperation == ImGuizmo::OPERATION::ROTATE))
+			m_GuizmosOperation = ImGuizmo::OPERATION::ROTATE;
+		ImGui::SameLine();
 		
 		if (ImGui::RadioButton("SCALE", m_GuizmosOperation == ImGuizmo::OPERATION::SCALE))
 			m_GuizmosOperation = ImGuizmo::OPERATION::SCALE;
@@ -223,8 +235,8 @@ void Editor::DrawGuizmos()
 		ImGuizmo::DecomposeMatrixToComponents(*world.m, matrixTranslation, matrixRotation, matrixScale);
 		if(m_GuizmosOperation == ImGuizmo::OPERATION::TRANSLATE)
 			m_SeletedObj->SetPosition(XMFLOAT3(matrixTranslation[0], matrixTranslation[1], matrixTranslation[2]));
-		//if(m_GuizmosOperation == ImGuizmo::OPERATION::ROTATE)
-		//	m_SeletedObj->SetRotation(XMFLOAT3(matrixRotation[0], matrixRotation[1], matrixRotation[2]));
+		if(m_GuizmosOperation == ImGuizmo::OPERATION::ROTATE)
+			m_SeletedObj->SetRotation(XMFLOAT3(matrixRotation[0], matrixRotation[1], matrixRotation[2]));
 		if(m_GuizmosOperation == ImGuizmo::OPERATION::SCALE)
 			m_SeletedObj->SetScale(XMFLOAT3(matrixScale[0], matrixScale[1], matrixScale[2]));
 	}
@@ -233,14 +245,15 @@ void Editor::DrawGuizmos()
 void Editor::GUIBegin()
 {
 	ImGui_ImplDX11_NewFrame();
-	ImGui_ImplWin32_NewFrame();
+	ImGui_ImplSDL2_NewFrame();
 	ImGui::NewFrame();
 	ImGui::DockSpaceOverViewport();
 
-	Renderer::Get()->GetRenderTargetView()->Bind();
-
 	auto viewport = CD3D11_VIEWPORT(0.f, 0.f, Display::Get()->GetWidth(), Display::Get()->GetHeight());
 	Renderer::Get()->GetContext()->RSSetViewports(1, &viewport);
+	Renderer::Get()->GetRenderTargetView()->Clear();
+	Renderer::Get()->GetRenderTargetView()->Bind();
+
 }
 
 void Editor::GUIEnd()

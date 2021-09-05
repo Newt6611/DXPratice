@@ -5,6 +5,7 @@ Amoungus::Amoungus(World* world)
 {
 	world->PushGameObjetToWorld(this);
 	m_Name = "Amoungus";
+	enable = true;
 }
 
 Amoungus::~Amoungus()
@@ -14,7 +15,8 @@ Amoungus::~Amoungus()
 void Amoungus::Init()
 {
 	m_Shader = Renderer::Get()->CreateShader("Phong", L"Shaders/Vertex.hlsl", L"Shaders/Pixel.hlsl", 1);
-	m_Model = Renderer::Get()->CreateModel("Models/Amoungus/amoungus.obj");
+	//m_Model = Renderer::Get()->CreateModel("Models/Amoungus/amoungus.obj");
+	m_Model = Renderer::Get()->CreateModel("Models/Dragon/dragon.obj");
 
 	m_ConstantBuffer = Renderer::Get()->CreateConstantBuffer<VS_Object>(ShaderStage::VS);
 
@@ -22,13 +24,16 @@ void Amoungus::Init()
 
 	m_Position = XMFLOAT3(2, 0, 0);
 	m_Rotation = XMFLOAT3(0, 0, 0);
-	m_Scale = XMFLOAT3(1, 1, 1);
+	//m_Scale = XMFLOAT3(1, 1, 1);
+	m_Scale = XMFLOAT3(0.3, 0.3, 0.3);
 	r = 0;
 }
 
 void Amoungus::Update()
 {
-	r += 0.5;
+	if (!enable)
+		return;
+	r += 25 * Timer::DeltaTime;
 	if (r > 360)
 		r = 0;
 	m_Rotation.y = r;
@@ -38,6 +43,8 @@ void Amoungus::Update()
 
 void Amoungus::Render(Camera* camera)
 {
+	if (!enable)
+		return;
 	m_Shader->Bind();
 
 	m_ConstantBuffer->GetData().World = m_World;

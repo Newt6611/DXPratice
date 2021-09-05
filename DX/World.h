@@ -10,6 +10,7 @@ class IGameObject;
 class Editor;
 class DirectionalLight;
 class Timer;
+class Input;
 
 class World
 {
@@ -28,6 +29,7 @@ private:
 
 
 private:
+	bool m_WindowShouldClose;
 	Display* display = nullptr;
 	Renderer* renderer = nullptr;
 	Editor* editor = nullptr;

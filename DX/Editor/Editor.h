@@ -2,7 +2,7 @@
 
 #include "../ImGui/imgui.h"
 #include "imgui_impl_dx11.h"
-#include "imgui_impl_win32.h"
+#include "imgui_impl_sdl.h"
 #include "../ThirdParty/ImGui/ImGuizmo.h"
 #include "../IGameObject.h"
 

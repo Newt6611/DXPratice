@@ -1,6 +1,9 @@
 #pragma once
 
 #include <Windows.h>
+#include <SDL.h>
+#include <SDL_syswm.h>
+
 #include "Log.h"
 
 class Display 
@@ -22,7 +25,9 @@ public:
 
 	~Display();
 
-	inline HWND GetHandle() const { return m_handle; }
+	inline SDL_Window* GetWindow() { return m_Window; }
+	inline HWND& GetHandle() { return m_handle; }
+	inline HINSTANCE& GetInstance() { return m_instance; }
 
 	void OnResize();
 
@@ -34,6 +39,9 @@ private:
 	static Display* m_Instance;
 	int m_width;
 	int m_height;
+
+	SDL_Window* m_Window;
+
 	HINSTANCE m_instance;
 	HWND m_handle;
 

@@ -5,6 +5,7 @@ NanoPlayer::NanoPlayer(World* world)
 {
 	world->PushGameObjetToWorld(this);
 	m_Name = "NanoPlayer";
+	enable = true;
 }
 
 NanoPlayer::~NanoPlayer()
@@ -28,7 +29,9 @@ void NanoPlayer::Init()
 
 void NanoPlayer::Update()
 {
-	r += 0.5;
+	if (!enable)
+		return;
+	r += 25 * Timer::DeltaTime;
 	if (r > 360)
 		r = 0;
 	m_Rotation.y = r;
@@ -38,6 +41,8 @@ void NanoPlayer::Update()
 
 void NanoPlayer::Render(Camera* camera)
 {
+	if (!enable)
+		return;
 	m_Shader->Bind();
 
 	m_ConstantBuffer->GetData().World = m_World;

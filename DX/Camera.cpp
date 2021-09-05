@@ -1,5 +1,7 @@
 #include "Camera.h"
 #include "Log.h"
+#include "Input.h"
+#include "Timer.h"
 
 Camera::Camera(float angle, float width, float height, float nearZ, float farZ)
 	: m_Angle(angle), m_Width(width), m_Height(height), m_NearZ(nearZ), m_FarZ(farZ),
@@ -26,6 +28,31 @@ Camera::Camera(float width, float height, float nearZ, float farZ)
 Camera::~Camera()
 {
 
+}
+
+void Camera::Update()
+{
+	if (Input::IsKeyDown(SDL_SCANCODE_W))
+	{
+		m_Position.z += 15 * Timer::DeltaTime;
+	}
+	else if (Input::IsKeyDown(SDL_SCANCODE_S))
+	{
+		m_Position.z -= 15 * Timer::DeltaTime;
+	}
+
+	if (Input::IsKeyDown(SDL_SCANCODE_D))
+	{
+		m_Position.x += 15 * Timer::DeltaTime;
+	}
+	else if (Input::IsKeyDown(SDL_SCANCODE_A))
+	{
+		m_Position.x -= 15 * Timer::DeltaTime;
+	}
+
+	LogInfo(Input::mouseX);
+
+	UpdateCamera();
 }
 
 XMMATRIX Camera::GetView() const

@@ -1,7 +1,9 @@
+#define main SDL_main
+
 #include <iostream>
 #include "World.h"
 
-int main()
+int main(int argc, char** argv)
 {
 	
 	World* world = World::Create();
@@ -12,4 +14,5 @@ int main()
 
 
 	delete world;
+	return 0;
 }

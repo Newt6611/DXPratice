@@ -5,6 +5,7 @@ Sponza::Sponza(World* world)
 {
 	world->PushGameObjetToWorld(this);
 	m_Name = "Sponza";
+	enable = true;
 }
 
 Sponza::~Sponza()
@@ -30,12 +31,16 @@ void Sponza::Init()
 
 void Sponza::Update()
 {
+	if (!enable)
+		return;
 
 	IGameObject::Update();
 }
 
 void Sponza::Render(Camera* camera)
 {
+	if (!enable)
+		return;
 	m_Shader->Bind();
 
 	m_ConstantBuffer->GetData().World = m_World;

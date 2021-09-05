@@ -15,14 +15,20 @@ public:
 	void Clear();
 	void Bind();
 
+	void BindShadow();
+	void ClearShadow();
+
 private:
 	void InitDepthStencilState();
 	void InitDepthStencilView(float width, float height); // Editor Call For Resize
+	void InitShadow();
 
 private:
 	ID3D11DepthStencilView* m_DepthStencilView;
-	ID3D11ShaderResourceView* m_DepthStencilSRV;
 	ID3D11DepthStencilState* m_DepthStencilState;
+
+	ID3D11DepthStencilView* m_ShadowView;
+	ID3D11ShaderResourceView* m_ShadowSRV;
 
 	float m_Width;
 	float m_Height;

@@ -37,21 +37,26 @@ void Renderer::InitD3D11()
 	Display* display = Display::Get();
 	DXGI_SWAP_CHAIN_DESC swapchain_desc;
 	ZeroMemory(&swapchain_desc, sizeof(DXGI_SWAP_CHAIN_DESC));
+	swapchain_desc.BufferCount = 2;
 	swapchain_desc.BufferDesc.Width = 0;
 	swapchain_desc.BufferDesc.Height = 0;
 	swapchain_desc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	swapchain_desc.BufferDesc.RefreshRate.Numerator = 60;
+	swapchain_desc.BufferDesc.RefreshRate.Denominator = 1;
+	swapchain_desc.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
+	swapchain_desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
+	swapchain_desc.OutputWindow = display->GetHandle();
 	swapchain_desc.SampleDesc.Count = 1;
 	swapchain_desc.SampleDesc.Quality = 0;
-	swapchain_desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-	swapchain_desc.BufferCount = 1;
-	swapchain_desc.OutputWindow = display->GetHandle();
-	swapchain_desc.Windowed = true;
+	swapchain_desc.Windowed = TRUE;
+	swapchain_desc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 
-	HRESULT result = D3D11CreateDeviceAndSwapChain(
-		NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, NULL,
-		NULL, NULL, D3D11_SDK_VERSION, &swapchain_desc,
-		&m_Swapchain, &m_Device, NULL, &m_Context
-	);
+	const D3D_FEATURE_LEVEL featureLevelArray[2] = { D3D_FEATURE_LEVEL_11_0, D3D_FEATURE_LEVEL_10_0, };
+	D3D_FEATURE_LEVEL featureLevel;
+	UINT createDeviceFlags = 0;
+	//createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
+
+	HRESULT result = D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, createDeviceFlags, featureLevelArray, 2, D3D11_SDK_VERSION, &swapchain_desc, &m_Swapchain, &m_Device, &featureLevel, &m_Context);
 
 	if (result != S_OK)
 	{
@@ -179,7 +184,10 @@ void Renderer::Update()
 
 void Renderer::BeginFrame()
 {
-	m_RenderTargetView->Clear();
+	// Render Shadow Map
+	m_DepthStencilState->ClearShadow();
+	m_DepthStencilState->BindShadow();
+
 	m_RenderTargetView->ClearEditor();
 	m_DepthStencilState->Clear();
 

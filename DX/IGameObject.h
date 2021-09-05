@@ -2,6 +2,7 @@
 #include "Renderer.h"
 #include <vector>
 #include "Base.h"
+#include "Timer.h"
 
 class Editor;
 class World;
@@ -52,6 +53,7 @@ protected:
 	XMFLOAT3 m_Scale;
 	XMFLOAT3 m_Color = XMFLOAT3(1, 1, 1);
 	float alpha = 1;
+	bool enable = true;
 
 	// For Editor
 	friend class Editor;

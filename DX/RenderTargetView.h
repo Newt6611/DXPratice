@@ -16,7 +16,6 @@ public:
 
 	void SetClearColor(float color[4]);
 
-
 	void Bind();
 	void Clear();
 

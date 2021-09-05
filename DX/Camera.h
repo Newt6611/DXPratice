@@ -16,6 +16,8 @@ public:
 	float GetWidth() const { return m_Width; }
 	float GetHeight() const { return m_Height; }
 
+	void Update();
+
 	XMMATRIX GetView()const;
 	XMMATRIX GetViewProjection() const;
 	XMMATRIX GetProjection() const;
