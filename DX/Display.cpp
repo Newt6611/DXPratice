@@ -28,7 +28,7 @@ void Display::InitWindow()
     }
 
     uint32_t windowFlags = SDL_WINDOW_SHOWN;
-    windowFlags |= SDL_WINDOW_RESIZABLE;
+    //windowFlags |= SDL_WINDOW_RESIZABLE;
     m_Window = SDL_CreateWindow("My Render Engine", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_width, m_height, windowFlags);
     if (m_Window == nullptr)
     {

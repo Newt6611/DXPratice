@@ -50,7 +50,6 @@ void Camera::Update()
 		m_Position.x -= 15 * Timer::DeltaTime;
 	}
 
-	LogInfo(Input::mouseX);
 
 	UpdateCamera();
 }

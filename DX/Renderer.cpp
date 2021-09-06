@@ -17,6 +17,8 @@ void Renderer::Init(World* world)
 	InitBlendState();
 
 	InitCamera();
+
+	m_DepthShader = CreateShader("Depth", L"Shaders/DepthVS.hlsl", L"Shaders/DepthPS.hlsl", 3);
 }
 
 Renderer::~Renderer()
@@ -156,12 +158,6 @@ Ref<DirectionalLight> Renderer::CreateDirectionalLight()
 	return light;
 }
 
-Ref<DirectionalLight> Renderer::CreateDirectionalLight(XMFLOAT3 direction, XMFLOAT3 color)
-{
-	Ref<DirectionalLight> light = std::make_shared<DirectionalLight>(world, color, direction, m_Device, m_Context);
-	return light;
-}
-
 Ref<PointLight> Renderer::CreatePointLight()
 {
 	Ref<PointLight> light = std::make_shared<PointLight>(world, m_Device, m_Context);
@@ -184,13 +180,9 @@ void Renderer::Update()
 
 void Renderer::BeginFrame()
 {
-	// Render Shadow Map
-	m_DepthStencilState->ClearShadow();
-	m_DepthStencilState->BindShadow();
-
 	m_RenderTargetView->ClearEditor();
 	m_DepthStencilState->Clear();
-
+	
 	m_RenderTargetView->BindEditor();
 	m_DepthStencilState->Bind();
 

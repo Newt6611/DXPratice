@@ -104,8 +104,23 @@ void World::Run()
 	
 		//////////////      Render      ////////////////////////
 		renderer->BeginFrame();
-	
-		direction_light->Update();
+		
+		//renderer->GetDepthStencilState()->ClearShadow();
+		//renderer->GetDepthStencilState()->BindShadow();
+		//direction_light->Bind();
+		//renderer->m_DepthShader->Bind();
+		//Render();
+		//
+		//renderer->GetRenderTargetView()->ClearEditor();
+		//renderer->GetDepthStencilState()->Clear();
+		//
+		//renderer->GetRenderTargetView()->BindEditor();
+		//renderer->GetDepthStencilState()->Bind();
+		//
+		//renderer->GetRasterizerState()->Bind();
+		//renderer->GetBlendState()->Bind();
+
+		//renderer->GetDepthStencilState()->BindDepthSRV();
 	
 		Render();
 	

@@ -19,6 +19,12 @@ DepthStencilState::~DepthStencilState()
 	m_ShadowView->Release();
 }
 
+void DepthStencilState::BindDepthSRV()
+{
+	ID3D11DeviceContext* context = Renderer::Get()->GetContext();
+	context->PSSetShaderResources(3, 1, &m_ShadowSRV);
+}
+
 void DepthStencilState::Clear()
 {
 	ID3D11DeviceContext* context = Renderer::Get()->GetContext();
@@ -42,6 +48,14 @@ void DepthStencilState::BindShadow()
 {
 	ID3D11DeviceContext* context = Renderer::Get()->GetContext();
 	context->OMSetRenderTargets(0, NULL, m_ShadowView);
+	D3D11_VIEWPORT viewport;
+	viewport.TopLeftX = 0;
+	viewport.TopLeftY = 0;
+	viewport.Width = m_ShadowWidth;
+	viewport.Height = m_ShadowHeight;
+	viewport.MinDepth = 0;
+	viewport.MaxDepth = 1;
+	context->RSSetViewports(1, &viewport);
 }
 
 void DepthStencilState::InitDepthStencilView(float width, float height)
@@ -98,12 +112,12 @@ void DepthStencilState::InitShadow()
 {
 	ID3D11Device* device = Renderer::Get()->GetDevice();
 
-	int width = 1024;
-	int height = 1024;
+	m_ShadowWidth = 1024;
+	m_ShadowHeight = 1024;
 	D3D11_TEXTURE2D_DESC texture_desc = {};
 	ZeroMemory(&texture_desc, sizeof(D3D11_TEXTURE2D_DESC));
-	texture_desc.Width = m_Width;
-	texture_desc.Height = m_Height;
+	texture_desc.Width = m_ShadowWidth;
+	texture_desc.Height = m_ShadowHeight;
 	texture_desc.MipLevels = 1;
 	texture_desc.Format = DXGI_FORMAT_R32_TYPELESS;
 	texture_desc.SampleDesc.Count = 1;

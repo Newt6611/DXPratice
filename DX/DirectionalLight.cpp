@@ -8,13 +8,18 @@ DirectionalLight::DirectionalLight(World* world, ID3D11Device* device, ID3D11Dev
 	world->PushGameObjetToWorld(this);
 	m_Color = XMFLOAT3(1, 1, 1);
 	m_Rotation = XMFLOAT3(-1, -0.9, 1);
+
+	//m_Projection = XMMatrixOrthographicLH(-10, 10, -10, 10);
+	//m_Position = XMFLOAT3(-2.0f, 4.0f, -1.0f);
+	//m_View = XMMatrixLookAtLH(XMLoadFloat3(&m_Position), XMVectorSet(0, 0, 0, 1), XMVectorSet(0, 1, 0, 1));
+	//m_ConstantBuffer = Renderer::Get()->CreateConstantBuffer<VS_LightViewProjection>(ShaderStage::VS);
 }
 
-DirectionalLight::DirectionalLight(World* world, XMFLOAT3 color, XMFLOAT3 direction, ID3D11Device* device, ID3D11DeviceContext* context)
+void DirectionalLight::Bind()
 {
-	world->PushGameObjetToWorld(this);
-	m_Color = color;
-	m_Rotation = direction;
+	//ID3D11DeviceContext* context;
+	//m_ConstantBuffer->GetData().viewProjection = m_View * m_Projection;
+	//m_ConstantBuffer->Bind(1);
 }
 
 void DirectionalLight::SetDirection(XMFLOAT3 r)
@@ -55,6 +60,7 @@ void DirectionalLight::Update()
 	m_LightData.Ambient = m_Ambient;
 	m_LightData.Diffuse = m_Diffuse;
 	m_LightData.Specular = m_Specular;
+	LogInfo(m_Diffuse.x);
 
 	IGameObject::Update();
 }

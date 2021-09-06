@@ -80,7 +80,6 @@ public:
 
 	// Lights
 	Ref<DirectionalLight> CreateDirectionalLight();
-	Ref<DirectionalLight> CreateDirectionalLight(XMFLOAT3 direction, XMFLOAT3 color);
 	Ref<PointLight> CreatePointLight();
 
 
@@ -120,8 +119,12 @@ private:
 	std::unordered_map<std::string, Ref<Texture>> m_LoadedTextureCache;
 	std::unordered_map<std::string, Ref<Shader>> m_ShaderCache;
 
+	// Shaders
+	Ref<Shader> m_DepthShader;
+
 	// For Editor
 	friend class Editor;
+	friend class World;
 	bool wire_frame = false;
 	bool transparency = true;
 };

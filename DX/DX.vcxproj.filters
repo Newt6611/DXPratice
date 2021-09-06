@@ -1049,6 +1049,8 @@
     <FxCompile Include="Shaders\Pixel.hlsl" />
     <FxCompile Include="Shaders\NormalMappingPixel.hlsl" />
     <FxCompile Include="Shaders\NormalMappingVertex.hlsl" />
+    <FxCompile Include="Shaders\DepthVS.hlsl" />
+    <FxCompile Include="Shaders\DepthPS.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

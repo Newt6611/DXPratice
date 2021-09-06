@@ -59,6 +59,11 @@ struct PS_PerFrame
 	float pad;
 };
 
+// Shadow
+struct VS_LightViewProjection
+{
+	XMMATRIX viewProjection;
+};
 
 // Shader Stage //
 enum ShaderStage

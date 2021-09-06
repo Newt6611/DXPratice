@@ -12,6 +12,10 @@ public:
 	inline ID3D11DepthStencilState* GetCurrentState() { return m_DepthStencilState; }
 	inline ID3D11DepthStencilView* GetDepthStencilView() { return m_DepthStencilView; }
 
+	inline ID3D11ShaderResourceView* GetDepthSRV() const { return m_ShadowSRV; }
+
+	void BindDepthSRV();
+
 	void Clear();
 	void Bind();
 
@@ -32,5 +36,9 @@ private:
 
 	float m_Width;
 	float m_Height;
+
+	float m_ShadowWidth;
+	float m_ShadowHeight;
+
 	friend class Editor;
 };

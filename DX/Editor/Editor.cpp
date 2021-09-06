@@ -133,12 +133,12 @@ void Editor::DrawComponent()
 			temp[1] = &d_Light->m_Ambient.y;
 			temp[2] = &d_Light->m_Ambient.z;
 			ImGui::ColorEdit3("Ambient", *temp);
-
+		
 			temp[0] = &d_Light->m_Diffuse.x;
 			temp[1] = &d_Light->m_Diffuse.y;
 			temp[2] = &d_Light->m_Diffuse.z;
 			ImGui::ColorEdit3("Diffuse", *temp);
-
+		
 			temp[0] = &d_Light->m_Specular.x;
 			temp[1] = &d_Light->m_Specular.y;
 			temp[2] = &d_Light->m_Specular.z;
