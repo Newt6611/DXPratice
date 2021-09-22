@@ -24,6 +24,7 @@ class PointLight;
 class DirectionalLight;
 class Editor;
 class World;
+class ShadowMap;
 
 class Renderer 
 {
@@ -97,6 +98,7 @@ private:
 	void InitRasterzierState();
 	void InitSamplerState();
 	void InitBlendState();
+	void InitShadowMap();
 
 	void InitCamera();
 
@@ -118,6 +120,9 @@ private:
 	std::unordered_map<std::string, Ref<Model>> m_LoadedModelCache;
 	std::unordered_map<std::string, Ref<Texture>> m_LoadedTextureCache;
 	std::unordered_map<std::string, Ref<Shader>> m_ShaderCache;
+
+	ShadowMap* m_ShadowMap;
+	Ref<Texture> t;
 
 	// Shaders
 	Ref<Shader> m_DepthShader;

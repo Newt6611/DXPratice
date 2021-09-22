@@ -160,6 +160,7 @@
     <ClCompile Include="SandBox\Amoungus.cpp" />
     <ClCompile Include="SandBox\NanoPlayer.cpp" />
     <ClCompile Include="SandBox\Sponza.cpp" />
+    <ClCompile Include="ShadowMap.cpp" />
     <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Display.cpp" />
@@ -199,6 +200,7 @@
     <ClInclude Include="SandBox\Amoungus.h" />
     <ClInclude Include="SandBox\NanoPlayer.h" />
     <ClInclude Include="SandBox\Sponza.h" />
+    <ClInclude Include="ShadowMap.h" />
     <ClInclude Include="SkyBox.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Log.h" />
@@ -516,6 +518,7 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
     </FxCompile>
     <FxCompile Include="Shaders\Vertex.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>

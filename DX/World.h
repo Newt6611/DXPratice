@@ -3,6 +3,8 @@
 #include "../SandBox/Amoungus.h"
 #include "../SandBox/Sponza.h"
 #include "Base.h"
+
+
 class Texture;
 class Renderer;
 class Display;
@@ -24,9 +26,7 @@ public:
 	void Init();
 	void Update();
 	void Render();
-
 private:
-
 
 private:
 	bool m_WindowShouldClose;

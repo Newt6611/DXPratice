@@ -3,6 +3,7 @@
 #include "World.h"
 #include "DirectionalLight.h"
 #include "PointLight.h"
+#include "ShadowMap.h"
 
 Renderer* Renderer::m_Instance;
 
@@ -18,7 +19,11 @@ void Renderer::Init(World* world)
 
 	InitCamera();
 
+	InitShadowMap();
+
 	m_DepthShader = CreateShader("Depth", L"Shaders/DepthVS.hlsl", L"Shaders/DepthPS.hlsl", 3);
+
+	t = CreateTexture("Textures/t.jpg", TextureType::Diffuse);
 }
 
 Renderer::~Renderer()
@@ -97,6 +102,10 @@ void Renderer::InitCamera()
 	m_Camera = new Camera(display->GetWidth(), display->GetHeight(), 0.1f, 300.f);
 }
 
+void Renderer::InitShadowMap()
+{
+	m_ShadowMap = new ShadowMap;
+}
 
 RasterzierState* Renderer::SetRasterzierState(RasterzierStateType type)
 {
@@ -183,8 +192,24 @@ void Renderer::BeginFrame()
 	m_RenderTargetView->ClearEditor();
 	m_DepthStencilState->Clear();
 	
-	m_RenderTargetView->BindEditor();
+	//m_ShadowMap->Clear();
+
 	m_DepthStencilState->Bind();
+
+	
+	//m_ShadowMap->Bind();
+
+	m_RenderTargetView->BindEditor();
+
+	//m_DepthStencilState->BindDepthSRV();
+	//
+	//m_ShadowMap->BindDetphSRV();
+
+	
+
+
+
+
 
 	m_RasterizerState->Bind();
 	

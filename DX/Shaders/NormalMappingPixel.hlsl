@@ -47,6 +47,10 @@ Texture2D specularTexture  : TEXTURE : register(t1);
 Texture2D normalTexture    : TEXTURE : register(t2);
 
 
+
+Texture2D depthTexture     : TEXTURE : register(t3);
+
+
 float4 DoDirectionalLight(float3 fragPos, float3 normal, float2 texCoord)
 {
 	// ambient
@@ -107,7 +111,6 @@ float4 main(PS_IN ps_in) : SV_TARGET
 	normal = normal * 2.0 - 1.0;
 	normal = normalize(mul(ps_in.TBN, normal));
 
-	//float4 result = DoDirectionalLight(ps_in.fragPos, normal, ps_in.texcoord);
 	float4 result = DoPointLight(ps_in.fragPos, normal, ps_in.texcoord);
 	result += DoDirectionalLight(ps_in.fragPos, normal, ps_in.texcoord);
 	return float4(result.x, result.y, result.z, 1) * ps_in.color;

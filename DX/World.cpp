@@ -20,7 +20,7 @@ World* World::Create()
 
 World::World()
 {
-	AllocConsole();
+	//AllocConsole();
 	Log::Init();
 
 	display = Display::Get();
@@ -44,6 +44,7 @@ World::World()
 	point_light2 = new PointLight(this, renderer->GetDevice(), renderer->GetContext());
 	point_light3 = new PointLight(this, renderer->GetDevice(), renderer->GetContext());
 	point_light4 = new PointLight(this, renderer->GetDevice(), renderer->GetContext());
+
 
 	nanoPlayer = new NanoPlayer(this);
 	amoungus = new Amoungus(this);
@@ -105,23 +106,6 @@ void World::Run()
 		//////////////      Render      ////////////////////////
 		renderer->BeginFrame();
 		
-		//renderer->GetDepthStencilState()->ClearShadow();
-		//renderer->GetDepthStencilState()->BindShadow();
-		//direction_light->Bind();
-		//renderer->m_DepthShader->Bind();
-		//Render();
-		//
-		//renderer->GetRenderTargetView()->ClearEditor();
-		//renderer->GetDepthStencilState()->Clear();
-		//
-		//renderer->GetRenderTargetView()->BindEditor();
-		//renderer->GetDepthStencilState()->Bind();
-		//
-		//renderer->GetRasterizerState()->Bind();
-		//renderer->GetBlendState()->Bind();
-
-		//renderer->GetDepthStencilState()->BindDepthSRV();
-	
 		Render();
 	
 		editor->OnImGuiRender();
