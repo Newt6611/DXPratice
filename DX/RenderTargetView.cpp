@@ -42,6 +42,16 @@ void RenderTargetView::SetClearColor(float color[4])
 void RenderTargetView::Bind()
 {
 	ID3D11DeviceContext* context = Renderer::Get()->GetContext();
+
+	D3D11_VIEWPORT viewport;
+	viewport.TopLeftX = 0;
+	viewport.TopLeftY = 0;
+	viewport.Width = Display::Get()->GetWidth();
+	viewport.Height = Display::Get()->GetHeight();
+	viewport.MinDepth = 0;
+	viewport.MaxDepth = 1;
+	
+	context->RSSetViewports(1, &viewport);
 	context->OMSetRenderTargets(1, &m_RenderTargetView, NULL);
 }
 
@@ -54,6 +64,16 @@ void RenderTargetView::Clear()
 void RenderTargetView::BindEditor()
 {
 	ID3D11DeviceContext* context = Renderer::Get()->GetContext();
+
+	D3D11_VIEWPORT viewport;
+	viewport.TopLeftX = 0;
+	viewport.TopLeftY = 0;
+	viewport.Width = m_ViewportWidth;
+	viewport.Height = m_ViewportHeight;
+	viewport.MinDepth = 0;
+	viewport.MaxDepth = 1;
+	context->RSSetViewports(1, &viewport);
+
 	ID3D11DepthStencilView* depthStencilView = Renderer::Get()->GetDepthStencilState()->GetDepthStencilView();
 	context->OMSetRenderTargets(1, &m_EditorRenderTargetView, depthStencilView);
 }

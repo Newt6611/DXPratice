@@ -180,7 +180,6 @@ void Renderer::Update()
 	else if (!wire_frame && m_RasterizerState->GetType() == RasterzierStateType::WireFrame)
 		m_RasterizerState->SetState(RasterzierStateType::Solid);
 
-
 	if (transparency && m_BlendState->GetType() == BlendStateType::None)
 		m_BlendState->SetBlendState(BlendStateType::Transparency);
 	else if (!transparency && m_BlendState->GetType() == BlendStateType::Transparency)
@@ -191,30 +190,7 @@ void Renderer::BeginFrame()
 {
 	m_RenderTargetView->ClearEditor();
 	m_DepthStencilState->Clear();
-	
-	//m_ShadowMap->Clear();
-
-	m_DepthStencilState->Bind();
-
-	
-	//m_ShadowMap->Bind();
-
-	m_RenderTargetView->BindEditor();
-
-	//m_DepthStencilState->BindDepthSRV();
-	//
-	//m_ShadowMap->BindDetphSRV();
-
-	
-
-
-
-
-
-	m_RasterizerState->Bind();
-	
-	m_BlendState->Bind();
-	m_SamplerState->Bind();
+	m_DepthShader->Bind();
 }
 
 void Renderer::EndFrame()

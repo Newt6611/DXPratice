@@ -12,6 +12,7 @@
 #include "PointLight.h"
 #include "Timer.h"
 #include "Input.h"
+#include "ShadowMap.h"
 
 World* World::Create()
 {
@@ -140,7 +141,21 @@ void World::Update()
 
 void World::Render()
 {
-	// Todo : remove renderer.get camera
+	renderer->GetShadowMap()->Clear();
+	renderer->GetDepthStencilState()->Bind();
+
+	renderer->GetShadowMap()->Bind();
+	//for (unsigned int i = 0; i < m_GameObjects.size(); i++)
+	//	m_GameObjects[i]->Render(renderer->GetCamera());
+
+
+	renderer->GetRenderTargetView()->BindEditor();
+	renderer->GetShadowMap()->BindDetphSRV();
 	for (unsigned int i = 0; i < m_GameObjects.size(); i++)
 		m_GameObjects[i]->Render(renderer->GetCamera());
+
+
+	renderer->GetRasterizerState()->Bind();
+	renderer->GetBlendState()->Bind();
+	renderer->GetSamplerState()->Bind();
 }

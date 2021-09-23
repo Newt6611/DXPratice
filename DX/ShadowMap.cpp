@@ -5,13 +5,14 @@
 
 ShadowMap::ShadowMap()
 {
-	Init();
+	Init(1024, 1024);
 }
 
 ShadowMap::~ShadowMap()
 {
 	m_ShadowSRV->Release();
 	m_ShadowView->Release();
+	m_Texture->Release();
 }
 
 void ShadowMap::Clear()
@@ -22,9 +23,19 @@ void ShadowMap::Clear()
 
 void ShadowMap::Bind()
 {
+	ID3D11RenderTargetView* rtv[1] = { 0 };
 	ID3D11DeviceContext* context = Renderer::Get()->GetContext();
-	if(m_ShadowView != nullptr)
-		context->OMSetRenderTargets(1, NULL, m_ShadowView);
+
+	D3D11_VIEWPORT viewport;
+	viewport.TopLeftX = 0;
+	viewport.TopLeftY = 0;
+	viewport.Width = m_Width;
+	viewport.Height = m_Height;
+	viewport.MinDepth = 0;
+	viewport.MaxDepth = 1;
+
+	context->RSSetViewports(1, &viewport);
+	context->OMSetRenderTargets(1, rtv, m_ShadowView);
 }
 
 void ShadowMap::BindDetphSRV() // For Test
@@ -33,15 +44,25 @@ void ShadowMap::BindDetphSRV() // For Test
 	context->PSSetShaderResources(3, 1, &m_ShadowSRV);
 }
 
-void ShadowMap::Init()
+void ShadowMap::Init(float width, float height)
 {
+	if (m_Width == width && m_Height == height)
+		return;
 	ID3D11Device* device = Renderer::Get()->GetDevice();
 
-	m_Widht = 1024;
-	m_Height = 1024;
+	m_Width = width;
+	m_Height = height;
+
+	if (m_ShadowView)
+		m_ShadowView->Release();
+	if (m_ShadowSRV)
+		m_ShadowSRV->Release();
+	//if (m_Texture != nullptr)
+	//	m_Texture->Release();
+
 	D3D11_TEXTURE2D_DESC texture_desc = {};
 	ZeroMemory(&texture_desc, sizeof(D3D11_TEXTURE2D_DESC));
-	texture_desc.Width = m_Widht;
+	texture_desc.Width = m_Width;
 	texture_desc.Height = m_Height;
 	texture_desc.MipLevels = 1;
 	texture_desc.Format = DXGI_FORMAT_R32_TYPELESS;
@@ -66,24 +87,22 @@ void ShadowMap::Init()
 	srv_desc.Texture2D.MipLevels = texture_desc.MipLevels;
 	srv_desc.Texture2D.MostDetailedMip = 0;
 
-	ID3D11Texture2D* texture;
-	HRESULT result = device->CreateTexture2D(&texture_desc, NULL, &texture);
+
+	HRESULT result = device->CreateTexture2D(&texture_desc, NULL, &m_Texture);
 	if (result != S_OK)
 	{
 		LogError("Failed When Creating Shadow Texture !");
 	}
 
-	result = device->CreateDepthStencilView(texture, &dsv_desc, &m_ShadowView);
+	result = device->CreateDepthStencilView(m_Texture, &dsv_desc, &m_ShadowView);
 	if (result != S_OK)
 	{
 		LogError("Failed When Creating Shadow DSV");
 	}
 
-	result = device->CreateShaderResourceView(texture, &srv_desc, &m_ShadowSRV);
+	result = device->CreateShaderResourceView(m_Texture, &srv_desc, &m_ShadowSRV);
 	if (result != S_OK)
 	{
 		LogError("Failed When Creating Shadow SRV");
 	}
-
-	texture->Release();
 }

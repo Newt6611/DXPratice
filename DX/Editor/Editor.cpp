@@ -7,6 +7,7 @@
 #include "../Timer.h"
 #include "../ThirdParty/ImGui/ImGuizmo.h"
 #include "../Input.h"
+#include "../ShadowMap.h"
 
 Editor::Editor()
 {
@@ -55,6 +56,10 @@ void Editor::OnImGuiRender()
 	if (Input::IsKeyDown(SDL_SCANCODE_S))
 		m_GuizmosOperation = ImGuizmo::OPERATION::SCALE;
 	
+	//ImTextureID t = Renderer::Get()->GetShadowMap()->m_ShadowSRV;
+	ImTextureID t = Renderer::Get()->GetDepthStencilState()->m_SRV;
+	ImGui::Image(t, ImVec2(Renderer::Get()->GetShadowMap()->m_Width, Renderer::Get()->GetShadowMap()->m_Height));
+
 	DrawViewport();
 
 	ImGui::Begin("Hierarchy");
@@ -193,6 +198,7 @@ void Editor::DrawViewport()
 	Renderer::Get()->GetCamera()->SetWidthAndHeight(ImGui::GetWindowSize().x, ImGui::GetWindowSize().y);
 	Renderer::Get()->GetRenderTargetView()->InitEditorTextureSRV(ImGui::GetWindowSize().x, ImGui::GetWindowSize().y);
 	Renderer::Get()->GetDepthStencilState()->InitDepthStencilView(ImGui::GetWindowSize().x, ImGui::GetWindowSize().y);
+	Renderer::Get()->GetShadowMap()->Init(ImGui::GetWindowSize().x, ImGui::GetWindowSize().y);
 	ImTextureID viewportTexture = Renderer::Get()->GetRenderTargetView()->m_TextureSRV;
 	Renderer::Get()->GetCamera()->SetWidthAndHeight(ImGui::GetWindowSize().x, ImGui::GetWindowSize().y);
 	ImGui::Image(viewportTexture, ImGui::GetWindowSize());

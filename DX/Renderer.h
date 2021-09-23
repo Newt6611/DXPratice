@@ -88,7 +88,7 @@ public:
 	void BeginFrame();
 	void EndFrame();
 
-
+	inline ShadowMap* GetShadowMap() { return m_ShadowMap; }
 private:
 	Renderer() { }
 
