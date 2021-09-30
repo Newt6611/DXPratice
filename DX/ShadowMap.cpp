@@ -57,15 +57,13 @@ void ShadowMap::Init(float width, float height)
 		m_ShadowView->Release();
 	if (m_ShadowSRV)
 		m_ShadowSRV->Release();
-	//if (m_Texture != nullptr)
-	//	m_Texture->Release();
 
 	D3D11_TEXTURE2D_DESC texture_desc = {};
 	ZeroMemory(&texture_desc, sizeof(D3D11_TEXTURE2D_DESC));
 	texture_desc.Width = m_Width;
 	texture_desc.Height = m_Height;
 	texture_desc.MipLevels = 1;
-	texture_desc.Format = DXGI_FORMAT_R32_TYPELESS;
+	texture_desc.Format = DXGI_FORMAT_R24G8_TYPELESS;
 	texture_desc.SampleDesc.Count = 1;
 	texture_desc.SampleDesc.Quality = 0;
 	texture_desc.ArraySize = 1;
@@ -76,13 +74,13 @@ void ShadowMap::Init(float width, float height)
 
 	D3D11_DEPTH_STENCIL_VIEW_DESC dsv_desc = {};
 	ZeroMemory(&dsv_desc, sizeof(D3D11_DEPTH_STENCIL_VIEW_DESC));
-	dsv_desc.Format = DXGI_FORMAT_D32_FLOAT;
+	dsv_desc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
 	dsv_desc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
 	dsv_desc.Texture2D.MipSlice = 0;
 	dsv_desc.Flags = 0;
 
 	D3D11_SHADER_RESOURCE_VIEW_DESC srv_desc = {};
-	srv_desc.Format = DXGI_FORMAT_R32_FLOAT;
+	srv_desc.Format = DXGI_FORMAT_R24_UNORM_X8_TYPELESS;
 	srv_desc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
 	srv_desc.Texture2D.MipLevels = texture_desc.MipLevels;
 	srv_desc.Texture2D.MostDetailedMip = 0;

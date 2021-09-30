@@ -189,8 +189,9 @@ void Renderer::Update()
 void Renderer::BeginFrame()
 {
 	m_RenderTargetView->ClearEditor();
+	m_RenderTargetView->Clear();
 	m_DepthStencilState->Clear();
-	m_DepthShader->Bind();
+	m_ShadowMap->Clear();
 }
 
 void Renderer::EndFrame()

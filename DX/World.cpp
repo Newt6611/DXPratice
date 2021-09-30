@@ -141,21 +141,23 @@ void World::Update()
 
 void World::Render()
 {
-	renderer->GetShadowMap()->Clear();
 	renderer->GetDepthStencilState()->Bind();
-
-	renderer->GetShadowMap()->Bind();
-	//for (unsigned int i = 0; i < m_GameObjects.size(); i++)
-	//	m_GameObjects[i]->Render(renderer->GetCamera());
-
-
-	renderer->GetRenderTargetView()->BindEditor();
-	renderer->GetShadowMap()->BindDetphSRV();
-	for (unsigned int i = 0; i < m_GameObjects.size(); i++)
-		m_GameObjects[i]->Render(renderer->GetCamera());
-
-
 	renderer->GetRasterizerState()->Bind();
 	renderer->GetBlendState()->Bind();
 	renderer->GetSamplerState()->Bind();
+
+	renderer->GetShadowMap()->Bind();
+	renderer->m_DepthShader->Bind();
+	for (unsigned int i = 0; i < m_GameObjects.size(); ++i)
+	{
+		m_GameObjects[i]->SetBindShadow(true);
+		m_GameObjects[i]->Render(renderer->GetCamera());
+	}
+	renderer->GetShadowMap()->BindDetphSRV();
+	renderer->GetRenderTargetView()->BindEditor();
+	for (unsigned int i = 0; i < m_GameObjects.size(); ++i)
+	{
+		m_GameObjects[i]->SetBindShadow(false);
+		m_GameObjects[i]->Render(renderer->GetCamera());
+	}
 }

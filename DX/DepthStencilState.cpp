@@ -18,7 +18,7 @@ DepthStencilState::~DepthStencilState()
 void DepthStencilState::Clear()
 {
 	ID3D11DeviceContext* context = Renderer::Get()->GetContext();
-	context->ClearDepthStencilView(m_DepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0.0f);
+	context->ClearDepthStencilView(m_DepthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0.0f);
 }
 
 void DepthStencilState::Bind()

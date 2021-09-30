@@ -3,6 +3,9 @@
 
 Shader::Shader(LPCWSTR vertexFilePath, LPCWSTR pixelFilePath, int type = 0)
 {
+	m_VertexShader = nullptr;
+	m_PixelShader = nullptr;
+
 	ID3D11Device* device = Renderer::Get()->GetDevice();
 	ID3DBlob* vblob = nullptr;
 	ID3DBlob* pblob = nullptr;
@@ -10,7 +13,9 @@ Shader::Shader(LPCWSTR vertexFilePath, LPCWSTR pixelFilePath, int type = 0)
 	HRESULT result;
 
 	result = D3DCompileFromFile(vertexFilePath, NULL, NULL, "main", "vs_5_0", 0, 0, &vblob, &error);
-	result = D3DCompileFromFile(pixelFilePath, NULL, NULL, "main", "ps_5_0", 0, 0, &pblob, &error);
+	
+	if(pixelFilePath != nullptr)
+		result = D3DCompileFromFile(pixelFilePath, NULL, NULL, "main", "ps_5_0", 0, 0, &pblob, &error);
 
 	if (result != S_OK)
 	{
@@ -19,7 +24,9 @@ Shader::Shader(LPCWSTR vertexFilePath, LPCWSTR pixelFilePath, int type = 0)
 	}
 
 	result = device->CreateVertexShader(vblob->GetBufferPointer(), vblob->GetBufferSize(), NULL, &m_VertexShader);
-	result = device->CreatePixelShader(pblob->GetBufferPointer(), pblob->GetBufferSize(), NULL, &m_PixelShader);
+	
+	if(pixelFilePath != nullptr)
+		result = device->CreatePixelShader(pblob->GetBufferPointer(), pblob->GetBufferSize(), NULL, &m_PixelShader);
 
 	if (result != S_OK)
 	{
@@ -29,7 +36,10 @@ Shader::Shader(LPCWSTR vertexFilePath, LPCWSTR pixelFilePath, int type = 0)
 	CreateInputLayout(vblob, type);
 
 	vblob->Release();
-	pblob->Release();
+
+	if(pixelFilePath != nullptr)
+		pblob->Release();
+	
 	if(error != nullptr)
 		error->Release();
 }
@@ -47,7 +57,9 @@ void Shader::Bind()
 
 	context->IASetInputLayout(m_InputLayout);
 	context->VSSetShader(m_VertexShader, 0, 0);
-	context->PSSetShader(m_PixelShader, 0, 0);
+
+	if(m_PixelShader)
+		context->PSSetShader(m_PixelShader, 0, 0);
 }
 
 void Shader::CreateInputLayout(ID3DBlob* vs, int type)

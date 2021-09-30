@@ -15,6 +15,7 @@ cbuffer PerObj : register(b0)
 	matrix world;
 	matrix view;
 	matrix projection;
+	float4 color;
 }
 
 cbuffer LightViewPorjection : register(b1)

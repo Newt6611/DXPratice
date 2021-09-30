@@ -56,8 +56,7 @@ void Editor::OnImGuiRender()
 	if (Input::IsKeyDown(SDL_SCANCODE_S))
 		m_GuizmosOperation = ImGuizmo::OPERATION::SCALE;
 	
-	//ImTextureID t = Renderer::Get()->GetShadowMap()->m_ShadowSRV;
-	ImTextureID t = Renderer::Get()->GetDepthStencilState()->m_SRV;
+	ImTextureID t = Renderer::Get()->GetShadowMap()->m_ShadowSRV;
 	ImGui::Image(t, ImVec2(Renderer::Get()->GetShadowMap()->m_Width, Renderer::Get()->GetShadowMap()->m_Height));
 
 	DrawViewport();

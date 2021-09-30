@@ -41,6 +41,11 @@ public:
 		m_Name = name;
 	}
 
+	void SetBindShadow(bool t)
+	{
+		is_BindShadow = t;
+	}
+
 	inline XMFLOAT3 GetPosition() const { return m_Position; }
 	inline XMFLOAT3 GetRotation() const { return m_Rotation; }
 	inline XMFLOAT3 GetScale() const { return m_Scale; }
@@ -54,6 +59,7 @@ protected:
 	XMFLOAT3 m_Color = XMFLOAT3(1, 1, 1);
 	float alpha = 1;
 	bool enable = true;
+	bool is_BindShadow = false;
 
 	// For Editor
 	friend class Editor;

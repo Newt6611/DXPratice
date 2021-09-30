@@ -109,6 +109,4 @@ float4 main(PS_IN ps_in) : SV_TARGET
 	float4 result = DoPointLight(ps_in.fragPos, ps_in.normal, ps_in.texcoord);
 	result += DoDirectionalLight(ps_in.fragPos, ps_in.normal, ps_in.texcoord);
 	return float4(result.x, result.y, result.z, 1) * ps_in.color;
-
-	//return depthTexture.Sample(samplerState, ps_in.texcoord);
 }

@@ -45,7 +45,8 @@ void Amoungus::Render(Camera* camera)
 {
 	if (!enable)
 		return;
-	m_Shader->Bind();
+	if (!is_BindShadow)
+		m_Shader->Bind();
 
 	m_ConstantBuffer->GetData().World = m_World;
 	m_ConstantBuffer->GetData().View = camera->GetView();
